@@ -1,0 +1,24 @@
+.normal {
+  width:180px;
+  position: fixed;
+  left:50px;
+  overflow-y: auto;
+  background-color: rgb(234,237,241);
+  /*height:100%;*/
+}
+.menuName {
+  height:70px;
+  width:100%;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  text-indent: 20px;
+  background-color: rgb(217,222,228);
+}
+.max {
+  left:180px;
+}
+
+.min {
+  left:50px;
+}

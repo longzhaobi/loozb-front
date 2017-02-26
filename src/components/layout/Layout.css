@@ -1,0 +1,26 @@
+
+.normal {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  width:100%;
+  height:100%;
+  margin-top:50px;
+}
+.main {
+  margin-left:180px;
+}
+.min {
+  margin-left:50px;
+}
+.max {
+  margin-left:180px;
+}
+.subMenu {
+  width:180px;
+  display: flex;
+}

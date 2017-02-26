@@ -1,0 +1,134 @@
+
+  html, body, :global(#root) {
+    height: 100%;
+    margin:0px;
+    padding:0px;
+    /*overflow-y:scroll;*/
+    background-color: rgb(242,242,242);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  :global(.ant-table-row-expand-icon-cell) {
+    width:38px !important;
+  }
+
+  :global(.ant-table-body-inner) {
+  }
+
+  :global(.hlht-menu-style) :global(.ant-menu-item) {
+    padding:0px !important;
+  }
+
+  :global(.hlht-menu-style) :global(.ant-menu-item) :global(.menu-active) {
+    background-color: #e7f4fd;
+    padding-left:28px;
+    border-right:3px solid rgb(0,153,204);
+  }
+
+  :global(.hlht-menu-style) :global(.ant-menu-item) :global(.menu-normal) {
+    padding-left:35px;
+  }
+  /*.ant-menu-sub.ant-menu-inline .ant-menu-item-group-title*/
+  :global(.ant-menu-item-group-title) {
+    padding-left:20px !important;
+  }
+
+  :global(.hlht-menu-style) :global(.ant-menu-item-selected) {
+    background-color: #fff;
+    border-width: 0px !important;
+    color:#000;
+  }
+
+  :global(.hlht-menu-style) :global(.ant-menu-item-selected) :global(a){
+    color:#000 !important;
+  }
+
+  :global(.ant-breadcrumb){
+    height:30px;
+    background-color: #fff;
+    line-height: 30px;
+    padding-left:10px;
+  }
+
+
+  :global(.data-source-select) :global(.ant-select-selection) {
+    background-color:rgba(255,255,255,0);
+    border-width: 0px;
+    border-radius: 0px;
+  }
+
+  :global(.data-source-select) :global(.ant-select-selection) :global(.ant-select-arrow) {
+    color:#fff;
+    font-size: 14px;
+  }
+
+  :global(.data-source-select) :global(.ant-select-selection) :global(.ant-select-selection-selected-value) {
+    font-size: 14px;
+    color:#fff;
+  }
+
+  :global(.table-page) {
+    float:right;
+  }
+
+  :global(td) {
+    text-align: center;
+  }
+
+  :global(th) :global(span){
+    display: block;
+    text-align: center !important;
+  }
+
+  :global(.ant-table-fixed-right) {
+    box-shadow: none !important;
+  }
+  :global(.ant-table-fixed-left) {
+    box-shadow: none !important;
+  }
+  :global(.ant-table-footer) {
+    text-align: right;
+    line-height: 55px;
+    padding:12px 8px !important;
+    height:48px;
+    z-index: 3;
+    top: 0px !important;
+    background-color: #fff !important;
+    border-radius: 0 !important;
+  }
+  :global(.myCls) {
+    height:330px !important;
+  }
+  :global(.isLeaf) {
+    display: none;
+  }
+  :global(.ant-table-title) {
+    padding: 8px 8px !important;
+    top: 0px !important;
+    background-color: #fff;
+    border-radius: 0 !important;
+  }
+  :global(.ant-menu) {
+    line-height: 50px !important;
+  }
+  :global(.editor-toolbar) {
+    background-color: #fff !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+  }
+
+  :global(.toolbarBtn) {
+    margin-left:10px;
+  }
+
+  :global(.CodeMirror) {
+    height:700px !important;
+  }
+  :global(.reloadBtn) {
+    float:right;
+    font-size:20px;
+    margin-top:4px;
+    margin-right:10px;
+    cursor:pointer;
+    color:#efefef;
+  }
