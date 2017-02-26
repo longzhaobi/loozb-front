@@ -37,6 +37,15 @@ export default function({ history, app }) {
               cb(null, require('./routes/sys/user/User'));
             });
           },
+        },{
+          breadcrumbName:"角色列表",
+          path:"/sys/role",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/sys/role/model/role'));
+              cb(null, require('./routes/sys/role/Role'));
+            });
+          },
         }]
       }]
     },

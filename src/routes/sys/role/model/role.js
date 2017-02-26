@@ -1,7 +1,7 @@
-import * as service from '../service/user';
+import * as service from '../service/role';
 
 export default {
-  namespace: 'user',
+  namespace: 'role',
   state: {
     data: [],
     total: 0,
@@ -17,10 +17,10 @@ export default {
   },
   effects: {
     *fetch({ payload}, { call, put, select }) {
-      const user = yield select(state => state.user);
+      const role = yield select(state => state.role);
       const query = {
         pages: 1,
-        size: user.size,
+        size: role.size,
         ...payload
       }
       const response = yield call(service.fetch, query);
@@ -39,26 +39,26 @@ export default {
       }
     },
     *remove({ payload: id }, { call, put }) {
-      yield call(usersService.remove, id);
+      yield call(rolesService.remove, id);
       yield put({ type: 'reload' });
     },
     *patch({ payload: { id, values } }, { call, put }) {
-      yield call(usersService.patch, id, values);
+      yield call(rolesService.patch, id, values);
       yield put({ type: 'reload' });
     },
     *create({ payload: values }, { call, put }) {
-      yield call(usersService.create, values);
+      yield call(rolesService.create, values);
       yield put({ type: 'reload' });
     },
     *reload(action, { put, select }) {
-      const page = yield select(state => state.users.page);
+      const page = yield select(state => state.roles.page);
       yield put({ type: 'fetch', payload: { page } });
     },
   },
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
-        if (pathname === '/sys/user') {
+        if (pathname === '/sys/role') {
           dispatch({ type: 'fetch', payload: query });
         }
       });

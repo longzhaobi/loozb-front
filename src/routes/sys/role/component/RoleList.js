@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 import {Table,Select , Input, Alert,Button, Pagination, Row, Col, Popconfirm,Icon,Tooltip} from 'antd';
-import styles from './UserList.css';
+import styles from './RoleList.css';
 const Option = Select.Option;
 const Search = Input.Search;
-const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch, namespace}) => {
+const RoleList = ({data, pages, total, size, loading, selectedRowKeys, dispatch, namespace}) => {
 
   function onAuthItem(item) {
     dispatch({
@@ -26,72 +26,48 @@ const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch,
     })
   }
   const columns = [{
-    title: '用户名',
-    className: 'column-money',
-    dataIndex: 'username',
+    title: '角色名称',
+    dataIndex: 'name',
     width:120
   }, {
-    title: '性别',
-    dataIndex: 'gender',
-    width:60,
-    render:(text, record, index) => (
-      <span>{text == '1' ? '男' : '女'}</span>
-    )
+    title: '角色标识',
+    dataIndex: 'role',
+    width:120
   }, {
-    title: '身份证号码',
-    dataIndex: 'idcard',
-    width:180,
+    title: '角色描述',
+    dataIndex: 'description',
+    width:280,
   }, {
-    title: '出生日期',
-    dataIndex: 'birthday',
-    width:140,
-  }, {
-    title: '邮箱',
-    dataIndex: 'email',
-    width:180,
-  }, {
-    title: '联系电话',
-    dataIndex: 'phone',
+    title: '创建时间',
+    dataIndex: 'ctime',
     width:140
   }, {
-    title: '工作职位',
-    dataIndex: 'job',
-    width:100
-  }, {
-    title: '是否锁住',
-    dataIndex: 'locked',
-    width:80,
-    render:(text, record, index) => (
-      <span>{record == '1' ? '已锁住':'未锁住'}</span>
-    )
-  }, {
-    title: '拥有角色',
-    dataIndex: 'roleText',
-    width:180
-  }, {
-    title: '注册日期',
-    dataIndex: 'ctime',
-    width:180
-  }, {
-    title: '维护日期',
+    title: '维护时间',
     dataIndex: 'mtime',
-    width:180
+    width:140
   },{
     title: '操作',
     key: 'operation',
-    width: 150,
-    fixed: 'right',
+    width: 100,
     render: (text, record, index) => (
       <div>
-      {isAuth('user:allot') ? (<a href="javascript:void(0)" onClick={() => onAuthItem(record)}>授权</a>) : ''}
-      {isAuth('user:update') ? (<span><span className="ant-divider" /><a href="javascript:void(0)" onClick={() => onUpdateItem(record.id)}>编辑</a></span>) : ''}
-      {isAuth('user:remove') ? (
-        <span>
+        {isAuth('role:allot') ?
+          <span>
+            <a href="javascript:void(0)" onClick={() => onAuthItem(record)}>授权</a>
+          </span>:''}
+        {isAuth('role:update') ?
+          <span>
           <span className="ant-divider" />
-          <Popconfirm title="确定要删除吗？" onConfirm={() => onDeleteItem(record.id)}>
-            <a href="javascript:void(0)">删除</a>
-          </Popconfirm>
-        </span>) : ''}
+          <a href="javascript:void(0)" onClick={() => onUpdateItem(record.id)}>编辑</a>
+          </span>:''}
+        {isAuth('role:remove') ?
+          <span>
+            <span className="ant-divider" />
+            <Popconfirm title="确定要删除吗？" onConfirm={() => onDeleteItem(record.id)}>
+              <a href="javascript:void(0)">删除</a>
+            </Popconfirm>
+          </span>
+           : ''}
       </div>
     )
   }];
@@ -102,7 +78,6 @@ const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch,
     } else {
       dispatch({type:`${namespace}/fetch`, payload:{pages}})
     }
-
   }
   function page() {
     return <Pagination
@@ -125,13 +100,15 @@ const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch,
       <div>
         <Row>
           <Col span={16}>
-            {isAuth('user:create') ? <Button type="ghost" size="large" icon="plus-square">新增</Button> : ''}
-            {isAuth('user:create') ? <span>
-              <Popconfirm title={`确定删除选中的 ${selectedRowKeys.length} 条记录吗？`} onConfirm={() => onDeleteItem(selectedRowKeys)}>
-                <Button className="toolbarBtn" type="ghost" size="large" icon="delete" disabled={!hasSelected}>删除</Button>
-              </Popconfirm>
-              <span style={{ marginLeft: 8 }}>{hasSelected ? `选择了${selectedRowKeys.length}个对象` : ''}</span>
-            </span> : ''}
+            {isAuth('role:create') ? <Button type="ghost" icon="plus-square" size="large">新增</Button>:''}
+            {isAuth('role:remove') ?
+              <span>
+                <Popconfirm title={`确定删除选中的 ${selectedRowKeys.length} 条记录吗？`} onConfirm={() => onDeleteItem(selectedRowKeys)}>
+                  <Button className="toolbarBtn" type="ghost" icon="delete" size="large" disabled={!hasSelected}>删除</Button>
+                </Popconfirm>
+                <span style={{ marginLeft: 8 }}>{hasSelected ? `选择了${selectedRowKeys.length}个对象` : ''}</span>
+              </span>
+            :''}
           </Col>
           <Col span={8} style={{float:'right'}} >
             <Search size="large" style={{width:300,float:'right'}} placeholder="输入任务名称查询..." onSearch={value => onSearch({keyword:value})} />
@@ -174,4 +151,4 @@ const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch,
   )
 }
 
-export default UserList;
+export default RoleList;

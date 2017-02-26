@@ -6,7 +6,7 @@ export async function query() {
 
 export async function login(params) {
   return request({
-    url:'api/login',
+    url:'login',
     method: 'post',
     data: qs.stringify(params)
   });

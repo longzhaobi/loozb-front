@@ -22,16 +22,16 @@ export default {
       const response = yield call(service.login, payload);
       if(response) {
         const {data} = response;
-        if(data && data.code === 200) {
+        if(data && data.httpCode === 200) {
           const o = data.data;
           //设置权限信息到本地
-          localStorage.setItem('has_permissions', o.hasPermissions);
+          //localStorage.setItem('has_permissions', o.hasPermissions);
           //设置角色信息到本地
-          localStorage.setItem('has_roles', o.hasRoles);
+          //localStorage.setItem('has_roles', o.hasRoles);
           //设置菜单信息到本地
-          localStorage.setItem('has_menus', JSON.stringify(o.hasMenus));
+          //localStorage.setItem('has_menus', JSON.stringify(o.hasMenus));
           //设置用户信息到本地
-          localStorage.setItem('current_user', JSON.stringify(o.user));
+          //localStorage.setItem('current_user', JSON.stringify(o.user));
           yield put(routerRedux.push('/'));
         }
       }

@@ -13,8 +13,8 @@ function checkStatus(response) {
   throw error;
 
 }
-const headers = {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'};
-const baseURL = {baseURL:'http://localhost:8088/'};
+const headers = {'Content-Type': 'application/x-www-form-urlencoded','X-Requested-With': 'XMLHttpRequest'};
+const baseURL = {baseURL:'http://localhost:90/'};
 
 export default function request(config = {}) {
   return axios.request(Object.assign(config, headers, baseURL))
