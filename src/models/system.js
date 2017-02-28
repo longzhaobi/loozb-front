@@ -1,6 +1,6 @@
 import {hashHistory, routerRedux} from 'dva/router';
 import * as service from '../services/system';
-
+import cookie from 'js-cookie';
 export default {
   namespace: 'system',
   state: {
@@ -25,13 +25,17 @@ export default {
         if(data && data.httpCode === 200) {
           const o = data.data;
           //设置权限信息到本地
-          //localStorage.setItem('has_permissions', o.hasPermissions);
+          localStorage.setItem('has_permissions', o.hasPermissions);
           //设置角色信息到本地
-          //localStorage.setItem('has_roles', o.hasRoles);
+          localStorage.setItem('has_roles', o.hasRoles);
           //设置菜单信息到本地
-          //localStorage.setItem('has_menus', JSON.stringify(o.hasMenus));
+          localStorage.setItem('has_menus', JSON.stringify(o.hasMenus));
           //设置用户信息到本地
-          //localStorage.setItem('current_user', JSON.stringify(o.user));
+          localStorage.setItem('current_user', JSON.stringify(o.sysUser));
+          //保存token
+          // localStorage.setItem('access_token', o.token);
+          cookie.set('access_token', o.token, {expires: 7});
+          console.log(localStorage.getItem("access_token"));
           yield put(routerRedux.push('/'));
         }
       }
