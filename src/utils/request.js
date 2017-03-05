@@ -3,6 +3,7 @@ import axios from 'axios';
 import NProgress from 'nprogress'
 import React from 'react';
 import {Modal} from 'antd';
+import cookie from 'js-cookie';
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -12,11 +13,17 @@ function checkStatus(response) {
   throw error;
 
 }
-const myConfig = {withCredentials: true,baseURL:'http://localhost:8088/'};
-// const baseURL = {baseURL:'http://localhost:8088/'};
-// axios.defaults.baseURL = 'http://localhost:8088/';
+const myConfig = {
+    withCredentials: true,
+    baseURL:'http://localhost:8088/',
+
+  }
+const headers = {
+  'Content-Type': 'application/x-www-form-urlencoded',
+  'X-Requested-With': 'XMLHttpRequest'
+}
 export default function request(config = {}) {
-  return axios.request(Object.assign(config,myConfig))
+  return axios.request(Object.assign(config, myConfig, headers))
   .then(checkStatus)
   .catch((error) => {
     if(!error.response) {
@@ -30,11 +37,10 @@ export default function request(config = {}) {
     const {status, statusText,data,request} = error.response;
     if(status === 401) {
       Modal.error({
-        title: '错误码：' + 401,
+        title: '抱歉您没有该权限',
         content: data
-
       });
-
+      return;
     } else if(status === 402) {
       const modal = Modal.warning({
         title: '登录已超时，请重新登录',
@@ -44,15 +50,17 @@ export default function request(config = {}) {
         },
         okText:'确定'
       });
+      return;
     } else if(status === 404) {
       Modal.error({
-        title: '请求地址无效',
-        content: '请求地址:'+request.responseURL +' 没有被发现'
+        title: '抱歉，请求地址无效',
+        content: request.responseURL +' 在服务器未被注册'
       });
+      return;
     } else {
       Modal.error({
-        title: '抱歉，系统发生了一个错误：' + status,
-        content: <span dangerouslySetInnerHTML={{__html:data}}></span>
+        title: '未知错误，错误码：' + status,
+        content: statusText
       });
     }
   });

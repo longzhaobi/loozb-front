@@ -1,5 +1,4 @@
 import * as service from '../service/user';
-
 export default {
   namespace: 'user',
   state: {
@@ -8,12 +7,16 @@ export default {
     pages: 0,
     size:20,
     selectedRowKeys:[],
-    modalVisible:false
+
+    roles:[]
   },
   reducers: {
-    save(state, { payload: { data, total, pages } }) {
-      return { ...state, data, total, pages };
+    fetchSuccess(state, { payload: { data, total, pages } }) {
+      return { ...state, data, total, pages, selectedRowKeys:[] };
     },
+    fetchRolesSuccess(state, {payload:roles}) {
+      return {...state, roles};
+    }
   },
   effects: {
     *fetch({ payload}, { call, put, select }) {
@@ -27,33 +30,50 @@ export default {
       if(response) {
         const {data} = response;
         if(data) {
+          const {total, pages} = data;
           yield put({
-            type: 'save',
+            type: 'fetchSuccess',
             payload: {
               data:data.data,
-              total:data.total,
-              pages: data.pages
+              total:total,
+              pages: pages
             },
           });
         }
       }
     },
     *remove({ payload: id }, { call, put }) {
-      yield call(usersService.remove, id);
-      yield put({ type: 'reload' });
+      const response = yield call(service.remove, id);
+      yield put({ type: 'system/result',payload:{response, namespace:'user'} });
     },
-    *patch({ payload: { id, values } }, { call, put }) {
-      yield call(usersService.patch, id, values);
-      yield put({ type: 'reload' });
+    *update({ payload:{id, params} }, { call, put }) {
+      const response = yield call(service.update, {...params, id});
+      yield put({ type: 'system/result',payload:{response, namespace:'user'} });
     },
-    *create({ payload: values }, { call, put }) {
-      yield call(usersService.create, values);
-      yield put({ type: 'reload' });
+    *create({ payload: params }, { call, put }) {
+      const response = yield call(service.create, params);
+      yield put({ type: 'system/result',payload:{response, namespace:'user'} });
+    },
+    *fetchRoles({ payload }, { call, put, select}) {
+      const response = yield call(service.fetchRoles);
+      if(response) {
+        const {data} = response;
+        if(data) {
+          if(data.httpCode === 200) {
+            yield put({type: 'fetchRolesSuccess', payload:data.data});
+          }
+        }
+      }
+    },
+    *auth({ payload:{id, params} }, { call, put }) {
+      const response = yield call(service.auth, id, params);
+      yield put({ type: 'system/result',payload:{response, namespace:'user'} });
     },
     *reload(action, { put, select }) {
-      const page = yield select(state => state.users.page);
-      yield put({ type: 'fetch', payload: { page } });
-    },
+      const pages = yield select(state => state.user.pages);
+      yield put({ type: 'fetch', payload: { pages } });
+    }
+
   },
   subscriptions: {
     setup({ dispatch, history }) {

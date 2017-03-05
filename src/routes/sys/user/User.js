@@ -25,7 +25,7 @@ const User = ({location, dispatch, children, user, loading}) => {
 
 function mapStateToProps(state) {
   return {
-    loading: state.loading.global,
+    loading: state.loading.models.user,
     user:state.user
   };
 }

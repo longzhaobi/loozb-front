@@ -1,30 +1,131 @@
 import React, {PropTypes} from 'react';
 import {Table,Select , Input, Alert,Button, Pagination, Row, Col, Popconfirm,Icon,Tooltip} from 'antd';
+import UserModal from './UserModal';
+import AuthModal from './AuthModal';
 import styles from './UserList.css';
 const Option = Select.Option;
 const Search = Input.Search;
-const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch, namespace}) => {
+const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch, namespace, roles}) => {
 
-  function onAuthItem(item) {
+  function fetchRoles(item) {
     dispatch({
-      type: `${namespace}/doAuth`,
+      type: `${namespace}/fetchRoles`,
       payload: {item: item}
     });
   }
 
-  function onUpdateItem(id) {
+  function removeHandler(id) {
     dispatch({
-      type: `${namespace}/doUpdate`,
-      payload: id
+      type:`${namespace}/remove`,
+      payload:id
     })
   }
 
-  function onDeleteItem(params) {
+  function editHandler(id, params) {
     dispatch({
-      type:`${namespace}/remove`,
-      payload:params
-    })
+      type: `${namespace}/update`,
+      payload: { id, params }
+    });
   }
+
+  function createHandler(values) {
+    dispatch({
+      type: `${namespace}/create`,
+      payload: values,
+    });
+  }
+
+  function authHandler(id, params) {
+    dispatch({
+      type: `${namespace}/auth`,
+      payload: { id, params }
+    });
+  }
+
+  function onChange(pages, size) {
+    if(size) {
+      dispatch({type:`${namespace}/fetch`, payload:{pages, size}})
+    } else {
+      dispatch({type:`${namespace}/fetch`, payload:{pages}})
+    }
+
+  }
+  function page() {
+    return (<Pagination
+        total={total}
+        className={styles.page}
+        current={pages}
+        pageSize={size}
+        size="small"
+        showTotal={total => `共 ${total} 条记录 第${pages}/${Math.ceil(total/size)}页`}
+        showQuickJumper
+        showSizeChanger
+        onShowSizeChange={onChange}
+        onChange={onChange}
+      />)
+  }
+
+  const hasSelected = selectedRowKeys.length > 0;
+  function title() {
+    return (
+      <div>
+        <Row>
+          <Col span={16}>
+           <UserModal  record={{}} onOk={createHandler} title="新增用户">
+            <Button type="primary" size="large" className={styles.btn} icon="plus">新增</Button>
+           </UserModal>
+          </Col>
+          <Col span={8} style={{float:'right'}} >
+            <Search size="large" style={{width:300,float:'right'}} placeholder="输入任务名称查询..." onSearch={value => onSearch({keyword:value})} />
+            <Tooltip placement="left" title="无缓存刷新">
+              <Icon type="reload" className="reloadBtn" onClick={() => onSearch({noCache:'yes'})}/>
+            </Tooltip>
+          </Col>
+        </Row>
+      </div>
+    )
+  }
+  const rowSelection = {
+    onSelect(record, selected, selectedRows) {
+      dispatch({
+        type:`${namespace}/onChangeSelectedRowKeys`,
+        payload:{id:record.id_, selected}
+      });
+    },
+    onSelectAll(selected, selectedRows, changeRows) {
+      dispatch({
+        type:`${model}/onChangeSelectedRowKeys`,
+        payload:selectedRows.map(tag => tag.id_)
+      });
+    }
+  };
+
+  const toolBar= (text, record, index) => (
+    <div>
+      {isAuth('user:allot') ? (
+        <AuthModal record={record} roles={roles} onRoles = {fetchRoles} onOk = {authHandler.bind(null, record.id_)}>
+          <a>授权</a>
+        </AuthModal>
+        ) : ''
+      }
+      {isAuth('user:update') ? (
+        <span>
+          <span className="ant-divider" />
+          <UserModal record={record} onOk={editHandler.bind(null, record.id_)} title="编辑用户">
+            <a>编辑</a>
+          </UserModal>
+        </span>
+      ) : ''}
+      {isAuth('user:remove') ? (
+        <span>
+          <span className="ant-divider" />
+          <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler(record.id_)}>
+            <a href="javascript:void(0)">删除</a>
+          </Popconfirm>
+        </span>) : ''}
+    </div>
+  )
+
   const columns = [{
     title: '用户名',
     className: 'column-money',
@@ -66,7 +167,7 @@ const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch,
     )
   }, {
     title: '拥有角色',
-    dataIndex: 'roleText',
+    dataIndex: 'roleNames',
     width:180
   }, {
     title: '注册日期',
@@ -81,82 +182,9 @@ const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch,
     key: 'operation',
     width: 150,
     fixed: 'right',
-    render: (text, record, index) => (
-      <div>
-      {isAuth('user:allot') ? (<a href="javascript:void(0)" onClick={() => onAuthItem(record)}>授权</a>) : ''}
-      {isAuth('user:update') ? (<span><span className="ant-divider" /><a href="javascript:void(0)" onClick={() => onUpdateItem(record.id)}>编辑</a></span>) : ''}
-      {isAuth('user:remove') ? (
-        <span>
-          <span className="ant-divider" />
-          <Popconfirm title="确定要删除吗？" onConfirm={() => onDeleteItem(record.id)}>
-            <a href="javascript:void(0)">删除</a>
-          </Popconfirm>
-        </span>) : ''}
-      </div>
-    )
+    render: (text, record, index) => toolBar(text, record, index)
   }];
 
-  function onChange(pages, size) {
-    if(size) {
-      dispatch({type:`${namespace}/fetch`, payload:{pages, size}})
-    } else {
-      dispatch({type:`${namespace}/fetch`, payload:{pages}})
-    }
-
-  }
-  function page() {
-    return <Pagination
-        total={total}
-        className={styles.page}
-        current={pages}
-        pageSize={size}
-        size="small"
-        showTotal={total => `共 ${total} 条记录 第${pages}/${Math.ceil(total/size)}页`}
-        showQuickJumper
-        showSizeChanger
-        onShowSizeChange={onChange}
-        onChange={onChange}
-      />
-  }
-
-  const hasSelected = selectedRowKeys.length > 0;
-  function title() {
-    return (
-      <div>
-        <Row>
-          <Col span={16}>
-            {isAuth('user:create') ? <Button type="ghost" size="large" icon="plus-square">新增</Button> : ''}
-            {isAuth('user:create') ? <span>
-              <Popconfirm title={`确定删除选中的 ${selectedRowKeys.length} 条记录吗？`} onConfirm={() => onDeleteItem(selectedRowKeys)}>
-                <Button className="toolbarBtn" type="ghost" size="large" icon="delete" disabled={!hasSelected}>删除</Button>
-              </Popconfirm>
-              <span style={{ marginLeft: 8 }}>{hasSelected ? `选择了${selectedRowKeys.length}个对象` : ''}</span>
-            </span> : ''}
-          </Col>
-          <Col span={8} style={{float:'right'}} >
-            <Search size="large" style={{width:300,float:'right'}} placeholder="输入任务名称查询..." onSearch={value => onSearch({keyword:value})} />
-            <Tooltip placement="left" title="无缓存刷新">
-              <Icon type="reload" className="reloadBtn" onClick={() => onSearch({noCache:'yes'})}/>
-            </Tooltip>
-          </Col>
-        </Row>
-      </div>
-    )
-  }
-  const rowSelection = {
-    onSelect(record, selected, selectedRows) {
-      dispatch({
-        type:`${namespace}/onChangeSelectedRowKeys`,
-        payload:{id:record.id, selected}
-      });
-    },
-    onSelectAll(selected, selectedRows, changeRows) {
-      dispatch({
-        type:`${model}/onChangeSelectedRowKeys`,
-        payload:selectedRows.map(tag => tag.id)
-      });
-    }
-  };
   return (
     <Table
       columns={columns}

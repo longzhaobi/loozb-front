@@ -1,5 +1,6 @@
 import {hashHistory, routerRedux} from 'dva/router';
 import * as service from '../services/system';
+import {message} from 'antd';
 import cookie from 'js-cookie';
 export default {
   namespace: 'system',
@@ -69,6 +70,23 @@ export default {
             }
           }
         }
+      }
+    },
+    *result({ payload: {response, namespace} }, { put, select }) {
+      if(response) {
+        const {data} = response;
+        if(data) {
+          if(data.httpCode === 200) {
+            message.success('操作成功');
+            yield put({ type: `${namespace}/reload` });
+          } else {
+            message.error(data.msg ? data.msg : '操作失败');
+          }
+        } else {
+          message.error('获取返回值失败');
+        }
+      } else {
+        message.error('服务未响应');
       }
     }
   },
