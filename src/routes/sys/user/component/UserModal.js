@@ -7,6 +7,7 @@ class UserModal extends Component {
 
   constructor(props) {
     super(props);
+    this.dispatch = props.dispatch;
     this.state = {
       visible: false,
     };
@@ -27,7 +28,7 @@ class UserModal extends Component {
   };
 
   okHandler = () => {
-    const { onOk, title } = this.props;
+    const { title, dispatch, namespace, option,record } = this.props;
     this.props.form.validateFields((err, params) => {
       if (!err) {
         Modal.confirm({
@@ -36,8 +37,16 @@ class UserModal extends Component {
           okText: '确定',
           cancelText: '取消',
           onOk:() => {
-            onOk(params);
-            this.hideModelHandler();
+            const _self = this;
+            dispatch({
+              type: `${namespace}/${option}`,
+              payload: {...params, id:record.id_},
+              callback(response) {
+                dispatch({ type: 'system/result',payload:{response, namespace}, onHander() {
+                  _self.hideModelHandler();
+                } });
+              }
+            })
           }
         });
       }
@@ -45,9 +54,8 @@ class UserModal extends Component {
   };
 
   render() {
-    const { children, title, loading } = this.props;
+    const { children, title, loading, record } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const record = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -64,12 +72,12 @@ class UserModal extends Component {
           width={900}
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
-          // footer={[
-          // <Button key="back" type="ghost" size="large" onClick={this.hideModelHandler}>取消</Button>,
-          // <Button key="submit" type="primary" size="large" loading={loading} onClick={this.okHandler}>
-          //   确定
-          // </Button>,
-        // ]}
+          footer={[
+          <Button key="back" type="ghost" size="large" onClick={this.hideModelHandler}>取消</Button>,
+          <Button key="submit" type="primary" size="large" disabled={loading} loading={loading} onClick={this.okHandler}>
+            {loading ? '处理中...' : '确定'}
+          </Button>,
+        ]}
         >
           <Form horizontal onSubmit={this.okHandler}>
             <Row gutter={16}>

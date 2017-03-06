@@ -22,7 +22,7 @@
   :global(.hlht-menu-style) :global(.ant-menu-item) :global(.menu-active) {
     background-color: #e7f4fd;
     padding-left:28px;
-    border-right:3px solid rgb(0,153,204);
+    border-right:3px solid #157b5b;
   }
 
   :global(.hlht-menu-style) :global(.ant-menu-item) :global(.menu-normal) {

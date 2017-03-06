@@ -8,6 +8,7 @@ class AuthModal extends Component {
     super(props);
     this.state = {
       visible: false,
+      roles:[]
     };
   }
 
@@ -15,22 +16,31 @@ class AuthModal extends Component {
   showModelHandler = (e) => {
     this.props.form.resetFields();
     if (e) e.stopPropagation();
-
+    const _self = this;
+    const {dispatch, namespace} = this.props;
     //显示之前去查询所有角色信息
-    this.props.onRoles();
-    this.setState({
-      visible: true,
+    dispatch({
+      type: `${namespace}/fetchRoles`,
+      callback(response) {
+        dispatch({ type: 'system/result',payload:{response, namespace}, onHander({data}) {
+          _self.setState({
+            visible: true,
+            roles:data
+          });
+        } });
+      }
     });
   };
 
   hideModelHandler = () => {
     this.setState({
       visible: false,
+      roles:[]
     });
   };
 
   okHandler = () => {
-    const { onOk, record, form } = this.props;
+    const { record, form, namespace, dispatch } = this.props;
     form.validateFields((err, params) => {
       if (!err) {
         const rolesId = params.roles || [];
@@ -40,8 +50,17 @@ class AuthModal extends Component {
           okText: '确定',
           cancelText: '取消',
           onOk:() => {
-            onOk({roleIds:rolesId.join()});
-            this.hideModelHandler();
+            const _self = this;
+            dispatch({
+              type: `${namespace}/auth`,
+              payload: {id:record.id_, params},
+              callback(response) {
+                dispatch({ type: 'system/result',payload:{response, namespace}, onHander() {
+                  message.success('授权成功！');
+                  _self.hideModelHandler();
+                } });
+              }
+            })
           }
         });
       }
@@ -49,7 +68,7 @@ class AuthModal extends Component {
   };
 
   render() {
-    const { children, record, roles } = this.props;
+    const { children, record } = this.props;
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 6 },
@@ -57,8 +76,8 @@ class AuthModal extends Component {
     };
 
     const rolesOption = [];
-    for (let i = 0; i < roles.length; i++) {
-      rolesOption.push(<Option key={roles[i].id}>{roles[i].name}</Option>);
+    for (let i = 0; i < this.state.roles.length; i++) {
+      rolesOption.push(<Option key={this.state.roles[i].id}>{this.state.roles[i].name}</Option>);
     }
     return (
       <span>

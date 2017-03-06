@@ -72,21 +72,24 @@ export default {
         }
       }
     },
-    *result({ payload: {response, namespace} }, { put, select }) {
+    *result({ payload: {response, namespace}, onHander }, { put, select }) {
       if(response) {
         const {data} = response;
         if(data) {
           if(data.httpCode === 200) {
-            message.success('操作成功');
+            // message.success('操作成功！');
+            if(typeof onHander === 'function') {
+              onHander(data);
+            }
             yield put({ type: `${namespace}/reload` });
           } else {
-            message.error(data.msg ? data.msg : '操作失败');
+            message.error(data.msg ? data.msg : '操作失败！');
           }
         } else {
-          message.error('获取返回值失败');
+          message.error('获取返回数据失败！');
         }
       } else {
-        message.error('服务未响应');
+        message.error('抱歉，服务未响应！');
       }
     }
   },

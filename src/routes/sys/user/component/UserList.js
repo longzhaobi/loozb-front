@@ -1,19 +1,12 @@
 import React, {PropTypes} from 'react';
+import { routerRedux } from 'dva/router';
 import {Table,Select , Input, Alert,Button, Pagination, Row, Col, Popconfirm,Icon,Tooltip} from 'antd';
 import UserModal from './UserModal';
 import AuthModal from './AuthModal';
 import styles from './UserList.css';
 const Option = Select.Option;
 const Search = Input.Search;
-const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch, namespace, roles}) => {
-
-  function fetchRoles(item) {
-    dispatch({
-      type: `${namespace}/fetchRoles`,
-      payload: {item: item}
-    });
-  }
-
+const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch, namespace, roles, keyword}) => {
   function removeHandler(id) {
     dispatch({
       type:`${namespace}/remove`,
@@ -21,25 +14,11 @@ const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch,
     })
   }
 
-  function editHandler(id, params) {
-    dispatch({
-      type: `${namespace}/update`,
-      payload: { id, params }
-    });
-  }
-
-  function createHandler(values) {
-    dispatch({
-      type: `${namespace}/create`,
-      payload: values,
-    });
-  }
-
-  function authHandler(id, params) {
-    dispatch({
-      type: `${namespace}/auth`,
-      payload: { id, params }
-    });
+  function onSearch(keyword) {
+    dispatch(routerRedux.push({
+      pathname: '/sys/user',
+      query: { keyword },
+    }));
   }
 
   function onChange(pages, size) {
@@ -57,7 +36,7 @@ const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch,
         current={pages}
         pageSize={size}
         size="small"
-        showTotal={total => `共 ${total} 条记录 第${pages}/${Math.ceil(total/size)}页`}
+        showTotal={total => `共 ${total}条记录 第${pages}/${Math.ceil(total/size)}页`}
         showQuickJumper
         showSizeChanger
         onShowSizeChange={onChange}
@@ -71,12 +50,12 @@ const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch,
       <div>
         <Row>
           <Col span={16}>
-           <UserModal  record={{}} onOk={createHandler} title="新增用户">
+           <UserModal  record={{}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增用户">
             <Button type="primary" size="large" className={styles.btn} icon="plus">新增</Button>
            </UserModal>
           </Col>
           <Col span={8} style={{float:'right'}} >
-            <Search size="large" style={{width:300,float:'right'}} placeholder="输入任务名称查询..." onSearch={value => onSearch({keyword:value})} />
+            <Search size="large" style={{width:300,float:'right'}} defaultValue={keyword} placeholder="输入任务名称查询..." onSearch={value => onSearch(value)} />
             <Tooltip placement="left" title="无缓存刷新">
               <Icon type="reload" className="reloadBtn" onClick={() => onSearch({noCache:'yes'})}/>
             </Tooltip>
@@ -94,7 +73,7 @@ const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch,
     },
     onSelectAll(selected, selectedRows, changeRows) {
       dispatch({
-        type:`${model}/onChangeSelectedRowKeys`,
+        type:`${namespace}/onChangeSelectedRowKeys`,
         payload:selectedRows.map(tag => tag.id_)
       });
     }
@@ -103,7 +82,7 @@ const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch,
   const toolBar= (text, record, index) => (
     <div>
       {isAuth('user:allot') ? (
-        <AuthModal record={record} roles={roles} onRoles = {fetchRoles} onOk = {authHandler.bind(null, record.id_)}>
+        <AuthModal record={record} roles={roles} dispatch={dispatch} namespace={namespace} loading={loading}>
           <a>授权</a>
         </AuthModal>
         ) : ''
@@ -111,7 +90,7 @@ const UserList = ({data, pages, total, size, loading, selectedRowKeys, dispatch,
       {isAuth('user:update') ? (
         <span>
           <span className="ant-divider" />
-          <UserModal record={record} onOk={editHandler.bind(null, record.id_)} title="编辑用户">
+          <UserModal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑用户">
             <a>编辑</a>
           </UserModal>
         </span>
