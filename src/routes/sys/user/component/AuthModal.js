@@ -22,7 +22,7 @@ class AuthModal extends Component {
     dispatch({
       type: `${namespace}/fetchRoles`,
       callback(response) {
-        dispatch({ type: 'system/result',payload:{response, namespace}, onHander({data}) {
+        dispatch({ type: 'app/result',payload:{response, namespace}, onHander({data}) {
           _self.setState({
             visible: true,
             roles:data
@@ -55,7 +55,7 @@ class AuthModal extends Component {
               type: `${namespace}/auth`,
               payload: {id:record.id_, params},
               callback(response) {
-                dispatch({ type: 'system/result',payload:{response, namespace}, onHander() {
+                dispatch({ type: 'app/result',payload:{response, namespace}, onHander() {
                   message.success('授权成功！');
                   _self.hideModelHandler();
                 } });
@@ -91,7 +91,7 @@ class AuthModal extends Component {
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
         >
-          <Form horizontal>
+          <Form  layout='horizontal'>
             <FormItem
               {...formItemLayout}
               label="授权用户"

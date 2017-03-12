@@ -33,15 +33,18 @@
   color:#fff;
   font-size: 16px;
 }
-.text {
+.show {
   display: flex;
   align-items: center;
   width:130px;
   color:#fff;
   font-size: 14px;
 }
+.hide {
+  display: none;
+}
 .isCurrent {
-  background-color: rgb(0,153,204);
+  background-color: #1DA57A;
 }
 
 
@@ -54,7 +57,7 @@
 }
 
 .item .text {
-    display: none;
+    /*display: none;*/
 }
 
 .max {

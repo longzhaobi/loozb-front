@@ -8,12 +8,12 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
-  :global(.ant-table-row-expand-icon-cell) {
+  /*:global(.ant-table-row-expand-icon-cell) {
     width:38px !important;
-  }
+  }*/
 
-  :global(.ant-table-body-inner) {
-  }
+  /*:global(.ant-table-body-inner) {
+  }*/
 
   :global(.hlht-menu-style) :global(.ant-menu-item) {
     padding:0px !important;
@@ -51,22 +51,6 @@
   }
 
 
-  :global(.data-source-select) :global(.ant-select-selection) {
-    background-color:rgba(255,255,255,0);
-    border-width: 0px;
-    border-radius: 0px;
-  }
-
-  :global(.data-source-select) :global(.ant-select-selection) :global(.ant-select-arrow) {
-    color:#fff;
-    font-size: 14px;
-  }
-
-  :global(.data-source-select) :global(.ant-select-selection) :global(.ant-select-selection-selected-value) {
-    font-size: 14px;
-    color:#fff;
-  }
-
   :global(.table-page) {
     float:right;
   }
@@ -78,13 +62,6 @@
   :global(th) :global(span){
     display: block;
     text-align: center !important;
-  }
-
-  :global(.ant-table-fixed-right) {
-    box-shadow: none !important;
-  }
-  :global(.ant-table-fixed-left) {
-    box-shadow: none !important;
   }
   :global(.ant-table-footer) {
     text-align: right;

@@ -42,7 +42,7 @@ class UserModal extends Component {
               type: `${namespace}/${option}`,
               payload: {...params, id:record.id_},
               callback(response) {
-                dispatch({ type: 'system/result',payload:{response, namespace}, onHander() {
+                dispatch({ type: 'app/result',payload:{response, namespace}, onHander() {
                   _self.hideModelHandler();
                 } });
               }
@@ -79,7 +79,7 @@ class UserModal extends Component {
           </Button>,
         ]}
         >
-          <Form horizontal onSubmit={this.okHandler}>
+          <Form layout='horizontal' onSubmit={this.okHandler}>
             <Row gutter={16}>
               <Col sm={12}>
                 <FormItem

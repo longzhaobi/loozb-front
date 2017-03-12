@@ -2,13 +2,13 @@ import request from '../../../../utils/request';
 import qs from 'qs';
 export async function fetch(params) {
   return request({
-    url:`/api/roles?${qs.stringify(params)}`
+    url:`/api/permissions?${qs.stringify(params)}`
   });
 }
 
 export async function create(params) {
   return request({
-    url:'/api/roles',
+    url:'/api/permissions',
     method:'post',
     data:qs.stringify(params)
   });
@@ -16,7 +16,7 @@ export async function create(params) {
 
 export async function update(params) {
   return request({
-    url:`/api/roles`,
+    url:`/api/permissions`,
     method:'put',
     data:qs.stringify(params)
   });
@@ -24,7 +24,7 @@ export async function update(params) {
 
 export async function remove(params) {
   return request({
-    url:`/api/roles/${params}`,
+    url:`/api/permissions/${params}`,
     method:'delete'
   });
 }
@@ -52,7 +52,7 @@ export async function queryAuth(params) {
 //角色授权
 export async function doAuth(params) {
   return request({
-    url:'api/roles/auth',
+    url:'api/permissions/auth',
     method:'post',
     data:qs.stringify(params)
   });

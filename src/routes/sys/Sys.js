@@ -4,8 +4,8 @@ import { Breadcrumb } from 'antd';
 import MenuBar from '../../components/layout/MenuBar';
 import styles from './Sys.css';
 const Sys = (props) => {
-  const {location, dispatch, children, route, system} = props;
-  const {subMenu, menuStyle} = system;
+  const {location, dispatch, children, route, app} = props;
+  const {subMenu, menuStyle} = app;
   return (
     <div className={styles.normal}>
       <Breadcrumb {...props}/>
@@ -17,8 +17,8 @@ const Sys = (props) => {
   )
 }
 
-function mapStateToProps({system}) {
-  return {system};
+function mapStateToProps({ app }) {
+  return { app };
 }
 
 export default connect(mapStateToProps)(Sys);

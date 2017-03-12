@@ -20,7 +20,7 @@ const LoginPage = ({dispatch,form, loading, namespace}) => {
   }
   return (
     <div className={styles.login}>
-      <Form className={styles.loginForm} horizontal onSubmit={handleSubmit}>
+      <Form className={styles.loginForm}  layout='horizontal' onSubmit={handleSubmit}>
         <h1 className={styles.title}>loozb</h1>
         <FormItem hasFeedback>
           {getFieldDecorator('account', {

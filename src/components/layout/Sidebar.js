@@ -28,18 +28,10 @@ export default class Sidebar extends Component {
   }
 
   switchClick() {
-    if(this.props.menuStyle === 'min') {
-      this.props.dispatch({
-        type:'auth/switchClick',
-        payload:'max'
-      })
-    } else {
-      this.props.dispatch({
-        type:'auth/switchClick',
-        payload:'min'
-      })
-    }
-
+    this.props.dispatch({
+      type:'app/switchClick',
+      payload:this.props.menuStyle === 'min' ? 'max' : 'min'
+    })
   }
   onSubBarClick(value) {
     this.setState({
@@ -54,42 +46,25 @@ export default class Sidebar extends Component {
       [styles.max]:menuStyle === 'max'
     });
     const linkCls = classnames({
-      [styles.item]:true
+      [styles.show]:menuStyle === 'max',
+      [styles.hide]:menuStyle === 'min'
     })
     const getMenu = data => data.map((item) => {
       return (
-        <Tooltip placement="right" title={item.name} key={item.id}>
-        <span onClick={() => this.onSubBarClick(item.identity)} className={this.state.value === item.identity ? styles.isCurrent : styles.noCurrent}>
-          <Link className={styles.item} to={item.url}>
-            <span className={styles.icon}><Icon type={item.icon} /></span>
-            <span className={styles.text}>{item.name}</span>
-          </Link>
-        </span>
+        <Tooltip placement="right" title={menuStyle === 'max' ? '' : item.name} key={item.id}>
+          <span onClick={() => this.onSubBarClick(item.identity)} className={this.state.value === item.identity ? styles.isCurrent : styles.noCurrent}>
+            <Link className={styles.item} to={item.url}>
+              <span className={styles.icon}><Icon type={item.icon} /></span>
+              <span className={linkCls}>{item.name}</span>
+            </Link>
+          </span>
         </Tooltip>
       )
     });
     return (
       <div className={cls}>
-
-
         <a className={styles.switchBar} onClick={() => this.switchClick()}>{menuStyle === 'max' ? <Icon type="menu-fold" /> : <Icon type="menu-unfold" />}</a>
         {getMenu(sortByWeight(menu, 'weight'))}
-        {/* <Tooltip placement="right" title='系统管理'>
-        <span onClick={() => this.onSubBarClick('sys')} className={this.state.value === 'sys' ? styles.isCurrent : styles.noCurrent}>
-          <Link className={styles.item} to="/sys">
-            <span className={styles.icon}><Icon type="setting" /></span>
-            <span className={styles.text}>系统管理</span>
-          </Link>
-        </span>
-        </Tooltip>
-        <Tooltip placement="right" title='博文管理'>
-          <span onClick={() => this.onSubBarClick('blog')} className={this.state.value === 'blog' ? styles.isCurrent : styles.noCurrent}>
-            <Link className={styles.item} to="/blog">
-              <span className={styles.icon}><Icon type="appstore-o" /></span>
-              <span className={styles.text}>博文管理</span>
-            </Link>
-          </span>
-        </Tooltip> */}
       </div>
     )
   }

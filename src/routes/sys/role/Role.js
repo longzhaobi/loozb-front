@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'dva';
-
+import MsgTip from '../../../components/ui/MsgTip';
 import RoleList from './component/RoleList';
 
 import styles from './Role.css';
@@ -18,6 +18,7 @@ const Role = ({location, dispatch, children, role, loading}) => {
 
   return (
     <div className={styles.root}>
+      <MsgTip />
       <RoleList {...roleListProps}/>
     </div>
   )
@@ -25,7 +26,7 @@ const Role = ({location, dispatch, children, role, loading}) => {
 
 function mapStateToProps(state) {
   return {
-    loading: state.loading.global,
+    loading: state.loading.models.role,
     role:state.role
   };
 }

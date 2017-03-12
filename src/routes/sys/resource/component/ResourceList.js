@@ -1,12 +1,11 @@
 import React, {PropTypes} from 'react';
 import { routerRedux } from 'dva/router';
 import {Table, Select, Input, Alert, Button, Pagination, Row, Col, Popconfirm, Icon, Tooltip, message} from 'antd';
-import UserModal from './UserModal';
-import AuthModal from './AuthModal';
-import styles from './UserList.css';
+import ResourceModal from './ResourceModal';
+import styles from './ResourceList.css';
 const Option = Select.Option;
 const Search = Input.Search;
-const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword}) => {
+const resourceList = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword}) => {
   function removeHandler(params) {
     dispatch({
       type:`${namespace}/remove`,
@@ -17,7 +16,7 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
   function onSearch(keyword) {
     if(keyword) {
       dispatch(routerRedux.push({
-        pathname: '/sys/user',
+        pathname: '/sys/resource',
         query: { keyword },
       }));
     } else {
@@ -27,7 +26,7 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
 
   function onChange(current, size) {
     dispatch(routerRedux.push({
-      pathname: '/sys/user',
+      pathname: '/sys/resource',
       query: { current, size },
     }));
   }
@@ -52,16 +51,16 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
       <div>
         <Row>
           <Col span={16}>
-           <UserModal  record={{}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增用户">
-            <Button type="primary" size="large" className={styles.btn} icon="plus">新增</Button>
-           </UserModal>
+           <ResourceModal  record={{}} item={{id_:1, pids:'0/'}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增资源">
+            <Button type="primary" size="large" className={styles.btn} icon="plus">新增根节点</Button>
+           </ResourceModal>
            <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler(selectedRowKeys)}>
              <Button type="danger" size="large" disabled={!hasSelected} className={styles.btn} icon="delete">删除</Button>
            </Popconfirm>
            <span style={{ marginLeft: 8 }}>{hasSelected ? `选择了 ${selectedRowKeys.length} 条数据` : ''}</span>
           </Col>
           <Col span={8} style={{float:'right'}} >
-            <Search size="large" style={{width:300,float:'right'}} defaultValue={keyword} placeholder="输入任务名称查询..." onSearch={value => onSearch(value)} />
+            <Search size="large" style={{width:300,float:'right'}} defaultValue={keyword} placeholder="输入权限名称或标识查询..." onSearch={value => onSearch(value)} />
             <Tooltip placement="left" title="无缓存刷新">
               <Icon type="reload" className="reloadBtn" onClick={() => onSearch({noCache:'yes'})}/>
             </Tooltip>
@@ -83,21 +82,18 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
 
   const toolBar= (text, record, index) => (
     <div>
-      {isAuth('user:allot') ? (
-        <AuthModal record={record} dispatch={dispatch} namespace={namespace} loading={loading}>
-          <a>授权</a>
-        </AuthModal>
-        ) : ''
-      }
-      {isAuth('user:update') ? (
+      {isAuth('resource:update') ? (
         <span>
+          <ResourceModal record={{}} item={record} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增资源">
+            <a>新增</a>
+          </ResourceModal>
           <span className="ant-divider" />
-          <UserModal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑用户">
+          <ResourceModal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑资源">
             <a>编辑</a>
-          </UserModal>
+          </ResourceModal>
         </span>
       ) : ''}
-      {isAuth('user:remove') ? (
+      {isAuth('resource:remove') ? (
         <span>
           <span className="ant-divider" />
           <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({id:record.id_})}>
@@ -107,64 +103,54 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
     </div>
   )
 
+  function getMenuType(text) {
+    if(text === '1') {
+      return '父子类型'
+    } else if(text === '2') {
+      return '分组类型'
+    } else if(text === '3') {
+      return '普通类型'
+    } else {
+      return '未知类型'
+    }
+
+  }
+
   const columns = [{
-    title: '#',
-    fixed:'left',
-    width:50,
+    title: '资源名称',
+    dataIndex: 'name',
+    width: 340,
+  }, {
+    title: '资源标识',
+    dataIndex: 'identity',
+    width: 180,
+  }, {
+    title: '图标',
+    dataIndex: 'icon',
+    width: 180,
+  }, {
+    title: '资源链接',
+    dataIndex: 'url',
+    width: 180,
+  }, {
+    title: '资源权重',
+    dataIndex: 'weight',
+    width: 100,
+  }, {
+    title: '资源类型',
+    dataIndex: 'menuType',
+    width: 100,
     render:(text, record, index) => (
-      <span>{index + 1}</span>
-    )
-  },{
-    title: '用户名',
-    className: 'column-money',
-    dataIndex: 'username',
-    width:120
-  }, {
-    title: '性别',
-    dataIndex: 'gender',
-    width:60,
-    render:(text, record, index) => (
-      <span>{text == '1' ? '男' : '女'}</span>
-    )
-  }, {
-    title: '身份证号码',
-    dataIndex: 'idcard',
-    width:180,
-  }, {
-    title: '出生日期',
-    dataIndex: 'birthday',
-    width:140,
-  }, {
-    title: '邮箱',
-    dataIndex: 'email',
-    width:180,
-  }, {
-    title: '联系电话',
-    dataIndex: 'phone',
-    width:140
-  }, {
-    title: '工作职位',
-    dataIndex: 'job',
-    width:100
-  }, {
-    title: '是否锁住',
-    dataIndex: 'locked',
-    width:80,
-    render:(text, record, index) => (
-      <span>{record == '1' ? '已锁住':'未锁住'}</span>
+      <div>
+        {
+          getMenuType(text)
+        }
+      </div>
     )
   }, {
-    title: '拥有角色',
-    dataIndex: 'roleNames',
-    // width:180
-  }, {
-    title: '注册日期',
-    dataIndex: 'ctime',
-    width:180
-  }, {
-    title: '维护日期',
-    dataIndex: 'mtime',
-    width:180
+    title: '拥有权限',
+    dataIndex: 'permissionText',
+    // width: 180,
   },{
     title: '操作',
     key: 'operation',
@@ -180,7 +166,7 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
       pagination={false}
       rowSelection={rowSelection}
       size="middle"
-      scroll={{ y: table_height,x:1950 }}
+      scroll={{ y: table_height }}
       bordered
       rowKey="id_"
       loading={loading}
@@ -190,4 +176,4 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
   )
 }
 
-export default UserList;
+export default resourceList;

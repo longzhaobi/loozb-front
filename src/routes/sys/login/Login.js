@@ -5,7 +5,7 @@ import styles from './Login.css';
 import LoginPage from './component/LoginPage';
 
 const Login = ({location, dispatch, loading}) => {
-  const namespace = 'system';
+  const namespace = 'app';
   const loginPageProps = {
     loading,
     namespace,

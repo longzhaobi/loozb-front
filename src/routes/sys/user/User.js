@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'dva';
-
+import MsgTip from '../../../components/ui/MsgTip';
 import UserList from './component/UserList';
 
 import styles from './User.css';
@@ -18,6 +18,7 @@ const User = ({location, dispatch, children, user, loading}) => {
 
   return (
     <div className={styles.root}>
+      <MsgTip />
       <UserList {...userListProps}/>
     </div>
   )

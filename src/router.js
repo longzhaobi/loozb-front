@@ -46,6 +46,33 @@ export default function({ history, app }) {
               cb(null, require('./routes/sys/role/Role'));
             });
           },
+        },{
+          breadcrumbName:"权限列表",
+          path:"/sys/permission",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/sys/permission/model/permission'));
+              cb(null, require('./routes/sys/permission/Permission'));
+            });
+          },
+        },{
+          breadcrumbName:"资源列表",
+          path:"/sys/resource",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/sys/resource/model/resource'));
+              cb(null, require('./routes/sys/resource/Resource'));
+            });
+          },
+        },{
+          breadcrumbName:"数据字典列表",
+          path:"/sys/table",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/sys/table/model/table'));
+              cb(null, require('./routes/sys/table/Table'));
+            });
+          },
         }]
       }]
     },

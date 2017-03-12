@@ -1,35 +1,35 @@
-import * as service from '../service/user';
+import * as service from '../service/resource';
 
 import {message} from 'antd';
 export default {
-  namespace: 'user',
+  namespace: 'resource',
   state: {
     data: [],
-    total: 0,
-    current: 0,
-    size:20,
     selectedRowKeys:[],
-    keyword:null,
+    keyword:null
 
   },
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
-        if (pathname === '/sys/user') {
-          dispatch({ type: 'fetch', payload: {current:1, size:20, ...query}});
+        if (pathname === '/sys/resource') {
+          dispatch({ type: 'fetch', payload: {...query}});
         }
       });
     },
   },
   reducers: {
     fetchSuccess(state, { payload: { data, total, current, keyword } }) {
-      return { ...state, data, total, current, selectedRowKeys:[], keyword };
+      return { ...state, data, selectedRowKeys:[], keyword };
     },
     initKeyword(state, { payload }) {
       return {...state, keyword:payload};
     },
     onChangeSelectedRowKeys(state, {payload}) {
       return {...state, selectedRowKeys:payload};
+    },
+    fetchAuthSuccess(state, {payload}) {
+      return {...state, ...payload}
     }
   },
   effects: {
@@ -38,12 +38,10 @@ export default {
       const response = yield call(service.fetch, payload);
       if(response) {
         const {data} = response;
-        if(data) {
-          const {total, current} = data;
+        if(data.httpCode === 200) {
           yield put({
             type: 'fetchSuccess',
-            payload: {data:data.data, total, current, keyword: payload.keyword
-            }
+            payload: {data:data.data, keyword: payload.keyword}
           });
         }
       }
@@ -68,7 +66,7 @@ export default {
       } else {
         response = yield call(service.remove, payload.id);
       }
-      yield put({ type: 'app/result',payload:{response, namespace:'user'} });
+      yield put({ type: 'app/result',payload:{response, namespace:'resource'} });
     },
     *update({ payload:params, callback }, { call, put }) {
       callback(yield call(service.update, params));
@@ -76,14 +74,11 @@ export default {
     *create({payload:params, callback}, { call, put }) {
       callback(yield call(service.create, params));
     },
-    *fetchRoles({ payload, callback }, { call, put, select}) {
-      callback(yield call(service.fetchRoles));
-    },
-    *auth({ payload:{id, params}, callback }, { call, put }) {
-      callback(yield call(service.auth, id, params));
+    *fetchPermission({ callback }, { call }) {
+      callback(yield call(service.fetchPermission));
     },
     *reload(action, { put, select }) {
-      const current = yield select(state => state.user.current);
+      const current = yield select(state => state.resource.current);
       yield put({ type: 'fetch', payload: { current } });
     }
 

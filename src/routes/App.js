@@ -17,8 +17,8 @@ function App (props) {
 App.propTypes = {
 };
 
-function mapStateToProps({system}) {
-  return {system};
+function mapStateToProps({app}) {
+  return {app};
 }
 
 export default connect(mapStateToProps)(App);

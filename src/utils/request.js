@@ -15,15 +15,15 @@ function checkStatus(response) {
 }
 const myConfig = {
     withCredentials: true,
-    baseURL:'http://localhost:8088/',
+    baseURL:'http://localhost:8088',
 
   }
-const headers = {
-  'Content-Type': 'application/x-www-form-urlencoded',
-  'X-Requested-With': 'XMLHttpRequest'
-}
+// const headers = {
+//   'Content-Type': 'application/x-www-form-urlencoded',
+//   'X-Requested-With': 'XMLHttpRequest'
+// }
 export default function request(config = {}) {
-  return axios.request(Object.assign(config, myConfig, headers))
+  return axios.request(Object.assign(config, myConfig))
   .then(checkStatus)
   .catch((error) => {
     if(!error.response) {

@@ -30,7 +30,7 @@ function Header({ location,dispatch }) {
   return (
     <div className={styles.normal}>
       <div className={styles.leaft}>
-        <a className={styles.logo}>Loozb 后台管理系统</a>
+        <a className={styles.logo}>LOOZB 后台管理系统</a>
         <a className={styles.item}>数据控制台</a>
       </div>
       <div className={styles.right}>

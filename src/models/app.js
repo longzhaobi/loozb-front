@@ -1,13 +1,18 @@
 import {hashHistory, routerRedux} from 'dva/router';
-import * as service from '../services/system';
+import * as service from '../services/app';
 import {message} from 'antd';
 import cookie from 'js-cookie';
 export default {
-  namespace: 'system',
+  namespace: 'app',
   state: {
     subMenu:[],
     menu:[],
-    menuStyle:'min'
+    menuStyle:'max',
+
+    msg:null,
+
+    //循环删除时，如果为true，则取消删除
+    break:false
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -99,6 +104,12 @@ export default {
     },
     querySubMenuSuccess(state, action) {
       return {...state, subMenu:action.payload};
+    },
+    switchClick(state, action) {
+      return {...state, menuStyle:action.payload}
+    },
+    changeMsg(state, action) {
+      return {...state, msg:action.payload};
     }
   }
 };

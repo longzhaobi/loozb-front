@@ -1,21 +1,21 @@
-import * as service from '../service/user';
+import * as service from '../service/permission';
 
 import {message} from 'antd';
 export default {
-  namespace: 'user',
+  namespace: 'permission',
   state: {
     data: [],
     total: 0,
     current: 0,
     size:20,
     selectedRowKeys:[],
-    keyword:null,
+    keyword:null
 
   },
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
-        if (pathname === '/sys/user') {
+        if (pathname === '/sys/permission') {
           dispatch({ type: 'fetch', payload: {current:1, size:20, ...query}});
         }
       });
@@ -30,6 +30,9 @@ export default {
     },
     onChangeSelectedRowKeys(state, {payload}) {
       return {...state, selectedRowKeys:payload};
+    },
+    fetchAuthSuccess(state, {payload}) {
+      return {...state, ...payload}
     }
   },
   effects: {
@@ -68,7 +71,7 @@ export default {
       } else {
         response = yield call(service.remove, payload.id);
       }
-      yield put({ type: 'app/result',payload:{response, namespace:'user'} });
+      yield put({ type: 'app/result',payload:{response, namespace:'permission'} });
     },
     *update({ payload:params, callback }, { call, put }) {
       callback(yield call(service.update, params));
@@ -76,14 +79,8 @@ export default {
     *create({payload:params, callback}, { call, put }) {
       callback(yield call(service.create, params));
     },
-    *fetchRoles({ payload, callback }, { call, put, select}) {
-      callback(yield call(service.fetchRoles));
-    },
-    *auth({ payload:{id, params}, callback }, { call, put }) {
-      callback(yield call(service.auth, id, params));
-    },
     *reload(action, { put, select }) {
-      const current = yield select(state => state.user.current);
+      const current = yield select(state => state.permission.current);
       yield put({ type: 'fetch', payload: { current } });
     }
 

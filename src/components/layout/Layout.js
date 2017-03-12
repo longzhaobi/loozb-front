@@ -5,8 +5,8 @@ import classnames from 'classnames';
 import Sidebar from './Sidebar';
 import { Breadcrumb } from 'antd';
 const  Layout = ({props, children}) => {
-  const {location, dispatch,routes, system} = props
-  const {menuStyle, menu} = system;
+  const {location, dispatch,routes, app} = props
+  const {menuStyle, menu} = app;
   const cls = classnames({
     [styles.main]:true,
     [styles.min]:menuStyle === 'min',
@@ -27,7 +27,6 @@ const  Layout = ({props, children}) => {
 }
 
 Layout.propTypes = {
-  // children: PropTypes.element.isRequired,
   location: PropTypes.object,
 };
 

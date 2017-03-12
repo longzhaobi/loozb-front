@@ -82,41 +82,42 @@ class RoleModal extends Component {
           <Form layout='horizontal' onSubmit={this.okHandler}>
             <FormItem
               {...formItemLayout}
-              label="角色名称"
+              label="权限名称"
             >
             {getFieldDecorator('name', {
               rules: [
-                  { required: true, max: 25, message: '角色名称不能为空且角色名不能小于 25 个字符' }
-                ],
-                initialValue: record['name'] || ''
-              })(
-              <Input type="text" placeholder="请输入角色名称" />
+                 { required: true, max: 25, message: '权限名称不能超过25位字符' }
+               ],
+               initialValue: record['name'] || ''
+             })(
+              <Input type="text" placeholder="请输入权限名称" />
             )}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="角色标识"
+              label="权限标识"
             >
-            {getFieldDecorator('role', {
-              rules: [
-                  { required: true, max: 25, message: '角色名称不能为空且不能小于 25 个字符' }
-                ],
-                initialValue: record['role'] || ''
-              })(
-              <Input type="text" placeholder="请输入角色名称" />
-            )}
+              {getFieldDecorator('permission', {
+                rules: [
+                   { required: true, max: 25, message: '权限名称不能超过25位字符' }
+                 ],
+                 initialValue: record['permission'] || ''
+               })(
+                <Input type="text" placeholder="请输入权限标识" />
+              )}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="角色描述"
+              label="权限描述"
+              help="权限描述，可以为空"
             >
               {getFieldDecorator('description', {
                 rules: [
-                  { max: 100, message: '角色描述不能超过 100 个字符' },
-                ],
-                initialValue: record['description'] || ''
-              })(
-                <Input type="textarea" placeholder="请输入角色描述" />
+                   { max: 200, message: '权限名称不能超过200位字符' }
+                 ],
+                 initialValue: record['description'] || ''
+               })(
+                <Input type="textarea" placeholder="请输入权限描述" />
               )}
             </FormItem>
           </Form>
