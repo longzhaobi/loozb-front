@@ -62,14 +62,14 @@ export default {
                     type:'querySubMenuSuccess',
                     payload:subMenu.sort((a, b) => a.weight - b.weight)
                   });
-                  // if(payload.isRoot) {
-                  //   if(subMenu[0].children.length > 0) {
-                  //     //假如还有孩子
-                  //     yield put(routerRedux.push(subMenu[0].children[0].url));
-                  //   } else {
-                  //     yield put(routerRedux.push(subMenu[0].url));
-                  //   }
-                  // }
+                  if(payload.isRoot) {
+                    if(subMenu[0].children.length > 0) {
+                      //假如还有孩子
+                      yield put(routerRedux.push(subMenu[0].children[0].url));
+                    } else {
+                      yield put(routerRedux.push(subMenu[0].url));
+                    }
+                  }
                 }
               }
             }

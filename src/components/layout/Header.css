@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;//两端对齐
   height:50px;
-  background-color: #1DA57A;
+  background-color: #0099CC;
   top:0px;
   right:0px;
   left:0px;
@@ -20,7 +20,7 @@
   height:100%;
 }
 .logout:hover {
-  background-color: #157b5b;
+  background-color: #00CCFF;
 }
 
 .logout {
@@ -31,12 +31,12 @@
   line-height: 50px;
   width:180px;
   color:#fff;
-  border-left: 1px solid #2e9473;
+  border-left: 1px solid rgb(0, 143,191);
   font-size: 14px;
 }
 
 .logout:hover {
-  background-color: #157b5b;
+  background-color: rgb(0, 143,191);
 }
 
 
@@ -59,11 +59,11 @@
   width:110px;
   line-height: 50px;
   color:#fff;
-  border-left: 1px solid #2e9473;
+  border-left: 1px solid rgb(0, 143,191);
 }
 
 .item:hover {
-  background-color: #157b5b;
+  background-color: rgb(0, 143,191);
 }
 
 .wrapper {

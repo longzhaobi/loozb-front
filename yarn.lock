@@ -2032,6 +2032,14 @@ function-bind@^1.0.2, function-bind@^1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/function-bind/download/function-bind-1.1.0.tgz#16176714c801798e4e8f2cf7f7529467bb4a5771"
 
+g2-react@^1.2.0:
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/g2-react/download/g2-react-1.2.0.tgz#edc97b63e00f0103dcc7049bfd7b19872bb0231a"
+
+g2@^2.2.5:
+  version "2.2.5"
+  resolved "http://registry.npm.taobao.org/g2/download/g2-2.2.5.tgz#74226d7a38603f5ccf3bf529c07ce359e8654006"
+
 gauge@~2.7.1:
   version "2.7.3"
   resolved "http://registry.npm.taobao.org/gauge/download/gauge-2.7.3.tgz#1c23855f962f17b3ad3d0dc7443f304542edfe09"
@@ -3728,14 +3736,7 @@ rc-cascader@~0.11.0:
     rc-trigger "1.x"
     rc-util "4.x"
 
-rc-checkbox@1.x:
-  version "1.4.4"
-  resolved "http://registry.npm.taobao.org/rc-checkbox/download/rc-checkbox-1.4.4.tgz#12d2932b6b628953000e764c68f0465dc81a052d"
-  dependencies:
-    classnames "2.x"
-    rc-util "^4.0.1"
-
-rc-checkbox@~1.5.0:
+rc-checkbox@1.x, rc-checkbox@~1.5.0:
   version "1.5.0"
   resolved "http://registry.npm.taobao.org/rc-checkbox/download/rc-checkbox-1.5.0.tgz#464ce9b40b1ad9d119524ced174a60a7b4eb7529"
   dependencies:
