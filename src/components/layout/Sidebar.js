@@ -51,7 +51,7 @@ export default class Sidebar extends Component {
     })
     const getMenu = data => data.map((item) => {
       return (
-        <Tooltip placement="right" title={menuStyle === 'max' ? '' : item.name} key={item.id}>
+        <Tooltip placement="right" title={menuStyle === 'max' ? '' : item.name} key={item.id_}>
           <span onClick={() => this.onSubBarClick(item.identity)} className={this.state.value === item.identity ? styles.isCurrent : styles.noCurrent}>
             <Link className={styles.item} to={item.url}>
               <span className={styles.icon}><Icon type={item.icon} /></span>

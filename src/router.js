@@ -20,6 +20,15 @@ export default function({ history, app }) {
         });
       },
       childRoutes:[{
+        path: '/amap',
+        breadcrumbName:"高德地图功能演示",
+        getComponent(nextState, cb) {
+          require.ensure([], (require) => {
+            registerModel(app, require('./routes/amap/model/amap'));
+            cb(null, require('./routes/amap/Amap'));
+          });
+        },
+      },{
         breadcrumbName:"系统管理",
         path:"/sys",
         getComponent(nextState, cb) {
@@ -85,7 +94,7 @@ export default function({ history, app }) {
           cb(null, require('./routes/sys/login/Login'));
         });
       },
-    },
+    }
   ];
 
   return <Router history={history} routes={routes} />;

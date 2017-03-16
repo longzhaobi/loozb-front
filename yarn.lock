@@ -3981,6 +3981,13 @@ rc@~1.1.6:
     minimist "^1.2.0"
     strip-json-comments "~1.0.4"
 
+react-amap@^0.2.2:
+  version "0.2.2"
+  resolved "http://registry.npm.taobao.org/react-amap/download/react-amap-0.2.2.tgz#e9e69309e432200059f9d72ac9b7dd8c7c1b4df2"
+  dependencies:
+    react "^15.4.2"
+    react-dom "^15.4.2"
+
 react-dev-utils@^0.4.2:
   version "0.4.2"
   resolved "http://registry.npm.taobao.org/react-dev-utils/download/react-dev-utils-0.4.2.tgz#ba6fae581fe945a2fc402e9b27c71fda4f62f6a1"
@@ -3997,7 +4004,7 @@ react-dom@^0.14.0:
   version "0.14.8"
   resolved "http://registry.npm.taobao.org/react-dom/download/react-dom-0.14.8.tgz#0f1c547514263f771bd31814a739e5306575069e"
 
-react-dom@^15.4.0:
+react-dom@^15.4.0, react-dom@^15.4.2:
   version "15.4.2"
   resolved "http://registry.npm.taobao.org/react-dom/download/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
   dependencies:
@@ -4067,7 +4074,7 @@ react@^0.14.0:
     envify "^3.0.0"
     fbjs "^0.6.1"
 
-react@^15.4.0:
+react@^15.4.0, react@^15.4.2:
   version "15.4.2"
   resolved "http://registry.npm.taobao.org/react/download/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
   dependencies:

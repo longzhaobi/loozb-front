@@ -30,20 +30,7 @@ const resourceList = ({data, current, total, size, loading, selectedRowKeys, dis
       query: { current, size },
     }));
   }
-  function page() {
-    return (<Pagination
-        total={total}
-        className={styles.page}
-        current={current}
-        currentize={size}
-        size="small"
-        showTotal={total => `共 ${total}条记录 第${current}/${Math.ceil(total/size)}页`}
-        showQuickJumper
-        showSizeChanger
-        onShowSizeChange={onChange}
-        onChange={onChange}
-      />)
-  }
+
   const hasSelected = selectedRowKeys.length > 0;
 
   function title() {
@@ -171,7 +158,6 @@ const resourceList = ({data, current, total, size, loading, selectedRowKeys, dis
       rowKey="id_"
       loading={loading}
       title={() => title()}
-      footer={() => page()}
     />
   )
 }
