@@ -29,6 +29,15 @@ export default function({ history, app }) {
           });
         },
       },{
+        path: '/upload',
+        breadcrumbName:"附件上传",
+        getComponent(nextState, cb) {
+          require.ensure([], (require) => {
+            registerModel(app, require('./routes/upload/model/upload'));
+            cb(null, require('./routes/upload/Upload'));
+          });
+        },
+      },{
         breadcrumbName:"系统管理",
         path:"/sys",
         getComponent(nextState, cb) {

@@ -28,7 +28,9 @@ class AuthModal extends Component {
     //每次选择，把auths清0
     this.state.auths = [];
     const {record, namespace, dispatch} = this.props;
+    console.log(selectedKeys);
     const pid = selectedKeys.join("");
+    console.log(pid);
     const roleId = record.id_;
     if(roleId && pid){
       const _self = this;
@@ -38,7 +40,6 @@ class AuthModal extends Component {
         type:`${namespace}/fetchAuthList`,
         payload:{roleId, pid},
         callback(authData) {
-          console.log(authData);
           _self.setState({
             authData
           });
@@ -96,6 +97,7 @@ class AuthModal extends Component {
       return;
     }
     const roleId = this.state.roleId;
+    const _self = this;
     const auths = this.state.auths.join("·");
     if(roleId && roleId !== 0) {
       Modal.confirm({
@@ -111,6 +113,7 @@ class AuthModal extends Component {
               const {data} = response;
               if(data.httpCode === 200) {
                 message.success("授权成功");
+                // _self.hideModelHandler();
               }
             }
           }});
@@ -129,12 +132,12 @@ class AuthModal extends Component {
     const tree = data => data.map((item) => {
       if (item.children) {
         return (
-          <TreeNode key={item.id} title={item.name} isLeaf={item.isLeaf ? true:false}>
+          <TreeNode key={item.id_} title={item.name} isLeaf={item.isLeaf ? true:false}>
             {tree(item.children)}
           </TreeNode>
         );
       }
-      return <TreeNode key={item.id} title={item.name} isLeaf={item.isLeaf ? true:false}/>;
+      return <TreeNode key={item.id_} title={item.name} isLeaf={item.isLeaf ? true:false}/>;
     });
 
 
@@ -183,7 +186,7 @@ class AuthModal extends Component {
           <div style={{height:380,margin:-10}}>
             <Alert message = {`当前角色：${record.name}`} type="success" />
             <Row>
-              <Col span={5} style={{border:'1px solid #eee'}}>
+              <Col span={5} style={{border:'1px solid #eee','overflow':'auto',height:332,'borderTop':'1px solid #efefef','borderBottom':'1px solid #efefef'}}>
               <Tree
                 className="myCls"
                 defaultExpandedKeys={["1"]}
@@ -193,7 +196,7 @@ class AuthModal extends Component {
                 {tree(this.state.treeData)}
               </Tree>
               </Col>
-              <Col span={19}>
+              <Col span={19} style={{'overflow':'auto',height:332,'borderTop':'1px solid #efefef','borderBottom':'1px solid #efefef'}}>
                 <Table columns={this.state.colsData} dataSource={datas} rowKey="key"  pagination = {false} bordered size="small" />
               </Col>
             </Row>

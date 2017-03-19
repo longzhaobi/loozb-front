@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Breadcrumb } from 'antd';
 import { Link } from 'dva/router';
 import data from './data.json'
-import { Map } from 'react-amap';
+import UIHome from './component/UIHome';
 
 import styles from './Home.css';
 
@@ -23,8 +23,8 @@ const Home = (props) => {
     <div className={styles.root}>
       <Breadcrumb {...props}/>
       <div style={{width: '100%',height: table_height+144}}>
-            {/* <Map key="5a36cc1b63f03f268ca85d9fe5a0a283"/> */}
-        </div>
+        <UIHome />
+      </div>
     </div>
   );
 

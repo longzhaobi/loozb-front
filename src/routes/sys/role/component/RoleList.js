@@ -36,7 +36,7 @@ const RoleList = ({data, current, total, size, loading, selectedRowKeys, dispatc
         total={total}
         className={styles.page}
         current={current}
-        currentize={size}
+        pageSize={size}
         size="small"
         showTotal={total => `共 ${total}条记录 第${current}/${Math.ceil(total/size)}页`}
         showQuickJumper

@@ -16,6 +16,7 @@ function checkStatus(response) {
 const myConfig = {
     withCredentials: true,
     baseURL:'http://localhost:8088',
+    // baseURL:'http://139.129.226.66:8088'
 
   }
 // const headers = {
@@ -67,11 +68,12 @@ export default function request(config = {}) {
 }
 
 //请求前和请求结束的拦截器
-// axios.interceptors.request.use(function (config) {
-//   return config;
-// }, function (error) {
-//   return Promise.reject(error);
-// });
+axios.interceptors.request.use(function (config) {
+  console.log(config);
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+});
 //
 // axios.interceptors.response.use(function (response) {
 //   NProgress.done()//结束进度条

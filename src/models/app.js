@@ -41,7 +41,6 @@ export default {
           //保存token
           // localStorage.setItem('access_token', o.token);
           cookie.set('access_token', o.token, {expires: 7});
-          console.log(localStorage.getItem("access_token"));
           yield put(routerRedux.push('/'));
         }
       }

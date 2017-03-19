@@ -1,0 +1,14 @@
+.root {
+  margin:10px;
+}
+
+.row_1 {
+  height:300px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.col_1_1 {
+  /*margin-right:5px;*/
+  /*height:100%;*/
+  line-height: 300px;
+}
