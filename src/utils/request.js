@@ -16,7 +16,7 @@ function checkStatus(response) {
 const myConfig = {
     withCredentials: true,
     // baseURL:'http://localhost:8088',
-    baseURL:'http://139.129.226.66:88'
+    baseURL:'http://139.129.226.66:8088'
 
   }
 // const headers = {
