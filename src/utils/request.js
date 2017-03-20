@@ -16,7 +16,7 @@ function checkStatus(response) {
 const myConfig = {
     withCredentials: true,
     // baseURL:'http://localhost:8088',
-    baseURL:'http://139.129.226.66:8088'
+    baseURL:'http://139.129.226.66:88'
 
   }
 // const headers = {
@@ -47,7 +47,7 @@ export default function request(config = {}) {
         title: '登录已超时，请重新登录',
         content: '您的登录凭证已过期，请尝试重新登录后再操作！',
         onOk() {
-          window.location.href = 'http://localhost:8000/#/login';
+          window.location.href = 'http://www.csl.loozb.com/#/login';
         },
         okText:'确定'
       });
@@ -69,7 +69,6 @@ export default function request(config = {}) {
 
 //请求前和请求结束的拦截器
 axios.interceptors.request.use(function (config) {
-  console.log(config);
   return config;
 }, function (error) {
   return Promise.reject(error);
