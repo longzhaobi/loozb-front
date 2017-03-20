@@ -4,7 +4,7 @@ export async function query() {
   return request('/api/users');
 }
 
-export async function login(params) {
+export function login(params) {
   return request({
     url:'/api/login',
     method: 'post',

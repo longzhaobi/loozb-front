@@ -3,7 +3,6 @@ import axios from 'axios';
 import NProgress from 'nprogress'
 import React from 'react';
 import {Modal} from 'antd';
-import cookie from 'js-cookie';
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -13,18 +12,9 @@ function checkStatus(response) {
   throw error;
 
 }
-const myConfig = {
-    withCredentials: true,
-    // baseURL:'http://localhost:8088',
-    baseURL:'http://139.129.226.66:8088'
 
-  }
-// const headers = {
-//   'Content-Type': 'application/x-www-form-urlencoded',
-//   'X-Requested-With': 'XMLHttpRequest'
-// }
 export default function request(config = {}) {
-  return axios.request(Object.assign(config, myConfig))
+  return axios.request(Object.assign(config))
   .then(checkStatus)
   .catch((error) => {
     if(!error.response) {
@@ -47,7 +37,7 @@ export default function request(config = {}) {
         title: '登录已超时，请重新登录',
         content: '您的登录凭证已过期，请尝试重新登录后再操作！',
         onOk() {
-          window.location.href = 'http://www.csl.loozb.com/#/login';
+          window.location.href = 'http://csl.loozb.com/#/login';
         },
         okText:'确定'
       });
@@ -68,11 +58,11 @@ export default function request(config = {}) {
 }
 
 //请求前和请求结束的拦截器
-axios.interceptors.request.use(function (config) {
-  return config;
-}, function (error) {
-  return Promise.reject(error);
-});
+// axios.interceptors.request.use(function (config) {
+//   return config;
+// }, function (error) {
+//   return Promise.reject(error);
+// });
 //
 // axios.interceptors.response.use(function (response) {
 //   NProgress.done()//结束进度条
