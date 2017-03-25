@@ -110,3 +110,43 @@
     cursor:pointer;
     color:#efefef;
   }
+
+
+//markdown样式修饰
+  :global(pre) {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 12px;
+    line-height: 1.38461538;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  :global(code) {
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border: 0;
+  }
+
+  :global(blockquote) {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 16.25px;
+    border-left: 5px solid #e5e5e5;
+  }
+
+  :global(p) {
+    margin: 0 0 10px;
+  }
+
+  :global(.code), :global(code), :global(kbd), :global(pre), :global(samp) {
+    font-family: Monaco,Menlo,Consolas,Courier New,monospace;
+  }

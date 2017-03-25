@@ -38,6 +38,51 @@ export default function({ history, app }) {
           });
         },
       },{
+        breadcrumbName:"博客管理",
+        path:"/blog",
+        getComponent(nextState, cb) {
+          require.ensure([], require => {
+            cb(null, require('./routes/blog/Blog'));
+          });
+        },
+        childRoutes:[{
+          breadcrumbName:"博文列表",
+          path:"/blog/article",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/blog/article/model/article'));
+              cb(null, require('./routes/blog/article/Article'));
+            });
+          }
+        },{
+          breadcrumbName:"博文发布",
+          path:"/blog/issue",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/blog/issue/model/issue'));
+              cb(null, require('./routes/blog/issue/Issue'));
+            });
+          }
+        },{
+          breadcrumbName:"博文类型",
+          path:"/blog/classification",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/blog/classification/model/classification'));
+              cb(null, require('./routes/blog/classification/Classification'));
+            });
+          }
+        },{
+          breadcrumbName:"博文编辑",
+          path:"/blog/edit",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/blog/edit/model/edit'));
+              cb(null, require('./routes/blog/edit/Edit'));
+            });
+          }
+        }]
+      },{
         breadcrumbName:"系统管理",
         path:"/sys",
         getComponent(nextState, cb) {
