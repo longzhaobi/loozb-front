@@ -109,7 +109,11 @@ const ClassificationList = ({data, current, total, size, loading, selectedRowKey
   },{
     title: '分类名称',
     dataIndex: 'name',
-    width:180
+    width:120
+  },{
+    title: '分类URL',
+    dataIndex: 'url',
+    width:540
   },{
     title: '分类描述',
     dataIndex: 'description',
@@ -117,11 +121,11 @@ const ClassificationList = ({data, current, total, size, loading, selectedRowKey
   }, {
     title: '创建日期',
     dataIndex: 'ctime',
-    width:180
+    width:140
   }, {
     title: '维护日期',
     dataIndex: 'mtime',
-    width:180
+    width:140
   },{
     title: '操作',
     key: 'operation',
