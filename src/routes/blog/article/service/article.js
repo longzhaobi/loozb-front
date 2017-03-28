@@ -41,3 +41,10 @@ export async function queryById(id) {
     url:`/api/anon/articles/${id}`
   });
 }
+
+export async function topHandler(id) {
+  return request({
+    url:`/api/top/articles/${id}`,
+    method:'put'
+  });
+}

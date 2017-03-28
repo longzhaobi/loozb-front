@@ -36,6 +36,13 @@ const ArticleList = ({data, current, total, size, loading, selectedRowKeys, disp
       payload:id
     })
   }
+
+  function topHandler(id) {
+    dispatch({
+      type:`${namespace}/topHandler`,
+      payload:id
+    })
+  }
   function page() {
     return (<Pagination
         total={total}
@@ -83,11 +90,10 @@ const ArticleList = ({data, current, total, size, loading, selectedRowKeys, disp
       });
     }
   };
-
   const toolBar= (text, record, index) => (
     <div>
-      <Popconfirm title="确定要确认吗？" onConfirm={() => confirmHandler({id:record.id_})}>
-        <a href="javascript:void(0)">确认</a>
+      <Popconfirm title={record.confirm === '1' ? '确定取消确认吗？' : '确定要确认该博文吗？'} onConfirm={() => confirmHandler({id:record.id_})}>
+        <a href="javascript:void(0)">{record.confirm === '1' ? '取消确认' : '确认博文'}</a>
       </Popconfirm>
       {isAuth('permission:update') ? (
         <span>
@@ -102,6 +108,10 @@ const ArticleList = ({data, current, total, size, loading, selectedRowKeys, disp
             <a href="javascript:void(0)">删除</a>
           </Popconfirm>
         </span>) : ''}
+        <span className="ant-divider" />
+        <Popconfirm title="确定要置顶吗？" onConfirm={() => topHandler(record.id_)}>
+          <a href="javascript:void(0)">{record.sort === 0 ? '置顶博文' : '取消置顶'}</a>
+        </Popconfirm>
     </div>
   )
 
@@ -160,7 +170,7 @@ const ArticleList = ({data, current, total, size, loading, selectedRowKeys, disp
   },{
     title: '操作',
     key: 'operation',
-    width: 150,
+    width: 240,
     fixed: 'right',
     render: (text, record, index) => toolBar(text, record, index)
   }];

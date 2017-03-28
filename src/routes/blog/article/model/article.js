@@ -96,6 +96,10 @@ export default {
     *reload(action, { put, select }) {
       const current = yield select(state => state.article.current);
       yield put({ type: 'fetch', payload: { current } });
+    },
+    *topHandler({ payload }, {put, select, call }) {
+      const response = yield call(service.topHandler, payload);
+      yield put({ type: 'app/result',payload:{response, namespace:'article'} });
     }
 
   }
