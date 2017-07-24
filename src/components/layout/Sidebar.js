@@ -39,7 +39,7 @@ export default class Sidebar extends Component {
     })
   }
   render() {
-    const {location, dispatch, menuStyle, menu} = this.props;
+    const {location, dispatch, menuStyle, menu, online} = this.props;
     const cls = classnames({
       [styles.normal]:true,
       [styles.min]:menuStyle === 'min',
@@ -48,6 +48,12 @@ export default class Sidebar extends Component {
     const linkCls = classnames({
       [styles.show]:menuStyle === 'max',
       [styles.hide]:menuStyle === 'min'
+    })
+
+    const onlineCls = classnames({
+      [styles.show]:menuStyle === 'max',
+      [styles.hide]:menuStyle === 'min',
+      [styles.online]: true
     })
     const getMenu = data => data.map((item) => {
       return (
@@ -65,6 +71,7 @@ export default class Sidebar extends Component {
       <div className={cls}>
         <a className={styles.switchBar} onClick={() => this.switchClick()}>{menuStyle === 'max' ? <Icon type="menu-fold" /> : <Icon type="menu-unfold" />}</a>
         {getMenu(sortByWeight(menu, 'weight'))}
+        <div className={onlineCls}>当前在线人数：{online} 人</div>
       </div>
     )
   }

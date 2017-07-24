@@ -2,67 +2,63 @@ require('es6-promise').polyfill();
 import axios from 'axios';
 import NProgress from 'nprogress'
 import React from 'react';
-import {Modal} from 'antd';
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
+import {Modal, message} from 'antd';
 
+function checkStatus(response) {
+  if (response.status === 200) {
+    const { data } = response
+    if(data && (data.httpCode === 200 || data.httpCode === 403)) {
+      return data;
+    } else {
+      const error = new Error(data ? data.msg : response.statusText);
+      error.response = response;
+      throw error;
+    }
+  } else {
+    const error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+  }
 }
 
+const params = {params: {key:new Date()}}
+
 export default function request(config = {}) {
-  return axios.request(Object.assign(config))
+  return axios.request(Object.assign(config, {params: {key:new Date()}}))
   .then(checkStatus)
   .catch((error) => {
     if(!error.response) {
       //假如未定义，说明获取后端网路失败
-      Modal.error({
-        title: '网络错误',
-        content: '抱歉，获取网络失败，或者系统正在维护，请稍后再试'
-      });
+      message.error("获取网络失败，请刷新浏览器试试")
       return;
     }
-    const {status, statusText,data,request} = error.response;
-    if(status === 401) {
-      Modal.error({
-        title: '抱歉您没有该权限',
-        content: data
-      });
-      return;
-    } else if(status === 402) {
-      const modal = Modal.warning({
-        title: '登录已超时，请重新登录',
-        content: '您的登录凭证已过期，请尝试重新登录后再操作！',
-        onOk() {
-          window.location.href = 'http://csl.loozb.com/#/login';
-        },
-        okText:'确定'
-      });
-      return;
-    } else if(status === 404) {
-      Modal.error({
-        title: '抱歉，请求地址无效',
-        content: request.responseURL +' 在服务器未被注册'
-      });
+    const { status, data } = error.response;
+    if(status === 207) {
+      message.warning('频繁操作')
+      return
+    }
+    const httpCode = data && data.httpCode
+    if(status === 401 || httpCode === 401) {
+      window.location.href = baseUrl + '/#/login';
       return;
     } else {
-      Modal.error({
-        title: '未知错误，错误码：' + status,
-        content: statusText
-      });
+      if(data.msg) {
+        message.error(data.msg);
+      } else {
+        message.error("抱歉！系统出错");
+      }
+      
+      // return;
     }
   });
 }
 
 //请求前和请求结束的拦截器
-// axios.interceptors.request.use(function (config) {
-//   return config;
-// }, function (error) {
-//   return Promise.reject(error);
-// });
+axios.interceptors.request.use(function (config) {
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+});
 //
 // axios.interceptors.response.use(function (response) {
 //   NProgress.done()//结束进度条

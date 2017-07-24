@@ -66,8 +66,8 @@
   }
   :global(.ant-table-footer) {
     text-align: right;
-    line-height: 55px;
-    padding:12px 8px !important;
+    /*line-height: 55px;*/
+    /*padding:12px 8px !important;*/
     height:48px;
     z-index: 3;
     top: 0px !important;
@@ -81,7 +81,7 @@
     display: none;
   }
   :global(.ant-table-title) {
-    padding: 8px 8px !important;
+    padding: 18px 18px !important;
     top: 0px !important;
     background-color: #fff;
     border-radius: 0 !important;
@@ -111,42 +111,23 @@
     color:#efefef;
   }
 
-
-//markdown样式修饰
-  :global(pre) {
-    display: block;
-    padding: 9.5px;
-    margin: 0 0 10px;
-    font-size: 12px;
-    line-height: 1.38461538;
-    color: #333;
-    word-break: break-all;
-    word-wrap: break-word;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  :global(code) {
-    padding: 0;
-    margin: 0;
-    font-size: inherit;
-    color: inherit;
-    white-space: pre-wrap;
-    background-color: transparent;
-    border: 0;
+  :global(.ant-dropdown-link) {
+    color:#fff;
+    margin-left:10px;
   }
 
-  :global(blockquote) {
-    padding: 10px 20px;
-    margin: 0 0 20px;
-    font-size: 16.25px;
-    border-left: 5px solid #e5e5e5;
+  :global(.info-modal) :global(.ant-modal-body) {
+    padding:0px;
   }
 
-  :global(p) {
-    margin: 0 0 10px;
+  :global(.ant-collapse-content-box) {
+    padding-top:5px !important;
   }
 
-  :global(.code), :global(code), :global(kbd), :global(pre), :global(samp) {
-    font-family: Monaco,Menlo,Consolas,Courier New,monospace;
+  :global(.ant-collapse-content) {
+    padding:0px !important;
   }
+
+ :global(.downing-model) :global(.ant-modal-body) {
+   padding:0px;
+ }

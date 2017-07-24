@@ -63,3 +63,13 @@
 .max {
   width:150px;
 }
+
+
+.online {
+  position: absolute;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  color:#DDD;
+  height:22px;
+}

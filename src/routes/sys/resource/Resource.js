@@ -1,8 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'dva';
-import MsgTip from '../../../components/ui/MsgTip';
 import ResourceList from './component/ResourceList';
-
+import WithRule from '../../../hocs/WithRule'
 import styles from './Resource.css';
 
 const Resource = ({location, dispatch, children, resource, loading}) => {
@@ -18,7 +17,6 @@ const Resource = ({location, dispatch, children, resource, loading}) => {
 
   return (
     <div className={styles.root}>
-      <MsgTip />
       <ResourceList {...resourceListProps}/>
     </div>
   )
@@ -31,4 +29,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Resource);
+export default connect(mapStateToProps)(WithRule('resource:view')(Resource));

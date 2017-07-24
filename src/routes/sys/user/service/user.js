@@ -42,3 +42,9 @@ export async function auth(id, params) {
     data:qs.stringify(params)
   });
 }
+
+export async function judgeExist(params) {
+  return request({
+    url:`api/users/exist?${qs.stringify(params)}`
+  });
+}

@@ -8,7 +8,6 @@ const Sys = (props) => {
   const {subMenu, menuStyle} = app;
   return (
     <div className={styles.normal}>
-      <Breadcrumb {...props}/>
       <MenuBar location={location} name={route.breadcrumbName} menuStyle={menuStyle} subMenu={subMenu}/>
       <div className={styles.mainContent}>
         {children}

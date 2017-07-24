@@ -41,8 +41,8 @@ class RoleModal extends Component {
             dispatch({
               type: `${namespace}/${option}`,
               payload: {...params, id:record.id_},
-              callback(response) {
-                dispatch({ type: 'app/result',payload:{response, namespace}, onHander() {
+              callback(data) {
+                dispatch({ type: 'app/result',payload:{data, namespace}, onHander() {
                   _self.hideModelHandler();
                 } });
               }
@@ -70,6 +70,7 @@ class RoleModal extends Component {
           title={title}
           visible={this.state.visible}
           width={560}
+          maskClosable={false}
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
           footer={[

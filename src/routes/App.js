@@ -5,6 +5,8 @@ import Home from './home/Home';
 import Layout from '../components/layout/Layout';
 import styles from './App.css';
 
+import WithInit from '../hocs/WithInit';
+
 function App (props) {
 
   const { children} = props
@@ -22,4 +24,4 @@ function mapStateToProps({app}) {
   return {app};
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(WithInit(App));

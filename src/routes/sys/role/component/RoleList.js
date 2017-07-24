@@ -1,11 +1,17 @@
 import React, {PropTypes} from 'react';
 import { routerRedux } from 'dva/router';
+
 import {Table, Select, Input, Alert, Button, Pagination, Row, Col, Popconfirm, Icon, Tooltip, message} from 'antd';
+const Option = Select.Option;
+const Search = Input.Search;
+
 import RoleModal from './RoleModal';
 import AuthModal from './AuthModal';
 import styles from './RoleList.css';
-const Option = Select.Option;
-const Search = Input.Search;
+
+
+import IButton from '../../../../components/ui/IButton';
+
 const RoleList = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword}) => {
   function removeHandler(params) {
     dispatch({
@@ -52,19 +58,16 @@ const RoleList = ({data, current, total, size, loading, selectedRowKeys, dispatc
       <div>
         <Row>
           <Col span={16}>
-           <RoleModal  record={{}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增用户">
-            <Button type="primary" size="large" className={styles.btn} icon="plus">新增</Button>
+           <RoleModal  record={{}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增角色">
+            <IButton type="primary" icon="plus" perm="role:create"> 新增 </IButton>
            </RoleModal>
            <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler(selectedRowKeys)}>
-             <Button type="danger" size="large" disabled={!hasSelected} className={styles.btn} icon="delete">删除</Button>
+             <IButton type="danger" disabled={!hasSelected} perm="role:remove"  icon="delete">删除</IButton>
            </Popconfirm>
            <span style={{ marginLeft: 8 }}>{hasSelected ? `选择了 ${selectedRowKeys.length} 条数据` : ''}</span>
           </Col>
           <Col span={8} style={{float:'right'}} >
             <Search size="large" style={{width:300,float:'right'}} defaultValue={keyword} placeholder="输入任务名称查询..." onSearch={value => onSearch(value)} />
-            <Tooltip placement="left" title="无缓存刷新">
-              <Icon type="reload" className="reloadBtn" onClick={() => onSearch({noCache:'yes'})}/>
-            </Tooltip>
           </Col>
         </Row>
       </div>
@@ -83,27 +86,17 @@ const RoleList = ({data, current, total, size, loading, selectedRowKeys, dispatc
 
   const toolBar= (text, record, index) => (
     <div>
-      {isAuth('role:allot') ? (
         <AuthModal record={record} dispatch={dispatch} namespace={namespace} loading={loading}>
-          <a>授权</a>
+          <IButton perm="role:allot" a> 授权 </IButton>
         </AuthModal>
-        ) : ''
-      }
-      {isAuth('role:update') ? (
-        <span>
-          <span className="ant-divider" />
-          <RoleModal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑用户">
-            <a>编辑</a>
-          </RoleModal>
-        </span>
-      ) : ''}
-      {isAuth('role:remove') ? (
-        <span>
-          <span className="ant-divider" />
-          <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({id:record.id_})}>
-            <a href="javascript:void(0)">删除</a>
-          </Popconfirm>
-        </span>) : ''}
+        
+        <RoleModal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑用户">
+          <IButton perm="role:update" a> <span className="ant-divider" />编辑 </IButton>
+        </RoleModal>
+       
+        <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({id:record.id_})}>
+          <IButton perm="role:remove" a>  <span className="ant-divider" />删除 </IButton>
+        </Popconfirm>
     </div>
   )
 

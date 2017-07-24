@@ -12,9 +12,9 @@
   "autoprefixer": null,
   "proxy": {
     "/api": {
-      "target": "http://localhost:8088",
+      "target": "http://localhost:1088",
       "changeOrigin": true,
-      "pathRewrite": { "^/api" : "/api" }
+      "pathRewrite": { "^/api" : "/" }
     }
   },
   "extraBabelPlugins": [

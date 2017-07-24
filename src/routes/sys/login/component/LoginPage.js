@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-import { Form, Input, DatePicker, Col,Button } from 'antd';
+import { Form, Input, DatePicker, Col,Button, Icon } from 'antd';
 
 import styles from './LoginPage.css';
 const FormItem = Form.Item;
@@ -21,14 +21,14 @@ const LoginPage = ({dispatch,form, loading, namespace}) => {
   return (
     <div className={styles.login}>
       <Form className={styles.loginForm}  layout='horizontal' onSubmit={handleSubmit}>
-        <h1 className={styles.title}>loozb</h1>
+        <h1 className={styles.title}>贵州交易见证系统平台</h1>
         <FormItem hasFeedback>
           {getFieldDecorator('account', {
               rules: [
-                { required: true, min: 3, message: '用户名至少为 3 个字符' }
+                { required: true, min: 2, message: '账户名不能小于2个字符' }
               ]
           })(
-              <Input type="text" className={styles.username} id="username" placeholder="用户名" />
+              <Input type="text" prefix={<Icon type="user" style={{ fontSize: 13 }} />} className={styles.username} id="username" placeholder="用户名" />
           )}
         </FormItem>
         <FormItem hasFeedback>
@@ -37,10 +37,10 @@ const LoginPage = ({dispatch,form, loading, namespace}) => {
               { required: true, whitespace: true, message: '请填写密码' }
             ]
           })(
-            <Input className={styles.password} id="password" type="password" placeholder="密码"/>
+            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} className={styles.password} id="password" type="password" placeholder="密码"/>
           )}
         </FormItem>
-        <Button type="primary" htmlType="submit" size="large" loading={loading}>登录</Button>
+        <Button type="primary" style={{width:'100%',height:40}} htmlType="submit" size="large" loading={loading}>登录</Button>
       </Form>
     </div>
   )

@@ -18,21 +18,13 @@ class RoleModal extends Component {
     if (e) e.stopPropagation();
     const {dispatch, namespace} = this.props;
     const _self = this;
-    dispatch({type:`${namespace}/fetchPermission`, callback(response) {
-      if(response) {
-        const {data} = response;
-        if(data && data.httpCode === 200) {
-          _self.setState({
-            visible: true,
-            permission:data.data
-          });
-        } else {
-          message.error("初始化权限信息失败");
-        }
-      } else {
-        message.error("获取响应信息失败");
+    dispatch({type:`${namespace}/fetchPermission`, callback(data) {
+      if(data) {
+        _self.setState({
+          visible: true,
+          permission:data.data
+        });
       }
-
     }});
   };
 
@@ -57,8 +49,8 @@ class RoleModal extends Component {
             dispatch({
               type: `${namespace}/${option}`,
               payload: {...formData, id:record.id_},
-              callback(response) {
-                dispatch({ type: 'app/result',payload:{response, namespace}, onHander() {
+              callback(data) {
+                dispatch({ type: 'app/result',payload:{data, namespace}, onHander() {
                   _self.hideModelHandler();
                 } });
               }
@@ -79,7 +71,7 @@ class RoleModal extends Component {
 
     const permissionOption = [];
     for (let i = 0; i < this.state.permission.length; i++) {
-      permissionOption.push(<Option key={this.state.permission[i].id}>{this.state.permission[i].name}</Option>);
+      permissionOption.push(<Option key={this.state.permission[i].id}>{this.state.permission[i].name}</Option>)
     }
 
     return (
@@ -91,6 +83,7 @@ class RoleModal extends Component {
           title={title}
           visible={this.state.visible}
           width={560}
+          maskClosable={false}
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
           footer={[

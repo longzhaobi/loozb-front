@@ -31,9 +31,7 @@ const MenuBar = ({location,name, subMenu, menuStyle}) => {
   });
 
   const cls = classnames({
-    [styles.normal]:true,
-    [styles.min]:menuStyle === 'min',
-    [styles.max]:menuStyle === 'max'
+    [styles.normal]:true
   });
 
   function getCurrentUrl(pathname) {
@@ -41,11 +39,11 @@ const MenuBar = ({location,name, subMenu, menuStyle}) => {
   }
 
   return (
-    <div className={cls} style={{height:table_height+142}}>
+    <div className={cls}>
       <div className={styles.menuName}>{name}</div>
       <Menu
           selectedKeys={[getCurrentUrl(location.pathname)]}
-          defaultOpenKeys={['sys','ce']}
+          defaultOpenKeys={['sys']}
           mode="inline" className="hlht-menu-style" style={{backgroundColor:'rgb(234,237,241)'}}
         >
           {menus(subMenu)}

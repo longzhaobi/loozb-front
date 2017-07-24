@@ -1,8 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'dva';
-import MsgTip from '../../../components/ui/MsgTip';
 import RoleList from './component/RoleList';
-
+import WithRule from '../../../hocs/WithRule'
 import styles from './Role.css';
 
 const Role = ({location, dispatch, children, role, loading}) => {
@@ -18,7 +17,6 @@ const Role = ({location, dispatch, children, role, loading}) => {
 
   return (
     <div className={styles.root}>
-      <MsgTip />
       <RoleList {...roleListProps}/>
     </div>
   )
@@ -31,4 +29,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Role);
+export default connect(mapStateToProps)(WithRule('role:view')(Role));

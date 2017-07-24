@@ -1,16 +1,37 @@
 import React, {PropTypes} from 'react';
 import { routerRedux } from 'dva/router';
+
 import {Table, Select, Input, Alert, Button, Pagination, Row, Col, Popconfirm, Icon, Tooltip, message} from 'antd';
+const Option = Select.Option;
+const Search = Input.Search;
+
 import UserModal from './UserModal';
 import AuthModal from './AuthModal';
 import styles from './UserList.css';
-const Option = Select.Option;
-const Search = Input.Search;
+
+import IButton from '../../../../components/ui/IButton';
+import WithCRUD from '../../../../hocs/WithCRUD';
+
 const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword}) => {
   function removeHandler(params) {
     dispatch({
       type:`${namespace}/remove`,
       payload:params
+    })
+  }
+
+  function lockedHandler(id, locked, idcard) {
+    const params = {
+      id,
+      locked: locked === '0' ? '1' : '0',
+      idcard
+     }
+    dispatch({
+      type: `${namespace}/update`,
+      payload: params,
+      callback(data) {
+        dispatch({ type: 'app/result',payload:{data, namespace}});
+      }
     })
   }
 
@@ -53,18 +74,15 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
         <Row>
           <Col span={16}>
            <UserModal  record={{}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增用户">
-            <Button type="primary" size="large" className={styles.btn} icon="plus">新增</Button>
+            <IButton type="primary" icon="plus" perm="user:create"> 新增 </IButton>
            </UserModal>
            <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler(selectedRowKeys)}>
-             <Button type="danger" size="large" disabled={!hasSelected} className={styles.btn} icon="delete">删除</Button>
+             <IButton type="danger" disabled={!hasSelected} perm="user:remove"  icon="delete">删除</IButton>
            </Popconfirm>
            <span style={{ marginLeft: 8 }}>{hasSelected ? `选择了 ${selectedRowKeys.length} 条数据` : ''}</span>
           </Col>
           <Col span={8} style={{float:'right'}} >
             <Search size="large" style={{width:300,float:'right'}} defaultValue={keyword} placeholder="输入任务名称查询..." onSearch={value => onSearch(value)} />
-            <Tooltip placement="left" title="无缓存刷新">
-              <Icon type="reload" className="reloadBtn" onClick={() => onSearch({noCache:'yes'})}/>
-            </Tooltip>
           </Col>
         </Row>
       </div>
@@ -83,27 +101,18 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
 
   const toolBar= (text, record, index) => (
     <div>
-      {isAuth('user:allot') ? (
-        <AuthModal record={record} dispatch={dispatch} namespace={namespace} loading={loading}>
-          <a>授权</a>
-        </AuthModal>
-        ) : ''
-      }
-      {isAuth('user:update') ? (
-        <span>
-          <span className="ant-divider" />
-          <UserModal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑用户">
-            <a>编辑</a>
-          </UserModal>
-        </span>
-      ) : ''}
-      {isAuth('user:remove') ? (
-        <span>
-          <span className="ant-divider" />
-          <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({id:record.id_})}>
-            <a href="javascript:void(0)">删除</a>
-          </Popconfirm>
-        </span>) : ''}
+      <AuthModal record={record} dispatch={dispatch} namespace={namespace} loading={loading}>
+        <IButton perm="user:allot" a> 授权 </IButton>
+      </AuthModal>
+      <UserModal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑用户">
+        <IButton perm="user:update" a> <span className="ant-divider" />编辑 </IButton>
+      </UserModal>
+      <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({id:record.id_})}>
+        <IButton perm="user:remove" a> <span className="ant-divider" />删除 </IButton>
+      </Popconfirm>
+      <Popconfirm title="确定要继续吗？" onConfirm={() => lockedHandler(record.id_, record.locked, record.idcard)}>
+        <IButton perm="user:remove" a> <span className="ant-divider" />{record.locked === '1' ? '解锁' : '锁定'} </IButton>
+      </Popconfirm>
     </div>
   )
 
@@ -114,6 +123,11 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
     render:(text, record, index) => (
       <span>{index + 1}</span>
     )
+  },{
+    title: '姓名',
+    className: 'column-money',
+    dataIndex: 'name',
+    width:120
   },{
     title: '用户名',
     className: 'column-money',
@@ -129,29 +143,21 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
   }, {
     title: '身份证号码',
     dataIndex: 'idcard',
-    width:180,
+    width:180
   }, {
-    title: '出生日期',
-    dataIndex: 'birthday',
-    width:140,
-  }, {
-    title: '邮箱',
-    dataIndex: 'email',
-    width:180,
+    title: '联系地址',
+    dataIndex: 'address',
+    width:380,
   }, {
     title: '联系电话',
     dataIndex: 'phone',
     width:140
   }, {
-    title: '工作职位',
-    dataIndex: 'job',
-    width:100
-  }, {
     title: '是否锁住',
     dataIndex: 'locked',
     width:80,
     render:(text, record, index) => (
-      <span>{record == '1' ? '已锁住':'未锁住'}</span>
+      <span>{text == '1' ? '已锁住':'未锁住'}</span>
     )
   }, {
     title: '拥有角色',
@@ -168,7 +174,7 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
   },{
     title: '操作',
     key: 'operation',
-    width: 150,
+    width: 180,
     fixed: 'right',
     render: (text, record, index) => toolBar(text, record, index)
   }];
@@ -190,4 +196,4 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
   )
 }
 
-export default UserList;
+export default WithCRUD()(UserList);

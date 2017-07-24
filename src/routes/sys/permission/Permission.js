@@ -1,8 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'dva';
-import MsgTip from '../../../components/ui/MsgTip';
 import PermissionList from './component/PermissionList';
-
+import WithRule from '../../../hocs/WithRule'
 import styles from './Permission.css';
 
 const Permission = ({location, dispatch, children, permission, loading}) => {
@@ -18,7 +17,6 @@ const Permission = ({location, dispatch, children, permission, loading}) => {
 
   return (
     <div className={styles.root}>
-      <MsgTip />
       <PermissionList {...permissionListProps}/>
     </div>
   )
@@ -31,4 +29,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Permission);
+export default connect(mapStateToProps)(WithRule('permission:view')(Permission));

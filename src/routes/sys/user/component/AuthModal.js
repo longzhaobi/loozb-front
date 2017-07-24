@@ -22,12 +22,10 @@ class AuthModal extends Component {
     dispatch({
       type: `${namespace}/fetchRoles`,
       callback(response) {
-        dispatch({ type: 'app/result',payload:{response, namespace}, onHander({data}) {
-          _self.setState({
-            visible: true,
-            roles:data
-          });
-        } });
+        _self.setState({
+          visible: true,
+          roles:response.data
+        });
       }
     });
   };
@@ -35,7 +33,7 @@ class AuthModal extends Component {
   hideModelHandler = () => {
     this.setState({
       visible: false,
-      roles:[]
+      // roles:[]
     });
   };
 
@@ -44,6 +42,9 @@ class AuthModal extends Component {
     form.validateFields((err, params) => {
       if (!err) {
         const rolesId = params.roles || [];
+        const param = {
+          roleIds:rolesId.join(",")
+        }
         Modal.confirm({
           title: `确定授权吗？`,
           content: `授权后，用户【${record.username}】将拥有选择的角色权限`,
@@ -53,9 +54,9 @@ class AuthModal extends Component {
             const _self = this;
             dispatch({
               type: `${namespace}/auth`,
-              payload: {id:record.id_, params},
-              callback(response) {
-                dispatch({ type: 'app/result',payload:{response, namespace}, onHander() {
+              payload: {id:record.id_, param},
+              callback(data) {
+                dispatch({ type: 'app/result',payload:{data, namespace}, onHander() {
                   message.success('授权成功！');
                   _self.hideModelHandler();
                 } });
@@ -77,7 +78,7 @@ class AuthModal extends Component {
 
     const rolesOption = [];
     for (let i = 0; i < this.state.roles.length; i++) {
-      rolesOption.push(<Option key={this.state.roles[i].id}>{this.state.roles[i].name}</Option>);
+      rolesOption.push(<Option key={this.state.roles[i].id_}>{this.state.roles[i].name}</Option>);
     }
     return (
       <span>
@@ -106,7 +107,7 @@ class AuthModal extends Component {
                  initialValue: (record['roleIds'] == "" || record['roleIds'] == null) ? Array.of() : record['roleIds'].split(',') || []
                })(
                  <Select
-                   multiple
+                   mode='multiple'
                    placeholder="请选择角色信息"
                   //  defaultValue={['a10', 'c12']}
                   //  onChange={handleChange}

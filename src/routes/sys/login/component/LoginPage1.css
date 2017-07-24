@@ -1,0 +1,62 @@
+.loginPanel {
+	width:100%;
+  height:100vh;
+  background:url("../../../../assets/login-bg.jpg") repeat;
+}
+.main{position:relative; width:100%; height:100%; }
+.loginForm {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 1200px;
+	height: 560px;
+	margin-left: -600px;
+	margin-top: -300px;
+
+}
+
+.logo{ width:750px; height:139px; }
+
+.logo h1{ font-size:50px; font-weight:600; color:#0167c7; line-height:60px; padding-top:20px; }
+
+.fjimg{ position:absolute; left:30px; bottom:30px; width:640px; height:400px; z-index:20; }
+
+.logoimg {
+	width:140px;
+	height:140px; 
+	float:left; 
+	margin-left:30px; 
+	margin-right:10px; 
+}
+
+.version {
+	font-size:24px; 
+	line-height:40px; 
+	color:#666;
+}
+
+.login{ 
+	position:relative; 
+	float:right; 
+	width: 350px; 
+	height: 380px; 
+	background-color: #fff; 
+	margin-top:31px; 
+	margin-right:56px; 
+	z-index:2; 
+	-webkit-box-shadow: 3px 4px 8px rgba(0,0,0,.08); 
+	-moz-box-shadow: 3px 4px 8px rgba(0,0,0,.08); 
+	box-shadow: 3px 4px 8px rgba(0,0,0,.08); 
+}
+
+.login .sj{ width:20px; height:20px; z-index:2; }
+.login .sj1{ position:absolute; top:0; left:-20px; background:url(../../../../assets/login_sj.png) 0 0 no-repeat; }
+.login .sj2{ position:absolute; top:0; right:-20px; background:url(../../../../assets/login_sj.png) -20px 0 no-repeat; }
+.login .sj3{ position:absolute; bottom:0; left:-20px; background:url(../../../../assets/login_sj.png) 0 -20px no-repeat; }
+.login .sj4{ position:absolute; bottom:0; right:-20px; background:url(../../../../assets/login_sj.png) -20px -20px no-repeat; }
+.login .text{ width:100%; height:50px; line-height:50px; font-size:22px; color:#0075e4; text-align:center; margin-bottom:30px; letter-spacing:5px; text-index:-5px; border-bottom:1px solid #e9e9e9; }
+
+
+.bar{ position:absolute; width:100%; height:340px; top:50%; margin-top:-110px; background:#0167c7; }
+
+.footer{ position:absolute; bottom:20px; width:100%; font-size:16px; color:#666; line-height:24px; text-align:center; }

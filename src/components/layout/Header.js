@@ -1,47 +1,96 @@
-import React, { PropTypes } from 'react';
-import { Menu, Icon, Modal} from 'antd';
-import { Link } from 'dva/router';
-import styles from './Header.css';
-import { Select } from 'antd';
+import React, { PropTypes, Component } from 'react';
+import { Link,routerRedux } from 'dva/router';
+import { Menu, Icon, Modal, Select, Dropdown, Button} from 'antd';
+const ButtonGroup = Button.Group;
 const Option = Select.Option;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
-function Header({ location,dispatch }) {
-  let user = localStorage.getItem('current_user');
-  function logout() {
-    Modal.confirm({
-      title: '确定退出吗？',
-      onOk() {
-        dispatch({
-          type:'auth/logout'
-        });
-      },
-      okText: '确定',
-      cancelText: '取消',
-    });
+import PasswordModal from '../ui/PasswordModal';
+import styles from './Header.css';
+
+export default class Header extends Component {
+  static propTypes = {
+
+  };
+
+  constructor(props) {
+    super(props);
+    this.onSubBarClick = this.onSubBarClick.bind(this);
+    this.state = {
+      value:''
+    };
   }
-  function handleChange(value) {
-    dispatch({
-      type:'system/changeDataSource',
-      payload:value
+
+  componentWillMount() {
+    const {routes} = this.props;
+    if(routes && routes.length > 1 && routes[1].path) {
+      let value = routes[1].path.substring(1)
+      this.onSubBarClick(value);
+    }
+  }
+
+  componentDidMount() {
+    const {menu, dispatch, routes} = this.props;
+    if(menu && menu.length > 0 && routes.length === 1) {
+      this.onSubBarClick(menu[0].identity)
+      dispatch(routerRedux.push({
+        pathname: menu[0].url
+      }));
+    }
+  }
+
+  onSubBarClick(value) {
+    this.setState({
+      value
     })
   }
-  return (
-    <div className={styles.normal}>
-      <div className={styles.leaft}>
-        <a className={styles.logo}>LOOZB 后台管理系统</a>
-        <a className={styles.item}>数据控制台</a>
+
+  render() {
+    const { location,dispatch, user, menu } = this.props;
+    function logout() {
+      dispatch({
+        type:'app/logout'
+      });
+    }
+
+    function checkInfo() {
+
+    }
+
+    const subMenu = (
+      <Menu>
+        <Menu.Item key="0">
+          <span><Icon type="book" onClick={checkInfo}/> 个人信息</span>
+        </Menu.Item>
+        <Menu.Item key="1">
+          <span onClick={logout}><Icon type="logout" /> 安全退出</span>
+        </Menu.Item>
+      </Menu>
+    );
+
+    const getMenu = data => data.map((item) => {
+      return (
+        <Link  onClick={() => this.onSubBarClick(item.identity)} key={item.identity} className = {this.state.value === item.identity ? styles.isCurrent : styles.noCurrent} to={item.url}>
+          <span>{item.name}</span>
+        </Link>
+      )
+    });
+
+    return (
+      <div className={styles.normal}>
+        <div className={styles.leaft}>
+          <a className={styles.logo}>ADMIN 系统基础权限系统</a>
+          {getMenu(menu)}
+        </div>
+        <div className={styles.right}>
+            <p style={{color:'#fff'}}>欢迎您！{user.name}</p> <span style={{width:'10px',color:'#fff'}}></span>
+            <PasswordModal title="修改密码" dispatch={dispatch}>
+                <a style={{color:'#fff'}}>修改密码</a>
+            </PasswordModal> <span style={{width:'10px',color:'#fff'}}></span>
+            <a style={{color:'#fff'}} onClick={logout}>安全退出</a>
+        </div>
       </div>
-      <div className={styles.right}>
-        <a onClick={logout} className={styles.logout}><Icon style={{marginTop:17}} type="user" />欢迎您-{user == null ? "" : JSON.parse(user).username}</a>
-      </div>
-    </div>
-  );
+    );
+  }
 }
-
-Header.propTypes = {
-  location: PropTypes.object,
-};
-
-export default Header;

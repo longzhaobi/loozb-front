@@ -20,69 +20,6 @@ export default function({ history, app }) {
         });
       },
       childRoutes:[{
-        path: '/amap',
-        breadcrumbName:"高德地图功能演示",
-        getComponent(nextState, cb) {
-          require.ensure([], (require) => {
-            registerModel(app, require('./routes/amap/model/amap'));
-            cb(null, require('./routes/amap/Amap'));
-          });
-        },
-      },{
-        path: '/upload',
-        breadcrumbName:"附件上传",
-        getComponent(nextState, cb) {
-          require.ensure([], (require) => {
-            registerModel(app, require('./routes/upload/model/upload'));
-            cb(null, require('./routes/upload/Upload'));
-          });
-        },
-      },{
-        breadcrumbName:"博客管理",
-        path:"/blog",
-        getComponent(nextState, cb) {
-          require.ensure([], require => {
-            cb(null, require('./routes/blog/Blog'));
-          });
-        },
-        childRoutes:[{
-          breadcrumbName:"博文列表",
-          path:"/blog/article",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/blog/article/model/article'));
-              cb(null, require('./routes/blog/article/Article'));
-            });
-          }
-        },{
-          breadcrumbName:"博文发布",
-          path:"/blog/issue",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/blog/issue/model/issue'));
-              cb(null, require('./routes/blog/issue/Issue'));
-            });
-          }
-        },{
-          breadcrumbName:"博文类型",
-          path:"/blog/classification",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/blog/classification/model/classification'));
-              cb(null, require('./routes/blog/classification/Classification'));
-            });
-          }
-        },{
-          breadcrumbName:"博文编辑",
-          path:"/blog/edit",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/blog/edit/model/edit'));
-              cb(null, require('./routes/blog/edit/Edit'));
-            });
-          }
-        }]
-      },{
         breadcrumbName:"系统管理",
         path:"/sys",
         getComponent(nextState, cb) {
@@ -128,12 +65,30 @@ export default function({ history, app }) {
             });
           },
         },{
-          breadcrumbName:"数据字典列表",
-          path:"/sys/table",
+          breadcrumbName:"系统日志",
+          path:"/sys/event",
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              registerModel(app, require('./routes/sys/table/model/table'));
-              cb(null, require('./routes/sys/table/Table'));
+              registerModel(app, require('./routes/sys/event/model/event'));
+              cb(null, require('./routes/sys/event/Event'));
+            });
+          },
+        },{
+          breadcrumbName:"会话管理",
+          path:"/sys/session",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/sys/session/model/session'));
+              cb(null, require('./routes/sys/session/Session'));
+            });
+          },
+        },{
+          breadcrumbName:"数据字典",
+          path:"/sys/dic",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/sys/dic/model/dic'));
+              cb(null, require('./routes/sys/dic/Dic'));
             });
           },
         }]
@@ -147,7 +102,7 @@ export default function({ history, app }) {
           // registerModel(app, require('./models/users'));
           cb(null, require('./routes/sys/login/Login'));
         });
-      },
+      }
     }
   ];
 

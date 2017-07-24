@@ -8,13 +8,14 @@ import './index.css';
 
 import isAuth from './utils/auth';
 window.isAuth = isAuth;
-window.table_height = document.documentElement.clientHeight - 228;
+window.table_height = document.documentElement.clientHeight - 218;
 
 const ERROR_MSG_DURATION = 3; // 3 秒
 
 // 1. Initialize
 const app = dva({
   onError(e) {
+  	console.log(e)
     message.error(e.message, ERROR_MSG_DURATION);
   },
   history: useRouterHistory(createHashHistory)({ queryKey: false }),

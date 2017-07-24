@@ -21,8 +21,7 @@ const Home = (props) => {
 
   return (
     <div className={styles.root}>
-      <Breadcrumb {...props}/>
-      <div style={{width: '100%',height: table_height+144}}>
+      <div className={styles.homeContent}>
         <UIHome />
       </div>
     </div>

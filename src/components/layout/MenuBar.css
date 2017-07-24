@@ -1,24 +1,16 @@
 .normal {
   width:180px;
   position: fixed;
-  left:50px;
   overflow-y: auto;
   background-color: rgb(234,237,241);
-  /*height:100%;*/
+  height:calc(100vh - 50px);
 }
 .menuName {
   height:70px;
   width:100%;
   display: flex;
   align-items: center;
-  font-weight: bold;
-  text-indent: 20px;
+  text-indent: 38px;
+  font-size:20px;
   background-color: rgb(217,222,228);
-}
-.max {
-  left:150px;
-}
-
-.min {
-  left:50px;
 }

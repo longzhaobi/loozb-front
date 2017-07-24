@@ -28,9 +28,7 @@ class AuthModal extends Component {
     //每次选择，把auths清0
     this.state.auths = [];
     const {record, namespace, dispatch} = this.props;
-    console.log(selectedKeys);
     const pid = selectedKeys.join("");
-    console.log(pid);
     const roleId = record.id_;
     if(roleId && pid){
       const _self = this;
@@ -108,13 +106,10 @@ class AuthModal extends Component {
             pid:pid,
             auths:auths
           }
-          dispatch({type:`${namespace}/doAuth`, payload:params, callback(response) {
-            if(response) {
-              const {data} = response;
-              if(data.httpCode === 200) {
-                message.success("授权成功");
-                // _self.hideModelHandler();
-              }
+          dispatch({type:`${namespace}/doAuth`, payload:params, callback(data) {
+            if(data) {
+              message.success("授权成功");
+              // _self.hideModelHandler();
             }
           }});
         },
@@ -174,6 +169,7 @@ class AuthModal extends Component {
           title='角色授权'
           visible={this.state.visible}
           width={1200}
+          maskClosable={false}
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
           footer = {[
