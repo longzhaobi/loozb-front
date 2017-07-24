@@ -25,7 +25,7 @@ export default function({ history, app }) {
         getComponent(nextState, cb) {
           require.ensure([], require => {
             // app.model(require('./models/app'));
-            cb(null, require('./routes/sys/Sys'));
+            cb(null, require('./routes/sys'));
           });
         },
         childRoutes:[{
@@ -33,8 +33,8 @@ export default function({ history, app }) {
           path:"/sys/user",
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              registerModel(app, require('./routes/sys/user/model/user'));
-              cb(null, require('./routes/sys/user/User'));
+              registerModel(app, require('./routes/sys/user/model'));
+              cb(null, require('./routes/sys/user'));
             });
           },
         },{
@@ -42,8 +42,8 @@ export default function({ history, app }) {
           path:"/sys/role",
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              registerModel(app, require('./routes/sys/role/model/role'));
-              cb(null, require('./routes/sys/role/Role'));
+              registerModel(app, require('./routes/sys/role/model'));
+              cb(null, require('./routes/sys/role'));
             });
           },
         },{
@@ -51,8 +51,8 @@ export default function({ history, app }) {
           path:"/sys/permission",
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              registerModel(app, require('./routes/sys/permission/model/permission'));
-              cb(null, require('./routes/sys/permission/Permission'));
+              registerModel(app, require('./routes/sys/permission/model'));
+              cb(null, require('./routes/sys/permission'));
             });
           },
         },{
@@ -60,8 +60,8 @@ export default function({ history, app }) {
           path:"/sys/resource",
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              registerModel(app, require('./routes/sys/resource/model/resource'));
-              cb(null, require('./routes/sys/resource/Resource'));
+              registerModel(app, require('./routes/sys/resource/model'));
+              cb(null, require('./routes/sys/resource'));
             });
           },
         },{
@@ -69,8 +69,8 @@ export default function({ history, app }) {
           path:"/sys/event",
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              registerModel(app, require('./routes/sys/event/model/event'));
-              cb(null, require('./routes/sys/event/Event'));
+              registerModel(app, require('./routes/sys/event/model'));
+              cb(null, require('./routes/sys/event'));
             });
           },
         },{
@@ -78,8 +78,8 @@ export default function({ history, app }) {
           path:"/sys/session",
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              registerModel(app, require('./routes/sys/session/model/session'));
-              cb(null, require('./routes/sys/session/Session'));
+              registerModel(app, require('./routes/sys/session/model'));
+              cb(null, require('./routes/sys/session'));
             });
           },
         },{
@@ -87,8 +87,8 @@ export default function({ history, app }) {
           path:"/sys/dic",
           getComponent(nextState, cb) {
             require.ensure([], require => {
-              registerModel(app, require('./routes/sys/dic/model/dic'));
-              cb(null, require('./routes/sys/dic/Dic'));
+              registerModel(app, require('./routes/sys/dic/model'));
+              cb(null, require('./routes/sys/dic'));
             });
           },
         }]

@@ -1,14 +1,14 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'dva';
-import RoleList from './component/RoleList';
+import List from './component/List';
 import WithRule from '../../../hocs/WithRule'
-import styles from './Role.css';
+import styles from './index.css';
 
-const Role = ({location, dispatch, children, role, loading}) => {
+const Index = ({location, dispatch, children, role, loading}) => {
 
   const namespace = 'role';
 
-  const roleListProps = {
+  const ListProps = {
     ...role,
     dispatch,
     loading,
@@ -17,7 +17,7 @@ const Role = ({location, dispatch, children, role, loading}) => {
 
   return (
     <div className={styles.root}>
-      <RoleList {...roleListProps}/>
+      <List {...ListProps}/>
     </div>
   )
 }
@@ -29,4 +29,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(WithRule('role:view')(Role));
+export default connect(mapStateToProps)(WithRule('role:view')(Index));

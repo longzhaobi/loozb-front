@@ -1,17 +1,11 @@
-import * as service from '../service/user';
+import * as service from '../service';
 
 import modelExtend from 'dva-model-extend';
 import grid from '../../../../models/grid'
 
 export default modelExtend(grid(service, '/sys/user'), {
   namespace: 'user',
-  state: {
-  },
-  subscriptions: {
-  },
-  reducers: {
 
-  },
   effects: {
     *fetch({ payload }, { call, put, select }) {
       const user = yield select(({ user }) => user);

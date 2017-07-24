@@ -14,10 +14,7 @@ export default modelExtend(grid(service, '/sys/role'), {
     roleId:0
 
   },
-  subscriptions: {
-  },
-  reducers: {
-  },
+
   effects: {
     *fetch({ payload }, { call, put, select }) {
       const o = yield select(({ role }) => role);

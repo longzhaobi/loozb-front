@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'dva';
 import { Breadcrumb } from 'antd';
 import MenuBar from '../../components/layout/MenuBar';
-import styles from './Sys.css';
-const Sys = (props) => {
+import styles from './index.css';
+const Index = (props) => {
   const {location, dispatch, children, route, app} = props;
   const {subMenu, menuStyle} = app;
   return (
@@ -20,4 +20,4 @@ function mapStateToProps({ app }) {
   return { app };
 }
 
-export default connect(mapStateToProps)(Sys);
+export default connect(mapStateToProps)(Index);

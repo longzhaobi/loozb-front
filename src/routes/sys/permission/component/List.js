@@ -5,14 +5,12 @@ import {Table, Select, Input, Alert, Button, Pagination, Row, Col, Popconfirm, I
 const Option = Select.Option;
 const Search = Input.Search;
 
-import RoleModal from './RoleModal';
-import AuthModal from './AuthModal';
-import styles from './RoleList.css';
-
+import Modal from './Modal';
+import styles from './List.css';
 
 import IButton from '../../../../components/ui/IButton';
 
-const RoleList = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword}) => {
+const List = ({ data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword }) => {
   function removeHandler(params) {
     dispatch({
       type:`${namespace}/remove`,
@@ -23,7 +21,7 @@ const RoleList = ({data, current, total, size, loading, selectedRowKeys, dispatc
   function onSearch(keyword) {
     if(keyword) {
       dispatch(routerRedux.push({
-        pathname: '/sys/role',
+        pathname: '/sys/permission',
         query: { keyword },
       }));
     } else {
@@ -33,7 +31,7 @@ const RoleList = ({data, current, total, size, loading, selectedRowKeys, dispatc
 
   function onChange(current, size) {
     dispatch(routerRedux.push({
-      pathname: '/sys/role',
+      pathname: '/sys/permission',
       query: { current, size },
     }));
   }
@@ -58,16 +56,16 @@ const RoleList = ({data, current, total, size, loading, selectedRowKeys, dispatc
       <div>
         <Row>
           <Col span={16}>
-           <RoleModal  record={{}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增角色">
-            <IButton type="primary" icon="plus" perm="role:create"> 新增 </IButton>
-           </RoleModal>
+           <Modal  record={{}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增权限">
+            <IButton type="primary" icon="plus" perm="permission:create">新增</IButton>
+           </Modal>
            <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler(selectedRowKeys)}>
-             <IButton type="danger" disabled={!hasSelected} perm="role:remove"  icon="delete">删除</IButton>
+             <IButton type="danger" disabled={!hasSelected} icon="delete" perm="permission:remove">删除</IButton>
            </Popconfirm>
            <span style={{ marginLeft: 8 }}>{hasSelected ? `选择了 ${selectedRowKeys.length} 条数据` : ''}</span>
           </Col>
           <Col span={8} style={{float:'right'}} >
-            <Search size="large" style={{width:300,float:'right'}} defaultValue={keyword} placeholder="输入任务名称查询..." onSearch={value => onSearch(value)} />
+            <Search size="large" style={{width:300,float:'right'}} defaultValue={keyword} placeholder="输入权限名称或标识查询..." onSearch={value => onSearch(value)} />
           </Col>
         </Row>
       </div>
@@ -86,16 +84,11 @@ const RoleList = ({data, current, total, size, loading, selectedRowKeys, dispatc
 
   const toolBar= (text, record, index) => (
     <div>
-        <AuthModal record={record} dispatch={dispatch} namespace={namespace} loading={loading}>
-          <IButton perm="role:allot" a> 授权 </IButton>
-        </AuthModal>
-        
-        <RoleModal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑用户">
-          <IButton perm="role:update" a> <span className="ant-divider" />编辑 </IButton>
-        </RoleModal>
-       
+        <Modal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑权限">
+          <IButton perm="permission:update" a> 编辑 </IButton>
+        </Modal>
         <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({id:record.id_})}>
-          <IButton perm="role:remove" a>  <span className="ant-divider" />删除 </IButton>
+          <IButton perm="dic:remove" a> <span className="ant-divider" /> 删除 </IButton>
         </Popconfirm>
     </div>
   )
@@ -108,19 +101,19 @@ const RoleList = ({data, current, total, size, loading, selectedRowKeys, dispatc
       <span>{index + 1}</span>
     )
   },{
-    title: '角色名称',
+    title: '权限名称',
     dataIndex: 'name',
     width:180
   }, {
-    title: '角色标识',
-    dataIndex: 'role',
+    title: '权限标识',
+    dataIndex: 'permission',
     width:180,
   }, {
     title: '描述',
     dataIndex: 'description',
     // width:140,
   }, {
-    title: '注册日期',
+    title: '创建日期',
     dataIndex: 'ctime',
     width:180
   }, {
@@ -152,4 +145,4 @@ const RoleList = ({data, current, total, size, loading, selectedRowKeys, dispatc
   )
 }
 
-export default RoleList;
+export default List;

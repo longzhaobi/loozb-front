@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'dva';
-import UserList from './component/UserList';
+import List from './component/List';
 import WithRule from '../../../hocs/WithRule'
-import styles from './User.css';
+import styles from './index.css';
 
-const User = ({ location, dispatch, children, user, loading, namespace }) => {
-  const userListProps = {
+const Index = ({ location, dispatch, children, user, loading, namespace }) => {
+  const ListProps = {
     ...user,
     dispatch,
     loading,
@@ -14,7 +14,7 @@ const User = ({ location, dispatch, children, user, loading, namespace }) => {
 
   return (
     <div className={styles.root}>
-      <UserList {...userListProps} />
+      <List {...ListProps} />
     </div>
   )
 }
@@ -27,4 +27,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(WithRule('user:view')(User));
+export default connect(mapStateToProps)(WithRule('user:view')(Index));

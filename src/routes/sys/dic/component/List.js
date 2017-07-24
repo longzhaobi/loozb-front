@@ -5,12 +5,12 @@ import {Table, Select, Input, Alert, Button, Pagination, Row, Col, Popconfirm, I
 const Option = Select.Option;
 const Search = Input.Search;
 
-import DicModal from './DicModal';
-import styles from './DicList.css';
+import Modal from './Modal';
+import styles from './List.css';
 
 import IButton from '../../../../components/ui/IButton';
 
-const dicList = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword}) => {
+const List = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword}) => {
   function removeHandler(params) {
     dispatch({
       type:`${namespace}/remove`,
@@ -56,9 +56,9 @@ const dicList = ({data, current, total, size, loading, selectedRowKeys, dispatch
       <div>
         <Row>
           <Col span={16}>
-           <DicModal  record={{}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增数据字典">
+           <Modal  record={{}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增数据字典">
               <IButton type="primary" icon="plus" perm="dic:create">新增</IButton>
-           </DicModal>
+           </Modal>
            <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler(selectedRowKeys)}>
              <IButton type="danger" disabled={!hasSelected} icon="delete" perm="dic:remove">删除</IButton>
            </Popconfirm>
@@ -84,9 +84,9 @@ const dicList = ({data, current, total, size, loading, selectedRowKeys, dispatch
 
   const toolBar= (text, record, index) => (
     <div>
-        <DicModal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑数据字典">
+        <Modal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑数据字典">
           <IButton perm="dic:update" a> 编辑 </IButton>
-        </DicModal>
+        </Modal>
         <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({id:record.id_})}>
            <IButton perm="dic:remove" a> <span className="ant-divider" /> 删除 </IButton>
         </Popconfirm>
@@ -145,4 +145,4 @@ const dicList = ({data, current, total, size, loading, selectedRowKeys, dispatch
   )
 }
 
-export default dicList;
+export default List;

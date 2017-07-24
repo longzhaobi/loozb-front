@@ -2,9 +2,9 @@ import React, {PropTypes} from 'react';
 import {connect} from 'dva';
 import List from './component/List';
 import WithRule from '../../../hocs/WithRule'
-import styles from './Event.css';
+import styles from './index.css';
 
-const Event = ({location, dispatch, children, event, loading, namespace}) => {
+const Index = ({location, dispatch, children, event, loading, namespace}) => {
 
   const listProps = {
     ...event,
@@ -28,4 +28,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(WithRule('event:view')(Event));
+export default connect(mapStateToProps)(WithRule('event:view')(Index));

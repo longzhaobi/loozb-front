@@ -1,14 +1,14 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'dva';
-import PermissionList from './component/PermissionList';
+import List from './component/List';
 import WithRule from '../../../hocs/WithRule'
-import styles from './Permission.css';
+import styles from './index.css';
 
-const Permission = ({location, dispatch, children, permission, loading}) => {
+const Index = ({location, dispatch, children, permission, loading}) => {
 
   const namespace = 'permission';
 
-  const permissionListProps = {
+  const ListProps = {
     ...permission,
     dispatch,
     loading,
@@ -17,7 +17,7 @@ const Permission = ({location, dispatch, children, permission, loading}) => {
 
   return (
     <div className={styles.root}>
-      <PermissionList {...permissionListProps}/>
+      <List {...ListProps}/>
     </div>
   )
 }
@@ -29,4 +29,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(WithRule('permission:view')(Permission));
+export default connect(mapStateToProps)(WithRule('permission:view')(Index));

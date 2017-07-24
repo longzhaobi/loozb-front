@@ -1,22 +1,15 @@
-import * as service from '../service/event';
+import * as service from '../service';
 
 import modelExtend from 'dva-model-extend';
 import grid from '../../../../models/grid';
 
 import {message} from 'antd';
-export default modelExtend(grid(service, '/sys/event') ,{
-  namespace: 'event',
-  state: {
+export default modelExtend(grid(service, '/sys/session'), {
+  namespace: 'session',
 
-  },
-  subscriptions: {
-
-  },
-  reducers: {
-  },
   effects: {
     *fetch({ payload }, { call, put, select }) {
-      const o = yield select(({ event }) => event);
+      const o = yield select(({ session }) => session);
       const params = {
         current: o.current,
         size: o.size,
@@ -26,7 +19,7 @@ export default modelExtend(grid(service, '/sys/event') ,{
       yield put({ type: 'superFetch', payload: params });
     },
     *reload(action, { put, select }) {
-      const current = yield select(state => state.event.current);
+      const current = yield select(state => state.session.current);
       yield put({ type: 'fetch', payload: { current } });
     }
 

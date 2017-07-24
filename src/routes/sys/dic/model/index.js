@@ -1,4 +1,4 @@
-import * as service from '../service/dic';
+import * as service from '../service';
 
 import modelExtend from 'dva-model-extend';
 import grid from '../../../../models/grid'
@@ -6,11 +6,7 @@ import grid from '../../../../models/grid'
 import { message } from 'antd';
 export default modelExtend(grid(service, '/sys/dic'), {
   namespace: 'dic',
-  state: {
 
-  },
-  subscriptions: {
-  },
   reducers: {
     fetchAuthSuccess(state, { payload }) {
       return { ...state, ...payload }

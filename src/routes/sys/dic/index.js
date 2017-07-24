@@ -1,14 +1,14 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'dva';
-import DicList from './component/DicList';
+import List from './component/List';
 import WithRule from '../../../hocs/WithRule'
-import styles from './Dic.css';
+import styles from './index.css';
 
-const Dic = ({location, dispatch, children, dic, loading}) => {
+const Index = ({location, dispatch, children, dic, loading}) => {
 
   const namespace = 'dic';
 
-  const dicListProps = {
+  const ListProps = {
     ...dic,
     dispatch,
     loading,
@@ -17,7 +17,7 @@ const Dic = ({location, dispatch, children, dic, loading}) => {
 
   return (
     <div className={styles.root}>
-      <DicList {...dicListProps}/>
+      <List {...ListProps}/>
     </div>
   )
 }
@@ -29,4 +29,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(WithRule('dic:view')(Dic));
+export default connect(mapStateToProps)(WithRule('dic:view')(Index));

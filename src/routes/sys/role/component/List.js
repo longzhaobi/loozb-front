@@ -5,14 +5,14 @@ import {Table, Select, Input, Alert, Button, Pagination, Row, Col, Popconfirm, I
 const Option = Select.Option;
 const Search = Input.Search;
 
-import UserModal from './UserModal';
+import Modal from './Modal';
 import AuthModal from './AuthModal';
-import styles from './UserList.css';
+import styles from './List.css';
+
 
 import IButton from '../../../../components/ui/IButton';
-import WithCRUD from '../../../../hocs/WithCRUD';
 
-const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword}) => {
+const List = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword}) => {
   function removeHandler(params) {
     dispatch({
       type:`${namespace}/remove`,
@@ -20,25 +20,10 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
     })
   }
 
-  function lockedHandler(id, locked, idcard) {
-    const params = {
-      id,
-      locked: locked === '0' ? '1' : '0',
-      idcard
-     }
-    dispatch({
-      type: `${namespace}/update`,
-      payload: params,
-      callback(data) {
-        dispatch({ type: 'app/result',payload:{data, namespace}});
-      }
-    })
-  }
-
   function onSearch(keyword) {
     if(keyword) {
       dispatch(routerRedux.push({
-        pathname: '/sys/user',
+        pathname: '/sys/role',
         query: { keyword },
       }));
     } else {
@@ -48,7 +33,7 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
 
   function onChange(current, size) {
     dispatch(routerRedux.push({
-      pathname: '/sys/user',
+      pathname: '/sys/role',
       query: { current, size },
     }));
   }
@@ -73,11 +58,11 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
       <div>
         <Row>
           <Col span={16}>
-           <UserModal  record={{}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增用户">
-            <IButton type="primary" icon="plus" perm="user:create"> 新增 </IButton>
-           </UserModal>
+           <Modal  record={{}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增角色">
+            <IButton type="primary" icon="plus" perm="role:create"> 新增 </IButton>
+           </Modal>
            <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler(selectedRowKeys)}>
-             <IButton type="danger" disabled={!hasSelected} perm="user:remove"  icon="delete">删除</IButton>
+             <IButton type="danger" disabled={!hasSelected} perm="role:remove"  icon="delete">删除</IButton>
            </Popconfirm>
            <span style={{ marginLeft: 8 }}>{hasSelected ? `选择了 ${selectedRowKeys.length} 条数据` : ''}</span>
           </Col>
@@ -101,18 +86,17 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
 
   const toolBar= (text, record, index) => (
     <div>
-      <AuthModal record={record} dispatch={dispatch} namespace={namespace} loading={loading}>
-        <IButton perm="user:allot" a> 授权 </IButton>
-      </AuthModal>
-      <UserModal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑用户">
-        <IButton perm="user:update" a> <span className="ant-divider" />编辑 </IButton>
-      </UserModal>
-      <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({id:record.id_})}>
-        <IButton perm="user:remove" a> <span className="ant-divider" />删除 </IButton>
-      </Popconfirm>
-      <Popconfirm title="确定要继续吗？" onConfirm={() => lockedHandler(record.id_, record.locked, record.idcard)}>
-        <IButton perm="user:remove" a> <span className="ant-divider" />{record.locked === '1' ? '解锁' : '锁定'} </IButton>
-      </Popconfirm>
+        <AuthModal record={record} dispatch={dispatch} namespace={namespace} loading={loading}>
+          <IButton perm="role:allot" a> 授权 </IButton>
+        </AuthModal>
+        
+        <Modal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑用户">
+          <IButton perm="role:update" a> <span className="ant-divider" />编辑 </IButton>
+        </Modal>
+       
+        <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({id:record.id_})}>
+          <IButton perm="role:remove" a>  <span className="ant-divider" />删除 </IButton>
+        </Popconfirm>
     </div>
   )
 
@@ -124,45 +108,17 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
       <span>{index + 1}</span>
     )
   },{
-    title: '姓名',
-    className: 'column-money',
+    title: '角色名称',
     dataIndex: 'name',
-    width:120
-  },{
-    title: '用户名',
-    className: 'column-money',
-    dataIndex: 'username',
-    width:120
-  }, {
-    title: '性别',
-    dataIndex: 'gender',
-    width:60,
-    render:(text, record, index) => (
-      <span>{text == '1' ? '男' : '女'}</span>
-    )
-  }, {
-    title: '身份证号码',
-    dataIndex: 'idcard',
     width:180
   }, {
-    title: '联系地址',
-    dataIndex: 'address',
-    width:380,
+    title: '角色标识',
+    dataIndex: 'role',
+    width:180,
   }, {
-    title: '联系电话',
-    dataIndex: 'phone',
-    width:140
-  }, {
-    title: '是否锁住',
-    dataIndex: 'locked',
-    width:80,
-    render:(text, record, index) => (
-      <span>{text == '1' ? '已锁住':'未锁住'}</span>
-    )
-  }, {
-    title: '拥有角色',
-    dataIndex: 'roleNames',
-    // width:180
+    title: '描述',
+    dataIndex: 'description',
+    // width:140,
   }, {
     title: '注册日期',
     dataIndex: 'ctime',
@@ -174,7 +130,7 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
   },{
     title: '操作',
     key: 'operation',
-    width: 180,
+    width: 150,
     fixed: 'right',
     render: (text, record, index) => toolBar(text, record, index)
   }];
@@ -186,7 +142,7 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
       pagination={false}
       rowSelection={rowSelection}
       size="middle"
-      scroll={{ y: table_height,x:1950 }}
+      scroll={{ y: table_height }}
       bordered
       rowKey="id_"
       loading={loading}
@@ -196,4 +152,4 @@ const UserList = ({data, current, total, size, loading, selectedRowKeys, dispatc
   )
 }
 
-export default WithCRUD()(UserList);
+export default List;

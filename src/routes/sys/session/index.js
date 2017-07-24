@@ -2,9 +2,9 @@ import React, {PropTypes} from 'react';
 import {connect} from 'dva';
 import List from './component/List';
 import WithRule from '../../../hocs/WithRule'
-import styles from './Session.css';
+import styles from './index.css';
 
-const Session = ({location, dispatch, children, session, loading, user}) => {
+const Index = ({location, dispatch, children, session, loading, user}) => {
 
   const namespace = 'session';
   const listProps = {
@@ -30,4 +30,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(WithRule('session:view')(Session));
+export default connect(mapStateToProps)(WithRule('session:view')(Index));

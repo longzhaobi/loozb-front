@@ -1,4 +1,4 @@
-import * as service from '../service/permission';
+import * as service from '../service';
 
 import modelExtend from 'dva-model-extend';
 import grid from '../../../../models/grid';
@@ -6,13 +6,7 @@ import grid from '../../../../models/grid';
 import {message} from 'antd';
 export default modelExtend(grid(service, '/sys/permission'), {
   namespace: 'permission',
-  state: {
 
-  },
-  subscriptions: {
-  },
-  reducers: {
-  },
   effects: {
     *fetch({ payload }, { call, put, select }) {
       const o = yield select(({ permission }) => permission);

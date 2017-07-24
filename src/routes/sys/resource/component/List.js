@@ -5,12 +5,12 @@ import {Table, Select, Input, Alert, Button, Pagination, Row, Col, Popconfirm, I
 const Option = Select.Option;
 const Search = Input.Search;
 
-import ResourceModal from './ResourceModal';
-import styles from './ResourceList.css';
+import Modal from './Modal';
+import styles from './List.css';
 
 import IButton from '../../../../components/ui/IButton';
 
-const resourceList = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword}) => {
+const List = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword}) => {
   function removeHandler(params) {
     dispatch({
       type:`${namespace}/remove`,
@@ -43,9 +43,9 @@ const resourceList = ({data, current, total, size, loading, selectedRowKeys, dis
       <div>
         <Row>
           <Col span={16}>
-           <ResourceModal  record={{}} item={{id_:1, pids:'0/'}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增资源">
+           <Modal  record={{}} item={{id_:1, pids:'0/'}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增资源">
               <IButton type="primary" icon="plus" perm="resource:create">新增根节点</IButton>
-           </ResourceModal>
+           </Modal>
            <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler(selectedRowKeys)}>
               <IButton type="danger" disabled={!hasSelected} icon="delete" perm="resource:remove">删除</IButton>
            </Popconfirm>
@@ -71,12 +71,12 @@ const resourceList = ({data, current, total, size, loading, selectedRowKeys, dis
 
   const toolBar= (text, record, index) => (
     <div>
-      <ResourceModal record={{}} item={record} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增资源">
+      <Modal record={{}} item={record} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增资源">
         <IButton perm="resource:remove" a>  新增 </IButton>
-      </ResourceModal>
-      <ResourceModal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑资源">
+      </Modal>
+      <Modal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑资源">
         <IButton perm="resource:update" a> <span className="ant-divider" /> 编辑 </IButton>
-      </ResourceModal>
+      </Modal>
       <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({id:record.id_})}>
         <IButton perm="resource:remove" a> <span className="ant-divider" /> 删除 </IButton>
       </Popconfirm>
@@ -155,4 +155,4 @@ const resourceList = ({data, current, total, size, loading, selectedRowKeys, dis
   )
 }
 
-export default resourceList;
+export default List;
