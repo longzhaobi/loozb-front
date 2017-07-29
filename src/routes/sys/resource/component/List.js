@@ -1,40 +1,18 @@
 import React, {PropTypes} from 'react';
 import { routerRedux } from 'dva/router';
 
-import {Table, Select, Input, Alert, Button, Pagination, Row, Col, Popconfirm, Icon, Tooltip, message} from 'antd';
+import {Table, Select, Input, Button, Row, Col, Popconfirm, Icon} from 'antd';
 const Option = Select.Option;
 const Search = Input.Search;
+
+import columns from './columns';
 
 import Modal from './Modal';
 import styles from './List.css';
 
 import IButton from '../../../../components/ui/IButton';
-
-const List = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword}) => {
-  function removeHandler(params) {
-    dispatch({
-      type:`${namespace}/remove`,
-      payload:params
-    })
-  }
-
-  function onSearch(keyword) {
-    if(keyword) {
-      dispatch(routerRedux.push({
-        pathname: '/sys/resource',
-        query: { keyword },
-      }));
-    } else {
-      message.warn('请输入查询条件');
-    }
-  }
-
-  function onChange(current, size) {
-    dispatch(routerRedux.push({
-      pathname: '/sys/resource',
-      query: { current, size },
-    }));
-  }
+import WithList from '../../../../hocs/WithList';
+const List = ({data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword, removeHandler, onSearch, onChange, page, rowSelection}) => {
 
   const hasSelected = selectedRowKeys.length > 0;
 
@@ -59,16 +37,6 @@ const List = ({data, current, total, size, loading, selectedRowKeys, dispatch, n
     )
   }
 
-  const rowSelection = {
-    selectedRowKeys,
-    onChange(selectedRowKeys) {
-      dispatch({
-        type:`${namespace}/onChangeSelectedRowKeys`,
-        payload:selectedRowKeys
-      });
-    }
-  };
-
   const toolBar= (text, record, index) => (
     <div>
       <Modal record={{}} item={record} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增资源">
@@ -83,65 +51,9 @@ const List = ({data, current, total, size, loading, selectedRowKeys, dispatch, n
     </div>
   )
 
-  function getMenuType(text) {
-    if(text === '1') {
-      return '父子类型'
-    } else if(text === '2') {
-      return '分组类型'
-    } else if(text === '3') {
-      return '普通类型'
-    } else {
-      return '未知类型'
-    }
-
-  }
-
-  const columns = [{
-    title: '资源名称',
-    dataIndex: 'name',
-    width: 340,
-  }, {
-    title: '资源标识',
-    dataIndex: 'identity',
-    width: 180,
-  }, {
-    title: '图标',
-    dataIndex: 'icon',
-    width: 180,
-  }, {
-    title: '资源链接',
-    dataIndex: 'url',
-    width: 180,
-  }, {
-    title: '资源权重',
-    dataIndex: 'weight',
-    width: 100,
-  }, {
-    title: '资源类型',
-    dataIndex: 'menuType',
-    width: 100,
-    render:(text, record, index) => (
-      <div>
-        {
-          getMenuType(text)
-        }
-      </div>
-    )
-  }, {
-    title: '拥有权限',
-    dataIndex: 'permissionText',
-    // width: 180,
-  },{
-    title: '操作',
-    key: 'operation',
-    width: 150,
-    fixed: 'right',
-    render: (text, record, index) => toolBar(text, record, index)
-  }];
-
   return (
     <Table
-      columns={columns}
+      columns={columns(toolBar)}
       dataSource={data}
       pagination={false}
       rowSelection={rowSelection}
@@ -155,4 +67,4 @@ const List = ({data, current, total, size, loading, selectedRowKeys, dispatch, n
   )
 }
 
-export default List;
+export default WithList({pathname: 'sys/resource'})(List);

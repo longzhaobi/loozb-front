@@ -13,7 +13,7 @@ export default modelExtend(grid(service, '/sys/resource'), {
     }
   },
   effects: {
-    *fetch({ payload }, { call, put, select }) {
+    *fetch({ payload = {} }, { call, put, select }) {
       const data = yield call(service.fetch, payload);
       if(data) {
         yield put({

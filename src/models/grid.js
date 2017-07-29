@@ -4,7 +4,7 @@
  */
 import { message } from 'antd';
 
-const grid = (service, url) => {
+const grid = (service, url, namespace) => {
     return {
         state: {
             data: [],
@@ -57,7 +57,7 @@ const grid = (service, url) => {
                 } else {
                     data = yield call(service.remove, payload.id);
                 }
-                yield put({ type: 'app/result', payload: { data, namespace: 'user' } });
+                yield put({ type: 'app/result', payload: { data, namespace } });
             },
             *update({ payload: params, callback }, { call, put }) {
                 callback(yield call(service.update, params));

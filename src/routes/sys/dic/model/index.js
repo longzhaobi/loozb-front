@@ -4,14 +4,9 @@ import modelExtend from 'dva-model-extend';
 import grid from '../../../../models/grid'
 
 import { message } from 'antd';
-export default modelExtend(grid(service, '/sys/dic'), {
+export default modelExtend(grid(service, '/sys/dic', 'dic'), {
   namespace: 'dic',
 
-  reducers: {
-    fetchAuthSuccess(state, { payload }) {
-      return { ...state, ...payload }
-    }
-  },
   effects: {
     *fetch({ payload }, { call, put, select }) {
       const dic = yield select(({ dic }) => dic);
@@ -21,7 +16,16 @@ export default modelExtend(grid(service, '/sys/dic'), {
         keyword: dic.keyword,
         ...payload
       }
-      yield put({ type: 'superFetch', payload: params });
+      const data = yield call(service.fetch, payload);
+      if (data) {
+        const { total, current } = data;
+        yield put({
+          type: 'fetchSuccess',
+          payload: {
+            data: data.data, total, current, keyword: payload.keyword
+          }
+        });
+      }
     },
     *reload(action, { put, select }) {
       const current = yield select(state => state.dic.current);

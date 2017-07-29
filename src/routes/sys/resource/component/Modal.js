@@ -184,7 +184,7 @@ class RoleModal extends Component {
                  initialValue: record['hasPermission'] == null ? Array.of('1','2','3','4') : record['hasPermission'].split(',') || []
                })(
                  <Select
-                   multiple
+                   model='multiple'
                    style={{ width: '100%' }}
                    placeholder="请选择资源权限"
                   //  defaultValue={['a10', 'c12']}

@@ -7,7 +7,7 @@ import styles from './index.css';
 const Index = ({location, dispatch, children, dic, loading}) => {
 
   const namespace = 'dic';
-
+  console.log(loading)
   const ListProps = {
     ...dic,
     dispatch,
