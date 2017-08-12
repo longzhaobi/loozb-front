@@ -12,3 +12,17 @@
   /*height:100%;*/
   line-height: 300px;
 }
+
+.notice {
+    height:30px;
+    background-color: #fff;
+    line-height: 30px;
+    border-bottom: 1px solid #efefef;
+    text-indent: 30px;
+    label {
+      font-weight: bold;
+    }
+    a {
+      margin-right: 20px;
+    }
+  }

@@ -1,10 +1,10 @@
-/**
-* 自定义按钮BUTTON，用于统一权限控制，方便维护
-*/
 import React, {PropTypes} from 'react';
 
 import {Button, Icon} from 'antd';
 
+/**
+* 自定义按钮BUTTON，用于统一权限控制，方便维护
+*/
 export default class IButton extends React.Component {
 	constructor(props) {
 	    super(props);
@@ -35,7 +35,7 @@ export default class IButton extends React.Component {
 				
 			} else {
 				return (
-					<Button  onClick={onClick} type={type} icon={icon} size="large" style={{marginRight:'8px'}} disabled={disabled}>{children}</Button>
+					<Button  onClick={onClick} type={type} icon={icon}  style={{marginRight:'8px'}} disabled={disabled}>{children}</Button>
 				);
 			}
 		} else {

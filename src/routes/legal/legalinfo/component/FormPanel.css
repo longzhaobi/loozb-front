@@ -1,0 +1,33 @@
+.normal {
+  margin:10px;
+  border:1px solid #efefef;
+}
+
+.title {
+  height:38px;
+  width:100%;
+  line-height: 38px;
+  text-indent: 10px;
+  font-size: 14px;
+  background-color: rgb(247, 247, 247);
+}
+
+.btnPanel {
+  height:40px;
+  width:100%;
+  line-height: 40px;
+  text-align: center;
+  background-color: rgb(247, 247, 247);
+ 
+}
+
+ .btn:first-child {
+    margin-right:10px;
+  }
+  .btn:last-child {
+    margin-left:10px;
+  }
+
+.btn {
+  margin-right:10px !important;
+}

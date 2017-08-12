@@ -1,0 +1,17 @@
+.normal {
+  width:200px;
+  position: fixed;
+  overflow-y: auto;
+  top:50px;
+  left:0px;
+  bottom:0px;
+  background-color: rgb(41,48,56);
+}
+
+.btnBar {
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+    color: #efefef;
+    background-color: rgb(57,69,85);
+}

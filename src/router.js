@@ -92,6 +92,18 @@ export default function({ history, app }) {
             });
           },
         }]
+      },{
+        breadcrumbName:"企业信息",
+        childRoutes:[{
+          breadcrumbName:"基本信息",
+          path:"/legal/base",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/legal/legalinfo/model'));
+              cb(null, require('./routes/legal/legalinfo/'));
+            });
+          }
+        }]
       }]
     },
     {

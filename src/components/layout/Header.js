@@ -81,7 +81,7 @@ export default class Header extends Component {
       <div className={styles.normal}>
         <div className={styles.leaft}>
           <a className={styles.logo}>ADMIN 系统基础权限系统</a>
-          {getMenu(menu)}
+          {/* {getMenu(menu)} */}
         </div>
         <div className={styles.right}>
             <p style={{color:'#fff'}}>欢迎您！{user.name}</p> <span style={{width:'10px',color:'#fff'}}></span>

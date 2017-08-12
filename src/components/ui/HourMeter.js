@@ -1,5 +1,6 @@
 import React  from 'react';
 
+//计算时间已过去多久组件
 class HourMeter extends React.Component {
   constructor(props) {
     super(props);

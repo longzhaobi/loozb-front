@@ -63,7 +63,7 @@ const WithList = ({ pathname }) => {
 			}
 
 			render() {
-				const { selectedRowKeys } = this.props;
+				const { selectedRowKeys, dispatch, namespace } = this.props;
 				const rowSelection = {
 					selectedRowKeys,
 					onChange(selectedRowKeys) {
