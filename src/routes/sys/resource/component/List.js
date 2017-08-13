@@ -61,7 +61,7 @@ const List = ({data, current, total, size, loading, selectedRowKeys, dispatch, n
       scroll={{ y: table_height, x: 1530 }}
       bordered
       rowKey="id_"
-      loading={fetching}
+      loading={loading}
       title={() => title()}
     />
   )
