@@ -1,4 +1,26 @@
+.root {
+	margin: 0px;
+	padding: 0px;
+}
+
+.notice {
+    height:30px;
+    background-color: #fff;
+    line-height: 30px;
+    border-bottom: 1px solid #efefef;
+    text-indent: 30px;
+}
+
 .homeContent {
 	width:100%;
-	height:calc(100vh - 90px);
+	height:100%;
+	height:calc(100vh - 80px);
+	overflow: auto;
+}
+
+.notice label {
+	font-weight: bold;
+}
+.notice a {
+	margin-right: 20px;
 }

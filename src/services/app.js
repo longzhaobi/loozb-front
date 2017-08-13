@@ -12,6 +12,14 @@ export function login(params) {
   });
 }
 
+export function register(params) {
+  return request({
+    url:'/api/register',
+    method:'post',
+    data:qs.stringify(params)
+  });
+}
+
 export function logout() {
   return request({
     url:'/api/logout',

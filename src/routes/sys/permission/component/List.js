@@ -12,7 +12,7 @@ import columns from './columns';
 
 import IButton from '../../../../components/ui/IButton';
 import WithList from '../../../../hocs/WithList';
-const List = ({ data, loading, selectedRowKeys, dispatch, namespace, keyword, removeHandler, onSearch, onChange, page, rowSelection }) => {
+const List = ({ data, loading, selectedRowKeys, dispatch, namespace, keyword, removeHandler, onSearch, onChange, page, rowSelection, fetching }) => {
  
   const hasSelected = selectedRowKeys.length > 0;
 
@@ -58,7 +58,7 @@ const List = ({ data, loading, selectedRowKeys, dispatch, namespace, keyword, re
       scroll={{ y: table_height }}
       bordered
       rowKey="id_"
-      loading={loading}
+      loading={fetching}
       title={() => title()}
       footer={() => page()}
     />

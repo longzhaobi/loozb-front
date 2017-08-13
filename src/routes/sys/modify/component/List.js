@@ -6,7 +6,6 @@ const Option = Select.Option;
 const Search = Input.Search;
 
 import Modal from './Modal';
-import AuthModal from './AuthModal';
 import styles from './List.css';
 
 import columns from './columns';
@@ -24,9 +23,6 @@ const List = ({data, loading, selectedRowKeys, dispatch, namespace, keyword, rem
       <div>
         <Row>
           <Col span={16}>
-           <Modal  record={{}} dispatch={dispatch} namespace={namespace} option='create' loading={loading} title="新增角色">
-            <IButton type="primary" icon="plus" perm="role:create"> 新增 </IButton>
-           </Modal>
            <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler(selectedRowKeys)}>
              <IButton type="danger" disabled={!hasSelected} perm="role:remove"  icon="delete">删除</IButton>
            </Popconfirm>
@@ -42,28 +38,27 @@ const List = ({data, loading, selectedRowKeys, dispatch, namespace, keyword, rem
 
   const toolBar= (text, record, index) => (
     <div>
-        <AuthModal record={record} dispatch={dispatch} namespace={namespace} loading={loading}>
-          <IButton perm="role:allot" a> 授权 </IButton>
-        </AuthModal>
-        
-        <Modal record={record} dispatch={dispatch} namespace={namespace} option='update' loading={loading} title="编辑用户">
-          <IButton perm="role:update" a> <span className="ant-divider" />编辑 </IButton>
-        </Modal>
-       
         <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({id:record.id_})}>
-          <IButton perm="role:remove" a>  <span className="ant-divider" />删除 </IButton>
+          <IButton perm="role:remove" a> 删除 </IButton>
         </Popconfirm>
     </div>
   )
 
+  const getContent = (record) => {
+    return `
+      修改对象:${record.tableInfo}<br />修改时间:${record.mtime}<br />修改内容：<br />${record.content}
+    `
+  }
+
   return (
     <Table
       columns={columns(toolBar)}
+      expandedRowRender={record => <p>{<div dangerouslySetInnerHTML={{__html:getContent(record)}}></div>}</p>}
       dataSource={data}
       pagination={false}
       rowSelection={rowSelection}
       size="middle"
-      scroll={{ y: table_height }}
+      scroll={{ y: table_height}}
       bordered
       rowKey="id_"
       loading={fetching}
@@ -73,4 +68,4 @@ const List = ({data, loading, selectedRowKeys, dispatch, namespace, keyword, rem
   )
 }
 
-export default WithList({pathname: 'sys/role'})(List);
+export default WithList({pathname: 'sys/modifyinfo'})(List);

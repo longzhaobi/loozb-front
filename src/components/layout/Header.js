@@ -22,24 +22,6 @@ export default class Header extends Component {
     };
   }
 
-  componentWillMount() {
-    const {routes} = this.props;
-    if(routes && routes.length > 1 && routes[1].path) {
-      let value = routes[1].path.substring(1)
-      this.onSubBarClick(value);
-    }
-  }
-
-  componentDidMount() {
-    const {menu, dispatch, routes} = this.props;
-    if(menu && menu.length > 0 && routes.length === 1) {
-      this.onSubBarClick(menu[0].identity)
-      dispatch(routerRedux.push({
-        pathname: menu[0].url
-      }));
-    }
-  }
-
   onSubBarClick(value) {
     this.setState({
       value
@@ -84,7 +66,7 @@ export default class Header extends Component {
           {/* {getMenu(menu)} */}
         </div>
         <div className={styles.right}>
-            <p style={{color:'#fff'}}>欢迎您！{user.name}</p> <span style={{width:'10px',color:'#fff'}}></span>
+            <p style={{color:'#fff'}}>欢迎您！{user.username}</p> <span style={{width:'10px',color:'#fff'}}></span>
             <PasswordModal title="修改密码" dispatch={dispatch}>
                 <a style={{color:'#fff'}}>修改密码</a>
             </PasswordModal> <span style={{width:'10px',color:'#fff'}}></span>

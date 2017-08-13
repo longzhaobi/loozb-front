@@ -9,7 +9,7 @@ import styles from './List.css';
 import WithList from '../../../../hocs/WithList';
 import columns from './columns';
 
-const List = ({ data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword, user, onSearch, onChange, page, rowSelection }) => {
+const List = ({ data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword, user, onSearch, onChange, page, rowSelection, fetching }) => {
   function removeOnlineHandler(record) {
     if (record.online == '0') {
       message.warn("此用户已处于离线状态");
@@ -57,7 +57,7 @@ const List = ({ data, current, total, size, loading, selectedRowKeys, dispatch, 
       scroll={{ y: table_height, x: 1670 }}
       bordered
       rowKey="id_"
-      loading={loading}
+      loading={fetching}
       title={() => title()}
       footer={() => page()}
     />

@@ -1,28 +1,3 @@
-.root {
-  margin:10px;
+.content {
+  height:100%;
 }
-
-.row_1 {
-  height:300px;
-  background-color: #fff;
-  border-radius: 5px;
-}
-.col_1_1 {
-  /*margin-right:5px;*/
-  /*height:100%;*/
-  line-height: 300px;
-}
-
-.notice {
-    height:30px;
-    background-color: #fff;
-    line-height: 30px;
-    border-bottom: 1px solid #efefef;
-    text-indent: 30px;
-    label {
-      font-weight: bold;
-    }
-    a {
-      margin-right: 20px;
-    }
-  }

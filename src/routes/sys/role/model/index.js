@@ -1,4 +1,4 @@
-import * as service from '../service/role';
+import * as service from '../service';
 
 import modelExtend from 'dva-model-extend';
 import grid from '../../../../models/grid'

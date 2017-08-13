@@ -16,15 +16,15 @@ export default {
     break:false
   },
   subscriptions: {
-    setup({ dispatch, history }) {
-      return history.listen(({ pathname, query }) => {
-        const path = pathname.split('/')[1];
-        if(path != 'login') {
-          //从本地获取菜单信息
-          dispatch({type:'getSubMenu',payload:{identity:path,isRoot:pathname === '/' + path}})
-        }
-      });
-    }
+    // setup({ dispatch, history }) {
+    //   return history.listen(({ pathname, query }) => {
+    //     const path = pathname.split('/')[1];
+    //     if(path != 'login') {
+    //       //从本地获取菜单信息
+    //       dispatch({type:'getSubMenu',payload:{identity:path,isRoot:pathname === '/' + path}})
+    //     }
+    //   });
+    // }
   },
   effects: {
     *login({ payload }, { put, select, call }) {
@@ -41,47 +41,53 @@ export default {
         yield put(routerRedux.push('/'));
       }
     },
-    *getMenu({payload}, {put, select, call}) {
-      const menus = localStorage.getItem('has_menus');
-      if(menus!= null && menus !== 'undefined') {
-        const hasMenus = JSON.parse(menus);
-        yield put({type:'queryMenuSuccess',payload:hasMenus});
-        // if(hasMenus && hasMenus.length > 0) {
-        //   yield put(routerRedux.push(subMenu[0].url));
-        // }
+    *register({ payload }, { put, select, call }) {
+      const data = yield call(service.register, payload);
+      if(data) {
+        message.success("注册成功");
       }
     },
-    *getSubMenu({payload}, {put, select, call}) {
-      const menus = localStorage.getItem('has_menus');
-      if(menus!= null && menus !== 'undefined') {
-        const hasMenus = JSON.parse(menus);
-        const {identity} = payload;
-        yield put({type:'queryMenuSuccess',payload:hasMenus});
-        if(hasMenus && hasMenus.length > 0) {
-          for (let menu of hasMenus) {
-            if(menu.identity === identity) {
-              const subMenu = menu.children;
-              if(subMenu && subMenu.length > 0) {
-                if(menu.identity === payload.identity) {
-                  yield put({
-                    type:'querySubMenuSuccess',
-                    payload:subMenu.sort((a, b) => a.weight - b.weight)
-                  });
-                  if(payload.isRoot) {
-                    if(subMenu[0].children.length > 0) {
-                      //假如还有孩子
-                      yield put(routerRedux.push(subMenu[0].children[0].url));
-                    } else {
-                      yield put(routerRedux.push(subMenu[0].url));
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
+    // *getMenu({payload}, {put, select, call}) {
+    //   const menus = localStorage.getItem('has_menus');
+    //   if(menus!= null && menus !== 'undefined') {
+    //     const hasMenus = JSON.parse(menus);
+    //     yield put({type:'queryMenuSuccess',payload:hasMenus});
+    //     // if(hasMenus && hasMenus.length > 0) {
+    //     //   yield put(routerRedux.push(subMenu[0].url));
+    //     // }
+    //   }
+    // },
+    // *getSubMenu({payload}, {put, select, call}) {
+    //   const menus = localStorage.getItem('has_menus');
+    //   if(menus!= null && menus !== 'undefined') {
+    //     const hasMenus = JSON.parse(menus);
+    //     const {identity} = payload;
+    //     yield put({type:'queryMenuSuccess',payload:hasMenus});
+    //     if(hasMenus && hasMenus.length > 0) {
+    //       for (let menu of hasMenus) {
+    //         if(menu.identity === identity) {
+    //           const subMenu = menu.children;
+    //           if(subMenu && subMenu.length > 0) {
+    //             if(menu.identity === payload.identity) {
+    //               yield put({
+    //                 type:'querySubMenuSuccess',
+    //                 payload:subMenu.sort((a, b) => a.weight - b.weight)
+    //               });
+    //               if(payload.isRoot) {
+    //                 if(subMenu[0].children.length > 0) {
+    //                   //假如还有孩子
+    //                   yield put(routerRedux.push(subMenu[0].children[0].url));
+    //                 } else {
+    //                   yield put(routerRedux.push(subMenu[0].url));
+    //                 }
+    //               }
+    //             }
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // },
     *result({ payload: {data, namespace}, onHander }, { put, select }) {
       if(data) {
         if(typeof onHander === 'function') {
@@ -101,8 +107,8 @@ export default {
       if(data) {
         const d = data.data;
         yield put({
-          type: 'setCurrentUser',
-          payload: {user:d.sysUser, online: data.online}
+          type: 'init',
+          payload: {user:d.sysUser, online: data.online, menu: d.hasMenus}
         });
         if(typeof callback === 'function') {
           callback(d);
@@ -151,6 +157,9 @@ export default {
       return {...state, msg:action.payload};
     },
     setCurrentUser(state, action) {
+      return {...state, ...action.payload}
+    },
+    init(state, action) {
       return {...state, ...action.payload}
     }
   }

@@ -12,7 +12,8 @@ const grid = (service, url, namespace) => {
             current: 1,
             size: 20,
             selectedRowKeys: [],
-            keyword: null
+            keyword: null,
+            fetching: false
         },
         subscriptions: {
             setup({ dispatch, history }) {
@@ -30,9 +31,13 @@ const grid = (service, url, namespace) => {
             onChangeSelectedRowKeys(state, { payload }) {
                 return { ...state, selectedRowKeys: payload };
             },
+            changeLoading(state, { payload }) {
+                return { ...state, fetching: payload }
+            }
         },
         effects: {
             *superFetch({ payload }, { call, put, select }) {
+                yield put({ type: 'changeLoading', payload: true })
                 const data = yield call(service.fetch, payload);
                 if (data) {
                     const { total, current } = data;
@@ -43,6 +48,7 @@ const grid = (service, url, namespace) => {
                         }
                     });
                 }
+                yield put({ type: 'changeLoading', payload: false })
             },
             *remove({ payload }, { call, put, select }) {
                 let data;

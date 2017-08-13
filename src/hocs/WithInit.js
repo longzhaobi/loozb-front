@@ -16,15 +16,9 @@ const WithInit = (WrappedComponent) => {
 			const _self = this;
 			this.props.dispatch({type:'app/current', callback(response) {
 				if(response) {
-					const { hasMenus, hasPermissions, hasRoles} = response;
+					const { hasPermissions} = response;
 					//设置权限信息到本地
 					localStorage.setItem('has_permissions', hasPermissions);
-					//设置角色信息到本地
-					localStorage.setItem('has_roles', hasRoles);
-					//设置菜单信息到本地
-					localStorage.setItem('has_menus', JSON.stringify(hasMenus));
-
-					_self.props.dispatch({type:'app/getMenu'});
 
 				}
 				_self.setState({

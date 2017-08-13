@@ -24,7 +24,6 @@ export default function({ history, app }) {
         path:"/sys",
         getComponent(nextState, cb) {
           require.ensure([], require => {
-            // app.model(require('./models/app'));
             cb(null, require('./routes/sys'));
           });
         },
@@ -91,9 +90,28 @@ export default function({ history, app }) {
               cb(null, require('./routes/sys/dic'));
             });
           },
+        },{
+          breadcrumbName:"错误信息",
+          path:"/sys/errorinfo",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/sys/error/model'));
+              cb(null, require('./routes/sys/error'));
+            });
+          },
+        },{
+          breadcrumbName:"修改信息",
+          path:"/sys/modifyinfo",
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./routes/sys/modify/model'));
+              cb(null, require('./routes/sys/modify'));
+            });
+          },
         }]
       },{
         breadcrumbName:"企业信息",
+        path:"/legal",
         childRoutes:[{
           breadcrumbName:"基本信息",
           path:"/legal/base",

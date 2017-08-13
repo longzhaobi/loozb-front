@@ -21,7 +21,6 @@ const columns = (toolBar) => {
     }, {
         title: '会话ID',
         dataIndex: 'sessionId',
-        width: 280
     }, {
         title: '用户',
         dataIndex: 'account',

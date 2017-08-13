@@ -55,7 +55,7 @@ const List = ({ data, loading, selectedRowKeys, dispatch, namespace, keyword, re
       scroll={{ y: table_height }}
       bordered
       rowKey="id_"
-      loading={loading}
+      loading={fetching}
       title={() => title()}
       footer={() => page()}
     />

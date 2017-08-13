@@ -4,14 +4,11 @@ import List from './component/List';
 import WithRule from '../../../hocs/WithRule'
 import styles from './index.css';
 
-const Index = ({location, dispatch, children, role, loading}) => {
+const Index = ({location, dispatch, children, modifyInfo, loading}) => {
 
-  console.log(role)
-
-  const namespace = 'role';
-
+  const namespace = 'modifyInfo';
   const ListProps = {
-    ...role,
+    ...modifyInfo,
     dispatch,
     loading,
     namespace
@@ -26,9 +23,9 @@ const Index = ({location, dispatch, children, role, loading}) => {
 
 function mapStateToProps(state) {
   return {
-    loading: state.loading.models.role,
-    role:state.role
+    loading: state.loading.models.modifyInfo,
+    modifyInfo:state.modifyInfo
   };
 }
 
-export default connect(mapStateToProps)(WithRule('role:view')(Index));
+export default connect(mapStateToProps)(WithRule('modifyInfo:view')(Index));

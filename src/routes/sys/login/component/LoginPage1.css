@@ -1,62 +1,183 @@
-.loginPanel {
-	width:100%;
-  height:100vh;
-  background:url("../../../../assets/login-bg.jpg") repeat;
+.container {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	text-align: center;
 }
-.main{position:relative; width:100%; height:100%; }
-.loginForm {
+
+.container > header{
+	padding: 20px 30px 10px 30px;
+	margin: 120px 20px 10px 20px;
+	position: relative;
+	display: block;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    text-align: center;
+}
+.container > header h1{
+	font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+	font-size: 35px;
+	line-height: 35px;
+	position: relative;
+	font-weight: 400;
+	color: rgba(26,89,120,0.9);
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    padding: 0px 0px 5px 0px;
+}
+.container > header h1 span{
+	color: #7cbcd6;
+	text-shadow: 0px 1px 1px rgba(255,255,255,0.8);
+}
+.container > header h2{
+	font-size: 16px;
+	font-style: italic;
+	color: #2d6277;
+	text-shadow: 0px 1px 1px rgba(255,255,255,0.8);
+}
+
+.clr{
+	clear: both;
+}
+
+a{
+	color: #333;
+	text-decoration: none;
+}
+
+/* Header Style */
+.codropsTop{
+	line-height: 24px;
+	font-size: 11px;
+	background: rgba(255, 255, 255, 0.2);
+	text-transform: uppercase;
+	z-index: 9999;
+	position: relative;
+	box-shadow: 1px 0px 2px rgba(0,0,0,0.2);
+}
+.codropsTop a{
+	padding: 0px 10px;
+	letter-spacing: 1px;
+	color: #333;
+	text-shadow: 0px 1px 1px #fff;
+	display: block;
+	float: left;
+}
+.codropsTop a:hover{
+	background: #fff;
+}
+.codropsTop span.right{
+	float: right;
+}
+.codropsTop span.right a{
+	float: left;
+	display: block;
+}
+
+
+
+.containerDemo{
+	 text-align: left;
+	 margin: 0;
+	 padding: 0;
+	 margin: 0 auto;
+	 font-family: "Trebuchet MS","Myriad Pro",Arial,sans-serif;
+}
+
+/** The wrapper that will contain our two forms **/
+.wrapper{
+	width: 60%;
+	right: 0px;
+	min-height: 560px;	
+	margin: 0px auto;
+	width: 480px;
+	position: relative;	
+}
+
+.wrapper h1{
+	font-size: 40px;
+	color: rgb(6, 106, 117);
+	padding: 2px 0 10px 0;
+	font-family: 'FranchiseRegular','Arial Narrow',Arial,sans-serif;
+	font-weight: bold;
+	text-align: center;
+	padding-bottom: 30px;
+}
+/** For the moment only webkit supports the background-clip:text; */
+.wrapper h1{
+    background: -webkit-repeating-linear-gradient(-45deg, 
+	rgb(18, 83, 93) , 
+	rgb(18, 83, 93) 20px, 
+	rgb(64, 111, 118) 20px, 
+	rgb(64, 111, 118) 40px, 
+	rgb(18, 83, 93) 40px);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+}
+.wrapper h1:after{
+	content: ' ';
+	display: block;
+	width: 100%;
+	height: 2px;
+	margin-top: 10px;
+	background: -moz-linear-gradient(left, rgba(147,184,189,0) 0%, rgba(147,184,189,0.8) 20%, rgba(147,184,189,1) 53%, rgba(147,184,189,0.8) 79%, rgba(147,184,189,0) 100%); 
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(147,184,189,0)), color-stop(20%,rgba(147,184,189,0.8)), color-stop(53%,rgba(147,184,189,1)), color-stop(79%,rgba(147,184,189,0.8)), color-stop(100%,rgba(147,184,189,0))); 
+	background: -webkit-linear-gradient(left, rgba(147,184,189,0) 0%,rgba(147,184,189,0.8) 20%,rgba(147,184,189,1) 53%,rgba(147,184,189,0.8) 79%,rgba(147,184,189,0) 100%); 
+	background: -o-linear-gradient(left, rgba(147,184,189,0) 0%,rgba(147,184,189,0.8) 20%,rgba(147,184,189,1) 53%,rgba(147,184,189,0.8) 79%,rgba(147,184,189,0) 100%); 
+	background: -ms-linear-gradient(left, rgba(147,184,189,0) 0%,rgba(147,184,189,0.8) 20%,rgba(147,184,189,1) 53%,rgba(147,184,189,0.8) 79%,rgba(147,184,189,0) 100%); 
+}
+
+.wrapper p.changeLink a {
+	display: inline-block;
+	font-weight: bold;
+	background: rgb(247, 248, 241);
+	padding: 2px 6px;
+	color: rgb(29, 162, 193);
+	margin-left: 10px;
+	text-decoration: none;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid rgb(203, 213, 214);
+	-webkit-transition: all 0.4s linear;
+	-moz-transition: all 0.4s  linear;
+	-o-transition: all 0.4s linear;
+	-ms-transition: all 0.4s  linear;
+	transition: all 0.4s  linear;
+}
+.wrapper p.changeLink a:hover {
+	color: rgb(57, 191, 215);
+	background: rgb(247, 247, 247);
+	border: 1px solid rgb(74, 179, 198);
+}
+.wrapper .changeLink a:active{
+	position: relative;
+	top: 1px;
+}
+
+.changeLink{
 	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 1200px;
-	height: 560px;
-	margin-left: -600px;
-	margin-top: -300px;
-
+	color: rgb(127, 124, 124);
+	left: 0px;
+	right:0px;
+	height: 40px;
+	
+	width: 420px;
+	padding: 17px 30px 20px 30px;
+	font-size: 14px	;
+	text-align: right;
 }
 
-.logo{ width:750px; height:139px; }
-
-.logo h1{ font-size:50px; font-weight:600; color:#0167c7; line-height:60px; padding-top:20px; }
-
-.fjimg{ position:absolute; left:30px; bottom:30px; width:640px; height:400px; z-index:20; }
-
-.logoimg {
-	width:140px;
-	height:140px; 
-	float:left; 
-	margin-left:30px; 
-	margin-right:10px; 
+/** Styling both forms **/
+.register, 
+.login{
+	top: 0px;
+	width: 88%;	
+	padding: 18px 6% 60px 6%;
+	background: rgb(247, 247, 247);
+	border: 1px solid rgba(147, 184, 189,0.8);
+	-webkit-box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7),	0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+	   -moz-box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7),	0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+	        box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7),	0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+	-webkit-box-shadow: 5px;
+	-moz-border-radius: 5px;
+		 border-radius: 5px;
 }
-
-.version {
-	font-size:24px; 
-	line-height:40px; 
-	color:#666;
-}
-
-.login{ 
-	position:relative; 
-	float:right; 
-	width: 350px; 
-	height: 380px; 
-	background-color: #fff; 
-	margin-top:31px; 
-	margin-right:56px; 
-	z-index:2; 
-	-webkit-box-shadow: 3px 4px 8px rgba(0,0,0,.08); 
-	-moz-box-shadow: 3px 4px 8px rgba(0,0,0,.08); 
-	box-shadow: 3px 4px 8px rgba(0,0,0,.08); 
-}
-
-.login .sj{ width:20px; height:20px; z-index:2; }
-.login .sj1{ position:absolute; top:0; left:-20px; background:url(../../../../assets/login_sj.png) 0 0 no-repeat; }
-.login .sj2{ position:absolute; top:0; right:-20px; background:url(../../../../assets/login_sj.png) -20px 0 no-repeat; }
-.login .sj3{ position:absolute; bottom:0; left:-20px; background:url(../../../../assets/login_sj.png) 0 -20px no-repeat; }
-.login .sj4{ position:absolute; bottom:0; right:-20px; background:url(../../../../assets/login_sj.png) -20px -20px no-repeat; }
-.login .text{ width:100%; height:50px; line-height:50px; font-size:22px; color:#0075e4; text-align:center; margin-bottom:30px; letter-spacing:5px; text-index:-5px; border-bottom:1px solid #e9e9e9; }
-
-
-.bar{ position:absolute; width:100%; height:340px; top:50%; margin-top:-110px; background:#0167c7; }
-
-.footer{ position:absolute; bottom:20px; width:100%; font-size:16px; color:#666; line-height:24px; text-align:center; }

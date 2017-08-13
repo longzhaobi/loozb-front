@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import Home from './home/Home';
-import Layout from '../components/layout/Layout';
+import Layout from '../components/layout';
 import styles from './App.css';
 
 import WithInit from '../hocs/WithInit';

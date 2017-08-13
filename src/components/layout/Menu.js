@@ -35,7 +35,6 @@ class Menus extends React.Component {
           <Icon type='menu-fold' />
         </div>
         <Menu
-          defaultSelectedKeys={['1']}
           defaultOpenKeys={['legal']}
           mode="inline"
           theme="dark" 

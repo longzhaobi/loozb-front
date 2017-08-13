@@ -1,10 +1,10 @@
 import React from 'react';
-import {connect} from 'dva';
+import { connect } from 'dva';
 import styles from './Login.css';
 
-import LoginPage from './component/LoginPage';
+import LoginPage from './component/LoginPage1';
 
-const Login = ({location, dispatch, loading}) => {
+const Login = ({ location, dispatch, loading }) => {
   const namespace = 'app';
   const loginPageProps = {
     loading,
@@ -14,7 +14,7 @@ const Login = ({location, dispatch, loading}) => {
 
   return (
     <div className={styles.normal}>
-      <LoginPage {...loginPageProps}/>
+      <LoginPage {...loginPageProps} />
     </div>
   )
 }

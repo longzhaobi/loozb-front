@@ -50,6 +50,10 @@
     text-align: center;
   }
 
+  :global(.ant-table-expanded-row) :global(td) {
+    text-align: left !important;
+  }
+
   :global(th) :global(span){
     display: block;
     text-align: center !important;
