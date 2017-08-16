@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'dva';
 import List from './component/List';
-import WithRule from '../../../hocs/WithRule'
+import WithRule from '../../../hocs/WithRule';
 import styles from './index.css';
 
 const Index = ({location, dispatch, children, permission, loading}) => {

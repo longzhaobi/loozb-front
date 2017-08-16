@@ -3,7 +3,6 @@ import { connect } from 'dva';
 import List from './component/List';
 import WithRule from '../../../hocs/WithRule'
 import styles from './index.css';
-
 const Index = ({ location, dispatch, children, user, loading, namespace }) => {
   const ListProps = {
     ...user,

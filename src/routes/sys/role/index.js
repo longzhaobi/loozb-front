@@ -6,8 +6,6 @@ import styles from './index.css';
 
 const Index = ({location, dispatch, children, role, loading}) => {
 
-  console.log(role)
-
   const namespace = 'role';
 
   const ListProps = {
@@ -27,6 +25,7 @@ const Index = ({location, dispatch, children, role, loading}) => {
 function mapStateToProps(state) {
   return {
     loading: state.loading.models.role,
+    tab: state.tab,
     role:state.role
   };
 }

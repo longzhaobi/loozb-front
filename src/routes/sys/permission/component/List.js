@@ -43,7 +43,7 @@ const List = ({ data, loading, selectedRowKeys, dispatch, namespace, keyword, re
           <IButton perm="permission:update" a> 编辑 </IButton>
         </Modal>
         <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({id:record.id_})}>
-          <IButton perm="dic:remove" a> <span className="ant-divider" /> 删除 </IButton>
+          <IButton perm="permission:remove" a> <span className="ant-divider" /> 删除 </IButton>
         </Popconfirm>
     </div>
   )

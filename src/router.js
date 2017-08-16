@@ -9,7 +9,7 @@ function registerModel(app, model) {
   }
 }
 
-export default function({ history, app }) {
+export default function ({ history, app }) {
   const routes = [
     {
       path: '/',
@@ -19,114 +19,109 @@ export default function({ history, app }) {
           cb(null, require('./routes/App'));
         });
       },
-      childRoutes:[{
-        breadcrumbName:"系统管理",
-        path:"/sys",
+      childRoutes: [{
+        // breadcrumbName:"系统管理",
+        // path:"/sys",
+        // getComponent(nextState, cb) {
+        //   require.ensure([], require => {
+        //     cb(null, require('./routes/sys'));
+        //   });
+        // },
+        // {
+        breadcrumbName: "用户列表",
+        path: "/sys/user",
         getComponent(nextState, cb) {
           require.ensure([], require => {
-            cb(null, require('./routes/sys'));
+            registerModel(app, require('./routes/sys/user/model'));
+            cb(null, require('./routes/sys/user'));
           });
         },
-        childRoutes:[{
-          breadcrumbName:"用户列表",
-          path:"/sys/user",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/sys/user/model'));
-              cb(null, require('./routes/sys/user'));
-            });
-          },
-        },{
-          breadcrumbName:"角色列表",
-          path:"/sys/role",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/sys/role/model'));
-              cb(null, require('./routes/sys/role'));
-            });
-          },
-        },{
-          breadcrumbName:"权限列表",
-          path:"/sys/permission",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/sys/permission/model'));
-              cb(null, require('./routes/sys/permission'));
-            });
-          },
-        },{
-          breadcrumbName:"资源列表",
-          path:"/sys/resource",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/sys/resource/model'));
-              cb(null, require('./routes/sys/resource'));
-            });
-          },
-        },{
-          breadcrumbName:"系统日志",
-          path:"/sys/event",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/sys/event/model'));
-              cb(null, require('./routes/sys/event'));
-            });
-          },
-        },{
-          breadcrumbName:"会话管理",
-          path:"/sys/session",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/sys/session/model'));
-              cb(null, require('./routes/sys/session'));
-            });
-          },
-        },{
-          breadcrumbName:"数据字典",
-          path:"/sys/dic",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/sys/dic/model'));
-              cb(null, require('./routes/sys/dic'));
-            });
-          },
-        },{
-          breadcrumbName:"错误信息",
-          path:"/sys/errorinfo",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/sys/error/model'));
-              cb(null, require('./routes/sys/error'));
-            });
-          },
-        },{
-          breadcrumbName:"修改信息",
-          path:"/sys/modifyinfo",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/sys/modify/model'));
-              cb(null, require('./routes/sys/modify'));
-            });
-          },
-        }]
-      },{
-        breadcrumbName:"企业信息",
-        path:"/legal",
-        childRoutes:[{
-          breadcrumbName:"基本信息",
-          path:"/legal/base",
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./routes/legal/legalinfo/model'));
-              cb(null, require('./routes/legal/legalinfo/'));
-            });
-          }
-        }]
+      }, {
+        breadcrumbName: "角色列表",
+        path: "/sys/role",
+        getComponent(nextState, cb) {
+          require.ensure([], require => {
+            registerModel(app, require('./routes/sys/role/model'));
+            cb(null, require('./routes/sys/role'));
+          });
+        },
+      }, {
+        breadcrumbName: "权限列表",
+        path: "/sys/permission",
+        getComponent(nextState, cb) {
+          require.ensure([], require => {
+            registerModel(app, require('./routes/sys/permission/model'));
+            cb(null, require('./routes/sys/permission'));
+          });
+        },
+      }, {
+        breadcrumbName: "资源列表",
+        path: "/sys/resource",
+        getComponent(nextState, cb) {
+          require.ensure([], require => {
+            registerModel(app, require('./routes/sys/resource/model'));
+            cb(null, require('./routes/sys/resource'));
+          });
+        },
+      }, {
+        breadcrumbName: "系统日志",
+        path: "/sys/event",
+        getComponent(nextState, cb) {
+          require.ensure([], require => {
+            registerModel(app, require('./routes/sys/event/model'));
+            cb(null, require('./routes/sys/event'));
+          });
+        },
+      }, {
+        breadcrumbName: "会话管理",
+        path: "/sys/session",
+        getComponent(nextState, cb) {
+          require.ensure([], require => {
+            registerModel(app, require('./routes/sys/session/model'));
+            cb(null, require('./routes/sys/session'));
+          });
+        },
+      }, {
+        breadcrumbName: "数据字典",
+        path: "/sys/dic",
+        getComponent(nextState, cb) {
+          require.ensure([], require => {
+            registerModel(app, require('./routes/sys/dic/model'));
+            cb(null, require('./routes/sys/dic'));
+          });
+        },
+      }, {
+        breadcrumbName: "错误信息",
+        path: "/sys/errorinfo",
+        getComponent(nextState, cb) {
+          require.ensure([], require => {
+            registerModel(app, require('./routes/sys/error/model'));
+            cb(null, require('./routes/sys/error'));
+          });
+        },
+      }, {
+        breadcrumbName: "修改信息",
+        path: "/sys/modifyinfo",
+        getComponent(nextState, cb) {
+          require.ensure([], require => {
+            registerModel(app, require('./routes/sys/modify/model'));
+            cb(null, require('./routes/sys/modify'));
+          });
+        },
+      }, {
+        breadcrumbName: "基本信息",
+        path: "/legal/base",
+        getComponent(nextState, cb) {
+          require.ensure([], require => {
+            registerModel(app, require('./routes/legal/legalinfo/model'));
+            cb(null, require('./routes/legal/legalinfo/'));
+          });
+        }
       }]
     },
     {
       path: '/login',
-      breadcrumbName:"用户登录",
+      breadcrumbName: "用户登录",
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
           // registerModel(app, require('./models/users'));

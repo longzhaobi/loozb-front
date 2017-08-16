@@ -74,8 +74,10 @@
   :global(.isLeaf) {
     display: none;
   }
+  
   :global(.ant-table-title) {
     padding: 4px 4px !important;
+    border-top-width:0px !important; 
     top: 0px !important;
     background-color: #fff;
     border-radius: 0 !important;
@@ -124,4 +126,13 @@
 
  :global(.downing-model) :global(.ant-modal-body) {
    padding:0px;
+ }
+
+
+ :global(.ant-tabs-bar) {
+   margin-bottom: 0px !important;
+ }
+
+ :global(.ant-tabs-tab) {
+   height:31px !important;
  }
