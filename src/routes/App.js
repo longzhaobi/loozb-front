@@ -6,13 +6,13 @@ import Layout from '../components/layout';
 import styles from './App.css';
 import TabController from '../components/ui/TabController';
 import WithInit from '../hocs/WithInit';
-const isTab = false;
+const isTab = true;
 function App (props) {
 
-  const { children, tab, routes} = props
+  const { children, routes} = props
   const route = routes[routes.length - 1]
   return (
-    <Layout props={props} tab={tab}>
+    <Layout props={props}>
         {children != null ? isTab ? <TabController children={children} title={route.breadcrumbName} keys = {route.path}/> : children : <Home/>}
     </Layout>
   );
@@ -21,8 +21,8 @@ function App (props) {
 App.propTypes = {
 };
 
-function mapStateToProps({app, tab}) {
-  return {app, tab};
+function mapStateToProps({app}) {
+  return {app};
 }
 
 export default connect(mapStateToProps)(WithInit(App));

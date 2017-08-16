@@ -8,7 +8,7 @@ import './index.css';
 
 import isAuth from './utils/auth';
 window.isAuth = isAuth;
-window.table_height = document.documentElement.clientHeight - 218;
+window.table_height = document.documentElement.clientHeight - 220;
 
 const ERROR_MSG_DURATION = 3; // 3 秒
 
@@ -29,7 +29,6 @@ app.use(createLoading());
 
 // 3. Model
 app.model(require('./models/app'));
-app.model(require('./models/tab'));
 // 4. Router
 app.router(require('./router'));
 
