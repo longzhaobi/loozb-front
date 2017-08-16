@@ -10,7 +10,7 @@ const columns = (toolBar) => {
     }, {
         title: '操作表名',
         dataIndex: 'tableName',
-        width: 100,
+        width: 200,
     }, {
         title: '操作对象',
         dataIndex: 'tableInfo',

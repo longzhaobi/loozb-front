@@ -12,6 +12,15 @@ export function login(params) {
   });
 }
 
+//写入前端错误信息
+export function saveErrorsInfo(params) {
+  return request({
+    url:'/api/errorInfos',
+    method:'post',
+    data:qs.stringify(params)
+  });
+}
+
 export function register(params) {
   return request({
     url:'/api/register',

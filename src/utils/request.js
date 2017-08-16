@@ -43,11 +43,18 @@ export default function request(config = {}) {
         return;
       } else {
         if (data.msg) {
-          const msg = `错误编码(请把编码反馈给技术人员，谢谢！):<br/>${data.uuid}<br/>错误信息:<br/>${data.msg}`;
-          Modal.error({
-            title: "抱歉，系统发生了一个错误",
-            content: <div dangerouslySetInnerHTML={{__html: msg}}></div>
-          });
+          if (data.uuid != null) {
+            const msg = `错误编码(请把编码反馈给技术人员，谢谢！):<br/>${data.uuid}<br/>错误信息:<br/>${data.msg}`;
+            Modal.error({
+              title: "抱歉，系统发生了一个错误",
+              content: <div dangerouslySetInnerHTML={{ __html: msg }}></div>
+            });
+          } else {
+            Modal.error({
+              title: "抱歉，系统发生了一个错误",
+              content: <div dangerouslySetInnerHTML={{ __html: data.msg }}></div>
+            });
+          }
         } else {
           message.error("抱歉！系统内部出错");
         }

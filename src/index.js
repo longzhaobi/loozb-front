@@ -14,9 +14,12 @@ const ERROR_MSG_DURATION = 3; // 3 秒
 
 // 1. Initialize
 const app = dva({
-  onError(e) {
-  	console.log(e)
+  onError(e, dispatch) {
     message.error(e.message, ERROR_MSG_DURATION);
+    if(e.message) {
+      const msg = e.message.replace(/'/g, "");
+      dispatch({type:'app/saveErrorsInfo', payload:{exception: msg}});
+    }
   },
   history: useRouterHistory(createHashHistory)({ queryKey: false }),
 });

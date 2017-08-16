@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import { Link,routerRedux } from 'dva/router';
-import { Menu, Icon, Modal, Select, Dropdown, Button} from 'antd';
+import { Link, routerRedux } from 'dva/router';
+import { Menu, Icon, Modal, Select, Dropdown, Button } from 'antd';
 const ButtonGroup = Button.Group;
 const Option = Select.Option;
 const SubMenu = Menu.SubMenu;
@@ -18,7 +18,7 @@ export default class Header extends Component {
     super(props);
     this.onSubBarClick = this.onSubBarClick.bind(this);
     this.state = {
-      value:''
+      value: ''
     };
   }
 
@@ -29,10 +29,10 @@ export default class Header extends Component {
   }
 
   render() {
-    const { location,dispatch, user, menu } = this.props;
+    const { location, dispatch, user, menu } = this.props;
     function logout() {
       dispatch({
-        type:'app/logout'
+        type: 'app/logout'
       });
     }
 
@@ -43,7 +43,7 @@ export default class Header extends Component {
     const subMenu = (
       <Menu>
         <Menu.Item key="0">
-          <span><Icon type="book" onClick={checkInfo}/> 个人信息</span>
+          <span><Icon type="book" onClick={checkInfo} /> 个人信息</span>
         </Menu.Item>
         <Menu.Item key="1">
           <span onClick={logout}><Icon type="logout" /> 安全退出</span>
@@ -53,7 +53,7 @@ export default class Header extends Component {
 
     const getMenu = data => data.map((item) => {
       return (
-        <Link  onClick={() => this.onSubBarClick(item.identity)} key={item.identity} className = {this.state.value === item.identity ? styles.isCurrent : styles.noCurrent} to={item.url}>
+        <Link onClick={() => this.onSubBarClick(item.identity)} key={item.identity} className={this.state.value === item.identity ? styles.isCurrent : styles.noCurrent} to={item.url}>
           <span>{item.name}</span>
         </Link>
       )
@@ -66,11 +66,16 @@ export default class Header extends Component {
           {/* {getMenu(menu)} */}
         </div>
         <div className={styles.right}>
-            <p style={{color:'#fff'}}>欢迎您！{user.username}</p> <span style={{width:'10px',color:'#fff'}}></span>
-            <PasswordModal title="修改密码" dispatch={dispatch}>
-                <a style={{color:'#fff'}}>修改密码</a>
-            </PasswordModal> <span style={{width:'10px',color:'#fff'}}></span>
-            <a style={{color:'#fff'}} onClick={logout}>安全退出</a>
+          <p style={{ color: '#fff' }}>欢迎您！{user.username}</p> <span style={{ width: '10px', color: '#fff' }}></span>
+          <PasswordModal title="修改密码" dispatch={dispatch}>
+            <a style={{ color: '#fff' }}>修改密码</a>
+          </PasswordModal>
+          <span style={{ width: '10px', color: '#fff' }}></span>
+          <PasswordModal title="修改密码" dispatch={dispatch}>
+                <a style={{color:'#fff'}}>意见反馈</a>
+            </PasswordModal>
+          <span style={{ width: '10px', color: '#fff' }}></span>
+          <a style={{ color: '#fff' }} onClick={logout}>安全退出</a>
         </div>
       </div>
     );

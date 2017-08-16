@@ -47,6 +47,13 @@ export default {
         message.success("注册成功");
       }
     },
+    *saveErrorsInfo({payload}, {put, select, call}) {
+      const params = {
+        ...payload,
+        instance:'React for JavaScript'
+      }
+      yield call(service.saveErrorsInfo, params);
+    },
     // *getMenu({payload}, {put, select, call}) {
     //   const menus = localStorage.getItem('has_menus');
     //   if(menus!= null && menus !== 'undefined') {
