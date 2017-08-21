@@ -1,10 +1,10 @@
 .normal {
-  width:200px;
   position: fixed;
-  overflow-y: auto;
   top:50px;
+  z-index: 20;
   left:0px;
   bottom:0px;
+  overflow: none;
   background-color: rgb(41,48,56);
 }
 
@@ -14,4 +14,12 @@
     text-align: center;
     color: #efefef;
     background-color: rgb(57,69,85);
+}
+
+.max {
+  width:200px;
+}
+
+.min {
+  width: 64px;
 }

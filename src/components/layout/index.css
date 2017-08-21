@@ -10,14 +10,12 @@
   padding-top:50px;
   padding-left:200px;  
 }
-.main {
-  margin-left:150px;
-}
+
 .min {
-  margin-left:50px;
+  padding-left:64px;
 }
 .max {
-  margin-left:150px;
+  padding-left:200px;
 }
 .subMenu {
   width:180px;

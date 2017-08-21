@@ -1,0 +1,7 @@
+.normal {
+  width:100%;
+}
+.mainContent {
+  height:calc(100vh - 50px);
+  background-color: #fff;
+}

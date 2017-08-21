@@ -41,6 +41,11 @@ export default function request(config = {}) {
       if (status === 401 || httpCode === 401) {
         window.location.href = baseUrl + '/#/login';
         return;
+      } else if(status === 504) {
+        Modal.error({
+          title: "错误提示",
+          content: '抱歉，系统可能正在临时紧急维护，请稍后重试，或者联系系统运维人员'
+        });
       } else {
         if (data.msg) {
           if (data.uuid != null) {

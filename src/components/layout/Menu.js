@@ -3,18 +3,32 @@ const SubMenu = Menu.SubMenu;
 import { Link } from 'dva/router';
 import styles from './Menu.css';
 
+import classnames from 'classnames';
+
 class Menus extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapsed: false
+    }
+  }
+
+  toggleCollapsed = () => {
+    const {dispatch, menuStyle } = this.props;
+    dispatch({type:'app/switchClick', payload: menuStyle === 'max' ? 'min' : 'max'})
+  }
 
   getMenus = data => data.map((item) => {
     if (item.children && item.children.length > 0) {
-      if(item.menuType === '1') {
+      if (item.menuType === '1') {
         return (
-          <SubMenu key={item.identity} title={ <span><Icon type={item.icon} />{item.name}</span>}>
-           
+          <SubMenu key={item.identity} title={<span><Icon type={item.icon} /><span>{item.name}</span></span>}>
+
             {this.getMenus(item.children)}
           </SubMenu>
         );
-      } else if(item.menuType === '2') {
+      } else if (item.menuType === '2') {
         //分组
         return (
           <MenuItemGroup key={item.identity} title={item.name}>
@@ -28,17 +42,24 @@ class Menus extends React.Component {
   });
   render() {
 
-    const {menu} = this.props;
+    const { menu, menuStyle } = this.props;
+
+    const cls = classnames({
+      [styles.normal]: true,
+      [styles.max]: menuStyle === 'max',
+      [styles.min]: menuStyle === 'min'
+    });
     return (
-      <div className={styles.normal}>
-        <div className={styles.btnBar}>
-          <Icon type='menu-fold' />
+      <div className={cls}>
+        <div className={styles.btnBar} onClick={this.toggleCollapsed}>
+          <Icon type={menuStyle === 'max' ? 'menu-fold' : 'menu-unfold'} />
         </div>
         <Menu
-          defaultOpenKeys={['legal']}
+          defaultOpenKeys={['sys']}
           mode="inline"
-          theme="dark" 
+          theme="dark"
           className="loozb-menu-style"
+          inlineCollapsed={menuStyle === 'max' ? false : true}
         >
           {this.getMenus(menu)}
         </Menu>
