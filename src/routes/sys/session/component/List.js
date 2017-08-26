@@ -21,13 +21,12 @@ const List = ({ data, current, total, size, loading, selectedRowKeys, dispatch, 
     }
 
   }
-
   function title() {
     return (
       <div>
         <Row>
           <Col span={16}>
-            <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler(selectedRowKeys)}>
+            <Popconfirm title="确定要删除吗？" onConfirm={() => dispatch({type: `${namespace}/removeAllOnline`})}>
               <Button type="danger" size="large" icon="delete">全部下线</Button>
             </Popconfirm>
           </Col>

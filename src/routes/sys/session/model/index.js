@@ -4,7 +4,7 @@ import modelExtend from 'dva-model-extend';
 import grid from '../../../../models/grid';
 
 import {message} from 'antd';
-export default modelExtend(grid(service, '/sys/session'), {
+export default modelExtend(grid(service, '/sys/session', 'session'), {
   namespace: 'session',
 
   effects: {
@@ -17,6 +17,18 @@ export default modelExtend(grid(service, '/sys/session'), {
         ...payload
       }
       yield put({ type: 'superFetch', payload: params });
+    },
+    *remove({ payload }, { call, put, select }) {
+      const data = yield call(service.remove, payload.token);
+      if(data) {
+        yield put({ type: 'fetch'});
+      }
+    },
+    *removeAllOnline({ payload }, { call, put, select }) {
+      const data = yield call(service.removeAllOnline);
+      if(data) {
+        yield put({ type: 'fetch'});
+      }
     },
     *reload(action, { put, select }) {
       const current = yield select(state => state.session.current);

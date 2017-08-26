@@ -25,8 +25,8 @@ const grid = (service, url, namespace) => {
             },
         },
         reducers: {
-            fetchSuccess(state, { payload: { data, total, current, keyword } }) {
-                return { ...state, data, total, current, selectedRowKeys: [], keyword };
+            fetchSuccess(state, { payload: { data, keyword } }) {
+                return { ...state, ...data, selectedRowKeys: [], keyword };
             },
             onChangeSelectedRowKeys(state, { payload }) {
                 return { ...state, selectedRowKeys: payload };
@@ -40,12 +40,9 @@ const grid = (service, url, namespace) => {
                 yield put({ type: 'changeLoading', payload: true })
                 const data = yield call(service.fetch, payload);
                 if (data) {
-                    const { total, current } = data;
                     yield put({
                         type: 'fetchSuccess',
-                        payload: {
-                            data: data.data, total, current, keyword: payload.keyword
-                        }
+                        payload: { data, keyword: payload.keyword }
                     });
                 }
                 yield put({ type: 'changeLoading', payload: false })

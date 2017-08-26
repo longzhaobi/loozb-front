@@ -25,22 +25,22 @@ export default class IButton extends React.Component {
 	render() {
 		const {icon, disabled, children, type, a, onClick} = this.props;
 		const {visible} = this.state;
-		if(visible) {
+		// if(visible) {
 			if(a) {
 				if(onClick) {
-					return <a onClick={onClick}>{children}</a>;
+					return <a href="javascript:void(0)" onClick={onClick} disabled={!visible}>{children}</a>;
 				} else {
-					return <a>{children}</a>;
+					return <a href="javascript:void(0)" disabled={!visible}>{children}</a>;
 				}
 				
 			} else {
 				return (
-					<Button  onClick={onClick} type={type} icon={icon}  style={{marginRight:'8px'}} disabled={disabled}>{children}</Button>
+					<Button  onClick={onClick} type={type} icon={icon}  style={{marginRight:'8px'}} disabled={disabled || !visible}>{children}</Button>
 				);
 			}
-		} else {
-			return null
-		}
+		// } else {
+		// 	return null
+		// }
 		
 	}
 }

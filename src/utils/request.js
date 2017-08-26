@@ -7,7 +7,7 @@ import { Modal, message } from 'antd';
 function checkStatus(response) {
   if (response.status === 200) {
     const { data } = response
-    if (data && (data.httpCode === 200 || data.httpCode === 403)) {
+    if (data && data.httpCode === 200) {
       return data;
     } else {
       const error = new Error(data ? data.msg : response.statusText);
@@ -21,10 +21,8 @@ function checkStatus(response) {
   }
 }
 
-const params = { params: { key: new Date() } }
-
 export default function request(config = {}) {
-  return axios.request(Object.assign(config, { params: { key: new Date() } }))
+  return axios.request(Object.assign(config, { params: { key: new Date().getTime() } }))
     .then(checkStatus)
     .catch((error) => {
       if (!error.response) {
@@ -45,6 +43,11 @@ export default function request(config = {}) {
         Modal.error({
           title: "错误提示",
           content: '抱歉，系统可能正在临时紧急维护，请稍后重试，或者联系系统运维人员'
+        });
+      } else if(status === 403 || httpCode === 403) {
+        Modal.error({
+          title: "权限提示",
+          content: '抱歉，您没有此权限，如果您需要此权限，请联系系统管理员'
         });
       } else {
         if (data.msg) {

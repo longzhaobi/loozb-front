@@ -17,6 +17,10 @@ const List = ({ data, current, total, size, loading, selectedRowKeys, dispatch, 
  
   const hasSelected = selectedRowKeys.length > 0;
 
+  function lockedHandler() {
+    
+  }
+
   function title() {
     return (
       <div>
@@ -49,7 +53,7 @@ const List = ({ data, current, total, size, loading, selectedRowKeys, dispatch, 
       <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler({ id: record.id_ })}>
         <IButton perm="user:remove" a> <span className="ant-divider" />删除 </IButton>
       </Popconfirm>
-      <Popconfirm title="确定要继续吗？" onConfirm={() => lockedHandler(record.id_, record.locked, record.idcard)}>
+      <Popconfirm title="确定锁定吗？" onConfirm={() => lockedHandler(record.id_, record.locked, record.idcard)}>
         <IButton perm="user:remove" a> <span className="ant-divider" />{record.locked === '1' ? '解锁' : '锁定'} </IButton>
       </Popconfirm>
     </div>

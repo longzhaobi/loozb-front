@@ -4,7 +4,7 @@ import modelExtend from 'dva-model-extend';
 import grid from '../../../../models/grid';
 
 import {message} from 'antd';
-export default modelExtend(grid(service, '/sys/event') ,{
+export default modelExtend(grid(service, '/sys/event', 'event') ,{
   namespace: 'event',
 
   effects: {

@@ -28,14 +28,10 @@ const WithList = ({ pathname }) => {
 			//公共搜索方法
 			onSearch = (keyword) => {
 				const { dispatch } = this.props;
-				if (keyword) {
-					this.dispatch(routerRedux.push({
-						pathname: pathname,
-						query: { keyword },
-					}));
-				} else {
-					message.warn('请输入查询条件');
-				}
+				this.dispatch(routerRedux.push({
+					pathname: pathname,
+					query: { keyword },
+				}));
 			}
 
 			//公共翻页功能

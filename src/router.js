@@ -109,6 +109,15 @@ export default function ({ history, app }) {
                 cb(null, require('./routes/sys/modify'));
               });
             },
+          }, {
+            breadcrumbName: "缓存管理",
+            path: "/sys/cache",
+            getComponent(nextState, cb) {
+              require.ensure([], require => {
+                registerModel(app, require('./routes/sys/cache/model'));
+                cb(null, require('./routes/sys/cache'));
+              });
+            },
           }
         ]
       }],

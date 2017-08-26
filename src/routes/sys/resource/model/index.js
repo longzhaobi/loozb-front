@@ -4,7 +4,7 @@ import modelExtend from 'dva-model-extend';
 import grid from '../../../../models/grid';
 
 import {message} from 'antd';
-export default modelExtend(grid(service, '/sys/resource'), {
+export default modelExtend(grid(service, '/sys/resource', 'resource'), {
   namespace: 'resource',
 
   reducers: {

@@ -34,10 +34,10 @@
   }
 
   :global(.ant-breadcrumb){
-    height:30px;
+    height:31px;
     background-color: #fff;
      border-bottom:1px solid #efefef; 
-    line-height: 30px;
+    line-height: 31px;
     padding-left:10px;
   }
 

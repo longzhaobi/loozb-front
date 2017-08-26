@@ -3,7 +3,7 @@ import * as service from '../service';
 import modelExtend from 'dva-model-extend';
 import grid from '../../../../models/grid'
 
-export default modelExtend(grid(service, '/sys/user'), {
+export default modelExtend(grid(service, '/sys/user', 'user'), {
   namespace: 'user',
 
   effects: {

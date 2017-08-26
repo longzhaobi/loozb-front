@@ -22,7 +22,7 @@ export default {
       const data = yield call(service.login, payload);
       if (data) {
         const o = data.data;
-        cookie.set('token', o.token, { expires: 7 });
+        cookie.set('loozb_token', o.token, { expires: 7 });
         yield put(routerRedux.push('/'));
       }
     },

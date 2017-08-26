@@ -4,7 +4,7 @@ import modelExtend from 'dva-model-extend';
 import grid from '../../../../models/grid';
 
 import {message} from 'antd';
-export default modelExtend(grid(service, '/sys/permission'), {
+export default modelExtend(grid(service, '/sys/permission', 'permission'), {
   namespace: 'permission',
 
   effects: {
