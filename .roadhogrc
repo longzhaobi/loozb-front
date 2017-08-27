@@ -12,7 +12,7 @@
   "autoprefixer": null,
   "proxy": {
     "/api": {
-      "target": "http://localhost:1088",
+      "target": "http://api.loozb.com",
       "changeOrigin": true,
       "pathRewrite": { "^/api" : "" }
     }
