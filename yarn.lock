@@ -2944,6 +2944,10 @@ markdown-it@^8.3.1:
     mdurl "^1.0.1"
     uc.micro "^1.0.3"
 
+marked@^0.3.5:
+  version "0.3.6"
+  resolved "http://registry.npm.taobao.org/marked/download/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
+
 math-expression-evaluator@^1.2.14:
   version "1.2.16"
   resolved "http://registry.npm.taobao.org/math-expression-evaluator/download/math-expression-evaluator-1.2.16.tgz#b357fa1ca9faefb8e48d10c14ef2bcb2d9f0a7c9"
@@ -4141,6 +4145,12 @@ react-lazy-load@^3.0.10:
     lodash.debounce "^4.0.0"
     lodash.throttle "^4.0.0"
     prop-types "^15.5.8"
+
+react-markdown-area@^0.3.8:
+  version "0.3.8"
+  resolved "http://registry.npm.taobao.org/react-markdown-area/download/react-markdown-area-0.3.8.tgz#0c817291887230496e468fc0fe8a6310c7f2bcb1"
+  dependencies:
+    marked "^0.3.5"
 
 react-markdown@^2.4.6:
   version "2.4.6"

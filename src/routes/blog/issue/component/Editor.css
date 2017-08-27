@@ -1,0 +1,39 @@
+.editor {
+  width:100%;
+  height:100%;
+}
+
+.content {
+  width:100%;
+  height:calc(100vh - 135px);
+}
+
+.titlePanel {
+  height:50px;
+  line-height: 50px;
+  background: #fff;
+}
+
+.titleInput {
+  height:46px !important;
+  border-width:0px !important;
+  outline:none !important;
+  width:100%;
+  margin-left:5px;
+}
+
+.titleInput:focus {
+  border: none;
+  outline:none !important;
+}
+.titleInput:hover {
+  border: none;
+  outline:none !important;
+}
+.option {
+  text-align: right;
+}
+
+.option button {
+  margin-right:10px;
+}

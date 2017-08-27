@@ -55,7 +55,7 @@ class Menus extends React.Component {
           <Icon type={menuStyle === 'max' ? 'menu-fold' : 'menu-unfold'} />
         </div>
         <Menu
-          defaultOpenKeys={['sys']}
+          defaultOpenKeys={['blog']}
           mode="inline"
           theme="dark"
           className="loozb-menu-style"

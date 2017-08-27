@@ -43,7 +43,7 @@ const MenuBar = ({location,name, subMenu, menuStyle}) => {
       <div className={styles.menuName}>{name}</div>
       <Menu
           selectedKeys={[getCurrentUrl(location.pathname)]}
-          defaultOpenKeys={['sys']}
+          defaultOpenKeys={['blog']}
           mode="inline" className="hlht-menu-style" style={{backgroundColor:'rgb(234,237,241)'}}
         >
           {menus(subMenu)}

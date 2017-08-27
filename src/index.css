@@ -136,3 +136,53 @@
  :global(.ant-tabs-tab) {
    height:31px !important;
  }
+
+
+ 
+
+ :global(.marked-area) {
+  border: thin solid #bababa;
+  display: block;
+}
+:global(.marked-area) :global(.marked-area-header) > :global(label) {
+  display: block;
+}
+:global(.marked-area) :global(.marked-area-header) :global(menu) {
+  padding: 1em 0.5em;
+  margin: 0;
+  display: block;
+  background: #efefef;
+  border-bottom: thin solid #bababa;
+}
+:global(.marked-area) :global(.marked-area-button) {
+  font-size: 16px;
+  line-height: 20px;
+  border-radius: 0;
+  border: thin solid grey;
+  background-color: white;
+}
+:global(.marked-area) :global(.marked-area-button.active) {
+  color: white;
+  background-color: grey;
+}
+:global(.marked-area) :global(.marked-area-help-link) {
+  margin-left: 1em;
+}
+:global(.marked-area) :global(.marked-area-text-container) > :global(textarea),
+:global(.marked-area) :global(.marked-area-text-container) > :global(div) {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border: 0;
+  min-height: 160px;
+  padding: 1em;
+  margin: 0;
+}
+:global(.marked-area) :global(.marked-area-live-divider) {
+  margin: 0 0 -1.5em;
+  opacity: 0.3;
+  border-top: thin solid black;
+  padding: 0.5em 0.5em 0;
+  font-size: 16px;
+  line-height: 16px;
+}
