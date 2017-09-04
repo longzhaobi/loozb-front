@@ -1354,7 +1354,7 @@ cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
     parse-json "^2.2.0"
     require-from-string "^1.1.0"
 
-create-react-class@15.x, create-react-class@^15.5.2, create-react-class@^15.5.3, create-react-class@^15.6.0:
+create-react-class@15.x, create-react-class@^15.5.1, create-react-class@^15.5.2, create-react-class@^15.5.3, create-react-class@^15.6.0:
   version "15.6.0"
   resolved "http://registry.npm.taobao.org/create-react-class/download/create-react-class-15.6.0.tgz#ab448497c26566e1e29413e883207d57cfe7bed4"
   dependencies:
@@ -1622,7 +1622,7 @@ dva-model-extend@^0.1.1:
   dependencies:
     babel-runtime "^6.20.0"
 
-dva@^1.2.1:
+dva@1.2.x:
   version "1.2.1"
   resolved "http://registry.npm.taobao.org/dva/download/dva-1.2.1.tgz#b9e78a4f1812b2230134d1bb7baadd1af3630138"
   dependencies:
@@ -2166,8 +2166,8 @@ glob@^7.0.5, glob@^7.1.1:
     path-is-absolute "^1.0.0"
 
 global@^4.3.1:
-  version "4.3.1"
-  resolved "http://registry.npm.taobao.org/global/download/global-4.3.1.tgz#5f757908c7cbabce54f386ae440e11e26b7916df"
+  version "4.3.2"
+  resolved "http://registry.npm.taobao.org/global/download/global-4.3.2.tgz#e76989268a6c74c38908b1305b10fc0e394e9d0f"
   dependencies:
     min-document "^2.19.0"
     process "~0.5.1"
@@ -4161,13 +4161,15 @@ react-markdown@^2.4.6:
     in-publish "^2.0.0"
 
 react-redux@4.4.x:
-  version "4.4.6"
-  resolved "http://registry.npm.taobao.org/react-redux/download/react-redux-4.4.6.tgz#4b9d32985307a11096a2dd61561980044fcc6209"
+  version "4.4.8"
+  resolved "http://registry.npm.taobao.org/react-redux/download/react-redux-4.4.8.tgz#e7bc1dd100e8b64e96ac8212db113239b9e2e08f"
   dependencies:
+    create-react-class "^15.5.1"
     hoist-non-react-statics "^1.0.3"
     invariant "^2.0.0"
     lodash "^4.2.0"
     loose-envify "^1.1.0"
+    prop-types "^15.5.4"
 
 react-router-redux@^4.0.5:
   version "4.0.8"
@@ -4301,17 +4303,17 @@ redux-logger@^2.8.1:
     deep-diff "0.3.4"
 
 redux-saga@^0.14.0:
-  version "0.14.3"
-  resolved "http://registry.npm.taobao.org/redux-saga/download/redux-saga-0.14.3.tgz#28cd2c5b49cf780a1de25875765724150c630513"
+  version "0.14.8"
+  resolved "http://registry.npm.taobao.org/redux-saga/download/redux-saga-0.14.8.tgz#ad01afabe02ec41a17df54e2e09aa236b30a7732"
 
 redux@^3.6.0:
-  version "3.6.0"
-  resolved "http://registry.npm.taobao.org/redux/download/redux-3.6.0.tgz#887c2b3d0b9bd86eca2be70571c27654c19e188d"
+  version "3.7.2"
+  resolved "http://registry.npm.taobao.org/redux/download/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:
     lodash "^4.2.1"
     lodash-es "^4.2.1"
     loose-envify "^1.1.0"
-    symbol-observable "^1.0.2"
+    symbol-observable "^1.0.3"
 
 regenerate@^1.2.1:
   version "1.3.2"
@@ -4794,7 +4796,7 @@ svgo@^0.7.0:
     sax "~1.2.1"
     whet.extend "~0.9.9"
 
-symbol-observable@^1.0.2:
+symbol-observable@^1.0.3:
   version "1.0.4"
   resolved "http://registry.npm.taobao.org/symbol-observable/download/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
 
