@@ -5,6 +5,8 @@ import { Link } from 'dva/router';
 import data from './data.json'
 import UIHome from './component/UIHome';
 
+// import Chat from '../../components/chat';
+
 import styles from './Home.css';
 
 const Home = (props) => {
@@ -21,7 +23,7 @@ const Home = (props) => {
 
   return (
     <div className={styles.root}>
-      
+      {/* <Chat /> */}
     </div>
   );
 

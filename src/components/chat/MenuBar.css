@@ -1,0 +1,33 @@
+.left {
+    position: absolute;
+    left: 0px;
+    top:0px;
+    bottom:0px;
+    width:80px;
+    background: rgb(41, 48, 56);
+  }
+  
+  .left .logo {
+    height:120px;
+    line-height: 120px;
+    text-align: center;
+  }
+  
+  .left .noCurrent {
+    height: 70px;
+    line-height: 70px;
+    cursor:pointer;
+    font-size: 30px;
+    color:rgb(96, 104, 107);
+    text-align: center;
+  }
+
+  .left .current {
+    height: 70px;
+    line-height: 70px;
+    cursor:pointer;
+    font-size: 30px;
+    color:rgb(96, 104, 107);
+    text-align: center;
+    background: rgb(54, 63, 72);
+  }

@@ -15,7 +15,7 @@ const WithRule = (params) => {
 				isError:false
 			}
 
-			componentDidMount() {
+			componentWillMount() {
 				const _self = this;
 				this.props.dispatch({type:'app/verifyAuth', payload: params, callback(data) {
 					if(data) {

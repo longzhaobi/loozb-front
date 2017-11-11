@@ -1,0 +1,62 @@
+.center {
+    position: absolute;
+    top:0px;
+    bottom:0px;
+    left: 80px;
+    width:240px;
+    background: #fefefe;
+    border-right: 1px solid rgb(234,234, 234);
+  }
+  
+  .center .search {
+    height: 80px;
+    padding-left:10px;
+    padding-right:10px;
+    line-height: 80px;
+    border-bottom: 1px solid rgb(234,234, 234);
+  }
+  
+  .center .search :global(.ant-input) {
+    /* background: rgb(48, 57, 66); */
+    border:none;
+    border-radius: 5px;
+  }
+  
+  .center .messageList {
+    position: absolute;
+    top: 80px;
+    background: #fefefe;
+    left: 0px;
+    right:0px;
+    overflow-y: auto;
+    bottom:0px;
+    overflow-x: hidden;
+  }
+  
+  /*滚动条样式*/
+  .center .messageList::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 2px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 2px;
+  }
+  .center .messageList::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: #b2e281;
+  }
+  .center .messageList::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    /* background: rgba(0,0,0,0.1); */
+  }
+  
+  .center .messageList div {
+    padding: 10px 2px;
+    cursor:pointer;
+    width:240px;
+    border-bottom: 1px solid rgb(234, 234, 234);
+  }
+
+  .center .messageList div span{
+    vertical-align: top;
+    font-size:20px;
+  }

@@ -29,6 +29,7 @@ app.use(createLoading());
 
 // 3. Model
 app.model(require('./models/app'));
+app.model(require('./models/chat'));
 // 4. Router
 app.router(require('./router'));
 

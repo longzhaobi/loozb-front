@@ -1,34 +1,40 @@
 .normal {
-  position: fixed;
-  display: flex;
-  justify-content: space-between;
-  height:50px;
+  position: relative;
+  height:51px;
   background-color: #0099CC;
-  top:0px;
-  right:0px;
-  left:0px;
   z-index: 8;
   width: 100%;
 }
 
 .right {
-  display: flex;
   height:100%;
-  line-height: 50px;
-  padding-right:20px;
+  position: absolute;
+  right:0px;
 }
+.right > ul > li {
+  color:#fff;
+}
+.right > ul > li:hover {
+  color:#fff !important;
+  border:none !important;
+}
+
+:global(.ant-menu-submenu-title:hover) {
+  color:#fff !important;
+}
+
+
 .leaft {
-  display: flex;
   height:100%;
+  position: absolute;
+  left:0px;
+  line-height: 50px;
 }
 .logout:hover {
   background-color: #00CCFF;
 }
 
 .logout {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height:50px;
   line-height: 50px;
   width:180px;
@@ -44,13 +50,11 @@
 
 
 .logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 20px;
   width:300px;
   height:50px;
   color:#fff;
+  margin-left:20px;
 }
 
 .logo:hover {

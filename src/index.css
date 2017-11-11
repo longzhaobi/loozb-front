@@ -8,12 +8,9 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
-  /*:global(.ant-table-row-expand-icon-cell) {
-    width:38px !important;
-  }*/
-
-  /*:global(.ant-table-body-inner) {
-  }*/
+  :global(.ant-menu-submenu-selected) {
+    color:#fff !important;
+  }
 
   :global(.loozb-menu-style) :global(.ant-menu-item) {
     padding:0px !important;
@@ -23,6 +20,10 @@
     background-color: #0099CC;
     padding-left:28px;
     /* border-right:3px solid #0099CC; */
+  }
+
+  :global(.ant-menu-submenu-title:hover) {
+    color:#fff;
   }
 
   :global(.loozb-menu-style) :global(.ant-menu-item) :global(.menu-normal) {

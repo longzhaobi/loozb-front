@@ -15,6 +15,16 @@
     color: #efefef;
     background-color: rgb(57,69,85);
 }
+:global(.loozb-menu-style) {
+  background-color:rgb(41,48, 56) !important;
+}
+
+:global(.ant-menu-dark) :global(.ant-menu-inline.ant-menu-sub) {
+  background: rgb(30,37,46);
+}
+:global(.ant-menu-dark) :global(.ant-menu-sub) {
+  background: rgb(30,37,46);
+}
 
 .max {
   width:200px;

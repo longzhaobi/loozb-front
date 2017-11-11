@@ -17,6 +17,12 @@ export default modelExtend(grid(service, '/sys/user', 'user'), {
       }
       yield put({ type: 'superFetch', payload: params });
     },
+    *sendMessage({ payload }, { put, select, call }) {
+      const {user} = yield select(({ app }) => app);
+      const { message } = payload;
+      const userIds = yield select(({ user }) => user.selectedRowKeys);
+      return yield call(service.sendMessage, {userIds, data:{message, fromUser: user.username}})
+    },
     *judgeExist({ payload, callback }, { call, put }) {
       callback(yield call(service.judgeExist, payload));
     },

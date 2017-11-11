@@ -1,12 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 import { Link, routerRedux } from 'dva/router';
-import { Menu, Icon, Modal, Select, Dropdown, Button } from 'antd';
+import { Menu, Icon, Modal, Select, Dropdown, Button, Badge } from 'antd';
 const ButtonGroup = Button.Group;
 const Option = Select.Option;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 import PasswordModal from '../ui/PasswordModal';
+import ChatModal from '../chat/ChatModal';
 import styles from './Header.css';
 
 export default class Header extends Component {
@@ -63,19 +64,28 @@ export default class Header extends Component {
       <div className={styles.normal}>
         <div className={styles.leaft}>
           <a className={styles.logo}>ADMIN 系统基础权限系统</a>
-          {/* {getMenu(menu)} */}
         </div>
         <div className={styles.right}>
-          <p style={{ color: '#fff' }}>欢迎您！{user.username}</p> <span style={{ width: '10px', color: '#fff' }}></span>
-          <PasswordModal title="修改密码" dispatch={dispatch}>
-            <a style={{ color: '#fff' }}>修改密码</a>
-          </PasswordModal>
-          <span style={{ width: '10px', color: '#fff' }}></span>
-          <PasswordModal title="修改密码" dispatch={dispatch}>
-                <a style={{color:'#fff'}}>意见反馈</a>
-            </PasswordModal>
-          <span style={{ width: '10px', color: '#fff' }}></span>
-          <a style={{ color: '#fff' }} onClick={logout}>安全退出</a>
+          <Menu
+            onClick={this.handleClick}
+            selectedKeys={[this.state.current]}
+            mode="horizontal"
+            style={{ background: '#0099CC' }}
+          >
+            {/* <Menu.Item key="app">
+              <ChatModal dispatch={dispatch}>
+                <Badge count={0} showZero style={{ marginLeft: 10 }}>
+                  <Icon type="bell" />
+                  聊天窗口
+                </Badge>
+              </ChatModal>
+            </Menu.Item> */}
+            <SubMenu title={<span><Icon type="user" />欢迎您！ {user.username}</span>}>
+              <Menu.Item key="setting:1"><PasswordModal title="修改密码" dispatch={dispatch}>修改密码</PasswordModal></Menu.Item>
+              <Menu.Item key="setting:2">意见反馈</Menu.Item>
+              <Menu.Item key="setting:3"><span onClick={logout}>安全退出</span></Menu.Item>
+            </SubMenu>
+          </Menu>
         </div>
       </div>
     );

@@ -6,6 +6,7 @@ const Option = Select.Option;
 const Search = Input.Search;
 
 import Modal from './Modal';
+import NoticeModal from './NoticeModal';
 import AuthModal from './AuthModal';
 import styles from './List.css';
 import columns from './columns';
@@ -14,11 +15,11 @@ import WithList from '../../../../hocs/WithList';
 
 
 const List = ({ data, current, total, size, loading, selectedRowKeys, dispatch, namespace, keyword, removeHandler, onSearch, onChange, page, rowSelection, fetching }) => {
- 
+
   const hasSelected = selectedRowKeys.length > 0;
 
   function lockedHandler() {
-    
+
   }
 
   function title() {
@@ -32,6 +33,9 @@ const List = ({ data, current, total, size, loading, selectedRowKeys, dispatch, 
             <Popconfirm title="确定要删除吗？" onConfirm={() => removeHandler(selectedRowKeys)}>
               <IButton type="danger" disabled={!hasSelected} perm="user:remove" icon="delete">删除</IButton>
             </Popconfirm>
+            <NoticeModal dispatch={dispatch} namespace={namespace} loading={loading}>
+              <IButton type="primary" disabled={!hasSelected} perm="user:view" icon="bell"> 通知 </IButton>
+            </NoticeModal>
             <span style={{ marginLeft: 8 }}>{hasSelected ? `选择了 ${selectedRowKeys.length} 条数据` : ''}</span>
           </Col>
           <Col span={8} style={{ float: 'right' }} >
@@ -76,4 +80,4 @@ const List = ({ data, current, total, size, loading, selectedRowKeys, dispatch, 
   )
 }
 
-export default WithList({pathname:'sys/user'})(List);
+export default WithList({ pathname: 'sys/user' })(List);

@@ -1,0 +1,10 @@
+.normal {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.modal :global(.ant-modal-body){
+  padding:0px !important;
+}
+
